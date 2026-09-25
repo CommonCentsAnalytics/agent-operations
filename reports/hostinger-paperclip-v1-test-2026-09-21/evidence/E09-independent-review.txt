@@ -1,0 +1,50 @@
+Policy Reviewer
+Independent review — Fictional Internal Purchasing Policy Draft
+Reviewed: SOU-2 issue document brief, "Fictional Internal Purchasing Policy Draft" (revision eaf3e171-3cf4-48f8-b373-efb7cd82e523, latest revision at time of review).
+Criteria used: SOU-3 checklist (clarity, internal consistency, thresholds, separation of duties, documentation, exceptions, conflicts, prohibited purchases, fictional framing) plus the SOU-1 plan's review step (clarity, internal consistency, missing controls, every example fictional) and SOU-2's required sections.
+
+Verdict: CHANGES REQUIRED
+The draft covers every required section, stays consistently fictional, and includes genuinely good controls (anti-splitting rule, no self-approval, conflict recusal, no-credentials-in-records, no retroactive self-approval). Five blocking gaps make it non-deterministic to apply as written.
+
+Blocking findings
+B1 — Threshold bands leave a gap for any amount with cents.
+Passage (Fictional Spending Thresholds): "$0–$250 … $251–$2,500 … $2,501–$10,000".
+Problem: the same section requires totals to include "taxes, fees, renewals", which routinely produces cents, but the bands step from $250 to $251 and $2,500 to $2,501. A $250.75 or $2,500.40 purchase falls into no band, so no approver is defined.
+Suggested correction: make the bands continuous and explicit about the boundary, e.g. "$250.00 or less", "over $250.00 up to $2,500.00", "over $2,500.00 up to $10,000.00", "over $10,000.00".
+
+B2 — "Total expected cost" has no aggregation horizon for recurring spend.
+Passage: "Thresholds apply to the total expected cost of a purchase, including taxes, fees, renewals, and related items."
+Problem: no period is defined, so a fictional $200/month tool can be read as $200 (team-lead approval) or $2,400 (department-head approval) — a two-tier swing from the same facts. Example A ("a fictional $180 accessibility-testing tool") does not say whether that is one-time or recurring, so it does not resolve the ambiguity.
+Suggested correction: state the measurement rule — e.g. "for recurring or subscription purchases, use the total committed cost over the initial term, or 12 months if the term is open-ended" — and label Example A explicitly as a one-time purchase.
+
+B3 — No escalation rule when the designated approver is the requester.
+Passage (Approval Steps, step 3): "The requester may not approve their own request."
+Problem: the prohibition is stated but no substitute approver is named. Under the thresholds, a fictional department head requesting a $1,000 purchase is their own required approver, and a fictional finance lead requesting $5,000 is one of their own required approvers. The Conflicts of Interest section's reassignment rule is scoped to vendor relationships, not self-approval, so these requests have no valid path. The same gap applies to Exceptions, where the finance lead and executive sponsor are the only approvers.
+Suggested correction: add a general escalation rule — "where a required approver is the requester, or is otherwise unavailable or recused, approval passes to the next higher fictional approval level; the executive sponsor's own requests are approved by a disinterested peer plus the finance lead" — and cross-reference it from Exceptions.
+
+B4 — The emergency path contradicts the before-commitment requirement.
+Passage (Exceptions): "Exceptions must be rare, time-limited, and approved in writing before commitment … Emergencies may receive documented expedited review, but no exception may permit illegal conduct, undisclosed conflicts, credential sharing, or retroactive self-approval."
+Problem: two internal inconsistencies. First, "expedited review" is undefined — it names no approver, no time limit, and no reduced quorum, so it reads as an open-ended carve-out from the approval rules. Second, prohibiting only "retroactive self-approval" implies retroactive approval by someone else is permitted, which directly contradicts "approved in writing before commitment" in the same paragraph. Example D ("obtains expedited written approvals") shows approval before commitment, so the text is also inconsistent with its own example.
+Suggested correction: state that expedited review compresses timing only and never permits approval after commitment; name who may grant it (e.g. either the finance lead or the executive sponsor acting alone, ratified by both within N business days); and change "retroactive self-approval" to "retroactive approval of any kind".
+
+B5 — The two-quote control is unenforceable and leaves no audit trail.
+Passage ($2,501–$10,000 tier): "obtain two comparable quotes when practical", and Documentation Requirements: "quotes where required".
+Problem: "when practical" is undefined and self-assessed by the requester, so the control can always be waived, and nothing requires recording that it was waived or why. "Quotes where required" then inherits the same ambiguity, meaning the documentation set for a mid-tier purchase cannot be checked for completeness.
+Suggested correction: make quotes mandatory for the tier with a documented exception — "two comparable quotes are required; if unavailable (sole-source, incumbent renewal, or emergency), the requester must record the reason and the approver must accept it in writing" — and reflect that in Documentation Requirements.
+
+Optional improvements (non-blocking)
+Approvals are not cumulative at the top tier. The $2,501–$10,000 tier requires the finance lead plus the department head, but the "Above $10,000" tier requires only the executive sponsor and finance lead — dropping the department head as the amount rises. If that is deliberate, say so; otherwise make each tier include the level below it.
+Conflicts: no disclosure mechanics. The section says conflicts "must be disclosed" but not to whom, in what form, or by when, and it does not address conflicts discovered after approval. Adding a named recipient, a written form, and a "stop and re-review" rule for late-discovered conflicts would close it.
+Conflicts: no de minimis line for gifts. "any … gift … relationship" read literally captures a vendor coffee. A nominal-value threshold would make the rule usable.
+Gift-card carve-out is undefined. "without a documented business program" is the only gate on gift cards in Prohibited Purchases; naming who approves such a program would prevent it becoming the loophole in an otherwise tight list.
+No enforcement or reporting clause. The draft defines rules but no way to report a suspected violation and no consequence for breaching one. One sentence would cover it.
+No scope or policy-owner statement. Concise is appropriate here, but a line on who the policy applies to and who owns it would help a future adoption discussion.
+Example D has no fictional name, unlike Examples A–C (Avery, Rowan, Sam). Cosmetic consistency only.
+Fictional framing — passes
+The header disclaimer, the "Status" section, the repeated "fictional" qualifiers, the invented names and amounts, and step 5's explicit "This draft authorizes no one to do so" are consistent throughout. All four examples are labelled fictional. I found no passage that could be mistaken for adopted Source Correct policy or for actual purchasing authority. No real vendors, systems, people, or amounts appear.
+
+Could not verify
+No separate written test-criteria document exists; I derived the criteria from SOU-3's description, the SOU-1 plan's review step, and SOU-2's required-sections list. If the Chief of Staff was working to different criteria, this review should be re-scoped.
+Items the draft intentionally defers cannot be assessed and are correctly out of scope for this test: the "designated internal repository", the retention schedule, actual budgets, and named approvers.
+I reviewed only the brief document. I did not check for revisions made after eaf3e171-3cf4-48f8-b373-efb7cd82e523.
+Note on verdict meaning: PASS/CHANGES REQUIRED is my assessment against this fictional test's criteria only. It is not user approval and not authorization to implement the policy. The Chief of Staff owns any revisions; I have not edited the draft. Review complete — marking SOU-3 done.

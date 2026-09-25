@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills Reference | Paperclip Docs</title>
+  <base data-seo-base href="/" />
+  <meta name="description" data-seo-managed content="The reference for company skills: file shape on disk, the install pipeline, attaching to agents, scoping rules, canonical keys, and versioning." />
+  <meta name="robots" data-seo-managed content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" data-seo-managed href="https://docs.paperclip.ing/reference/skills/" />
+  <meta property="og:type" data-seo-managed content="article" />
+  <meta property="og:site_name" data-seo-managed content="Paperclip Docs" />
+  <meta property="og:title" data-seo-managed content="Skills Reference | Paperclip Docs" />
+  <meta property="og:description" data-seo-managed content="The reference for company skills: file shape on disk, the install pipeline, attaching to agents, scoping rules, canonical keys, and versioning." />
+  <meta property="og:url" data-seo-managed content="https://docs.paperclip.ing/reference/skills/" />
+  <meta name="twitter:card" data-seo-managed content="summary" />
+  <meta name="twitter:title" data-seo-managed content="Skills Reference | Paperclip Docs" />
+  <meta name="twitter:description" data-seo-managed content="The reference for company skills: file shape on disk, the install pipeline, attaching to agents, scoping rules, canonical keys, and versioning." />
+  <script type="application/ld+json" data-seo-managed>{"@context":"https://schema.org","@type":"TechArticle","headline":"Skills Reference","description":"The reference for company skills: file shape on disk, the install pipeline, attaching to agents, scoping rules, canonical keys, and versioning.","url":"https://docs.paperclip.ing/reference/skills/","isPartOf":{"@type":"WebSite","name":"Paperclip Docs","url":"https://docs.paperclip.ing/"}}</script>
+  <script>
+    /* Apply theme before first paint (dark by default) to avoid a flash. */
+    (function () {
+      var saved = localStorage.getItem('pc-guides-theme') || 'dark';
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48'/></svg>" />
+  <style data-inline-release-css>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--white:#ffffff;--linen:#ffffff;--parchment:#f0ece7;--stone:#e0dcd6;--stone-dark:#c8c3bc;--ink:#0a0a0a;--graphite:#52585d;--ash:#6f6a61;--void:#141413;--green:#22c55e;--green-deep:#188a3c;--mint:#dcfce7;--amber:#f59e0b;--amber-deep:#b45309;--blue:#2563eb;--blue-deep:#1d4ed8;--red:#dc2626;--red-deep:#991b1b;--sidebar-w:288px;--toc-w:224px;--content-max:760px;--outer-px:32px;--layout-max:1440px;--header-h:60px;--topbar-h:var(--header-h);--font-serif:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-body:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;--radius-xs:4px;--radius-sm:10px;--radius:16px;--radius-lg:24px;--radius-pill:9999px;--transition:0.2s ease}[data-theme="dark"]{--white:#1f1d1a;--linen:#141413;--parchment:#2a2724;--stone:#2f2c28;--stone-dark:#3a3836;--ink:#ffffff;--graphite:#9a958a;--ash:#8a8579;--void:#0d0d0d;--mint:rgba(34,197,94,0.12)}[data-theme="dark"] #article{color:var(--ink)}[data-theme="dark"] #article pre{background:#0d0d0d;color:#ffffff}[data-theme="dark"] #header{background:rgba(20,20,19,0.92);backdrop-filter:blur(8px)}html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html:not(.motion-ready) *,html:not(.motion-ready) *::before,html:not(.motion-ready) *::after{transition:none !important;animation:none !important}body{background:var(--linen);color:var(--ink);font-family:var(--font-body);line-height:1.65;font-feature-settings:'ss01' 1,'cv11' 1;min-height:100vh;transition:background 0.25s,color 0.25s}body,#header,#sidebar,#article,.card,.page-nav-btn,.icon-btn,#search-input{transition:background 0.25s,color 0.25s,border-color 0.25s}.navbar{position:sticky;top:0;left:0;right:0;z-index:100;background:var(--linen);border-bottom:1px solid var(--stone);transition:background 0.3s ease-out,border-color 0.3s ease-out}.navbar-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:var(--layout-max);margin:0 auto;padding:0 var(--outer-px);gap:1.5rem}.navbar-left,.navbar-right{display:flex;align-items:center;gap:1.5rem;flex:1}.navbar-left{justify-content:flex-start}.navbar-right{justify-content:flex-end}.navbar-logo{display:flex;align-items:center;gap:0.35rem;font-family:var(--font-serif);font-weight:600;font-size:0.95rem;white-space:nowrap}.navbar-logo-link{display:inline-flex;align-items:center;gap:0.45rem;color:var(--ink);text-decoration:none;transition:color 0.15s ease}.navbar-logo-link:hover{color:var(--ink)}.navbar-logo-sub{color:var(--graphite);font-weight:600}[data-theme="dark"] .navbar-logo-sub{color:var(--ash)}.navbar-logo-sub:hover{color:var(--ink)}[data-theme="dark"] .navbar-logo-sub:hover{color:var(--ink)}.navbar-link{font-size:0.85rem;font-weight:450;color:var(--graphite);text-decoration:none;transition:color 0.15s ease}[data-theme="dark"] .navbar-link{color:var(--ash)}.navbar-link:hover{color:var(--ink)}.navbar-link--icon{display:inline-flex;align-items:center;gap:0.35rem}.navbar-github-mobile{display:none}.navbar-github-mobile svg{width:18px;height:18px}.navbar-left .navbar-search-mobile{display:none}.navbar-cta{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.8rem;font-weight:500;color:var(--linen);background:var(--ink);padding:0.45rem 1rem;border-radius:9999px;border:1px solid var(--ink);text-decoration:none;transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease}.navbar-cta:hover{background:var(--white);color:var(--ink);border-color:var(--ink)}[data-theme="dark"] .navbar-cta{color:#141413;background:#ffffff;border-color:#ffffff}[data-theme="dark"] .navbar-cta:hover{background:transparent;color:#ffffff;border-color:#ffffff}.navbar-cta-count{font-size:0.75rem;font-weight:600;opacity:0.7;margin-left:0.1rem}.navbar-search-btn{display:inline-flex;align-items:center;gap:0.5rem;height:32px;padding:0 10px 0 10px;background:transparent;border:1px solid var(--stone);border-radius:var(--radius-sm);color:var(--graphite);font-family:var(--font-body);font-size:0.85rem;font-weight:450;cursor:pointer;transition:background var(--transition),border-color var(--transition),color var(--transition)}[data-theme="dark"] .navbar-search-btn{color:var(--ash)}.navbar-search-btn:hover{border-color:var(--stone-dark);color:var(--ink);background:var(--white)}.navbar-search-btn svg{width:14px;height:14px;color:var(--ash);flex-shrink:0}.navbar-search-btn:hover svg{color:var(--ink)}.navbar-search-label{color:inherit}.navbar-search-kbd{font-family:var(--font-mono);font-size:10.5px;color:var(--ash);background:var(--linen);border:1px solid var(--stone);border-radius:var(--radius-xs);padding:1px 5px;pointer-events:none}#breadcrumb{font-size:13px;color:var(--ash);display:flex;align-items:center;gap:6px;overflow:hidden;white-space:nowrap;margin-bottom:18px}#breadcrumb:empty{display:none}#breadcrumb .sep{color:var(--stone-dark)}#breadcrumb .crumb-current{color:var(--ink);font-weight:500}#search-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-start;justify-content:center;padding:14vh 16px 16px}#search-modal[hidden]{display:none}#search-modal-backdrop{position:absolute;inset:0;background:rgba(10,10,10,0.45);backdrop-filter:blur(4px);animation:search-fade 0.15s ease-out}[data-theme="dark"] #search-modal-backdrop{background:rgba(0,0,0,0.65)}#search-modal-panel{position:relative;width:100%;max-width:600px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-lg);box-shadow:0 20px 60px rgba(0,0,0,0.16),0 4px 12px rgba(0,0,0,0.08);overflow:hidden;animation:search-pop 0.16s var(--transition) both}[data-theme="dark"] #search-modal-panel{box-shadow:0 20px 60px rgba(0,0,0,0.6),0 4px 12px rgba(0,0,0,0.4)}@keyframes search-fade{from{opacity:0}to{opacity:1}}@keyframes search-pop{from{opacity:0;transform:translateY(-8px) scale(0.98)}to{opacity:1;transform:none}}#search-wrap{position:relative;width:100%}#search-input{width:100%;height:56px;padding:0 60px 0 48px;border:none;border-bottom:1px solid var(--stone);border-radius:0;background:transparent;font-family:var(--font-body);font-size:15px;color:var(--ink);outline:none;-webkit-appearance:none}#search-input::placeholder{color:var(--ash)}#search-input::-webkit-search-decoration,#search-input::-webkit-search-cancel-button{display:none}#search-icon{position:absolute;left:20px;top:28px;transform:translateY(-50%);width:16px;height:16px;color:var(--ash);pointer-events:none}#search-kbd{position:absolute;right:16px;top:28px;transform:translateY(-50%);font-size:11px;color:var(--ash);background:var(--linen);border:1px solid var(--stone);border-radius:var(--radius-xs);padding:1px 6px;font-family:var(--font-mono);pointer-events:none}#search-results{width:100%;background:transparent;display:none;max-height:min(420px,50vh);overflow-y:auto;scrollbar-width:thin}#search-results.is-open{display:block}.search-result{display:block;padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--linen);transition:background var(--transition)}.search-result:last-child{border-bottom:none}.search-result:hover,.search-result.focused{background:var(--linen)}.search-result-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}.search-result-meta{font-size:11.5px;color:var(--ash);margin-top:2px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.search-result-title mark,.search-result-meta mark{background:var(--mint);color:var(--ink);border-radius:2px;padding:0 1px;font-style:normal}.search-empty{padding:18px 14px;font-size:13px;color:var(--ash);text-align:center}.icon-btn{width:34px;height:34px;border:1px solid var(--stone);border-radius:var(--radius-sm);background:var(--white);color:var(--graphite);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color var(--transition),color var(--transition);flex-shrink:0;text-decoration:none}.icon-btn:hover{border-color:var(--stone-dark);color:var(--ink)}.icon-btn svg{width:16px;height:16px}.theme-toggle{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9999px;background:var(--white);border:1px solid var(--stone);color:var(--graphite);cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.06),0 2px 4px rgba(0,0,0,0.04);transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease,transform 0.15s ease}.theme-toggle:hover{background:var(--parchment);color:var(--ink);transform:translateY(-1px)}[data-theme="dark"] .theme-toggle{box-shadow:0 4px 12px rgba(0,0,0,0.5),0 2px 4px rgba(0,0,0,0.3)}.theme-toggle-icon{display:none;align-items:center;justify-content:center}.theme-toggle-moon{display:flex}[data-theme="dark"] .theme-toggle-sun{display:flex}[data-theme="dark"] .theme-toggle-moon{display:none}#landing{max-width:var(--layout-max);margin:0 auto;padding:80px var(--outer-px) 120px;display:none}#landing.is-active{display:block}#landing-hero{max-width:620px;margin-bottom:64px}#landing-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ash);margin-bottom:16px}#landing-title{font-family:var(--font-serif);font-size:clamp(40px,6vw,64px);font-weight:600;line-height:1.05;letter-spacing:-0.04em;color:var(--ink);margin-bottom:20px}#landing-title em{font-style:italic;color:inherit}#landing-desc{font-size:17px;line-height:1.6;color:var(--graphite);max-width:560px}.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:var(--white);border:1px solid var(--stone);border-radius:var(--radius);padding:24px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition);position:relative;overflow:hidden;cursor:pointer}.card:hover{border-color:var(--stone-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,26,26,0.04)}.card-icon{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--parchment);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;color:var(--graphite);margin-bottom:4px}.card-icon svg{width:18px;height:18px}.card-title{font-family:var(--font-serif);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);line-height:1.2}.card-desc{font-size:13.5px;color:var(--graphite);line-height:1.55}.card-meta{font-size:11.5px;color:var(--ash);margin-top:10px;display:flex;align-items:center;gap:6px}.card-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--stone-dark)}.footer{--bg:#141413;--surface:#1F1D1A;--ink-t:#FFFFFF;--mono:#9A958A;--rule:#2F2C28;background:var(--bg);color:var(--ink-t);border-top:1px solid var(--rule);margin-top:80px}.footer-container{max-width:var(--layout-max);margin:0 auto;padding:0 var(--outer-px)}.footer-wordmark-row{padding-top:clamp(3rem,6vw,5rem);padding-bottom:clamp(2rem,4vw,3.5rem)}.footer-wordmark{font-family:var(--font-serif);font-size:28px;font-weight:600;letter-spacing:-0.045em;line-height:1;color:var(--ink-t);display:block}.footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(2rem,calc(1.5rem+1.5vw),3rem);padding-bottom:clamp(3rem,6vw,5rem)}.footer-col-heading{font-family:var(--font-body);font-size:0.8rem;font-weight:600;color:var(--ink-t);letter-spacing:0.01em;margin-bottom:0.75rem}.footer-col a{display:block;font-size:0.875rem;color:var(--mono);text-decoration:none;padding:0.2rem 0;transition:color 0.15s ease}.footer-col a:hover{color:var(--ink-t)}.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:1.5rem;padding-bottom:1.5rem;border-top:1px solid var(--rule)}.footer-copy{font-family:var(--font-mono);font-size:0.75rem;color:var(--mono)}.footer-bottom-links{display:flex;gap:1.5rem}.footer-bottom-links a{font-size:0.8rem;color:var(--mono);text-decoration:none;transition:color 0.15s ease}.footer-bottom-links a:hover{color:var(--ink-t)}@media (max-width:768px){.footer-columns{grid-template-columns:repeat(2,1fr);gap:clamp(2rem,4vw,3rem) 1.5rem}}@media (max-width:480px){.footer-bottom{flex-direction:column;align-items:flex-start}}#article-view{display:none}#article-view.is-active{display:block}#body{max-width:var(--layout-max);margin:0 auto;padding:0 var(--outer-px);display:grid;grid-template-columns:var(--sidebar-w) minmax(0,var(--content-max)) var(--toc-w);align-items:flex-start;column-gap:clamp(32px,4vw,56px)}#sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);flex-shrink:0;position:sticky;top:var(--topbar-h);max-height:calc(100vh - var(--topbar-h));overflow-y:auto;padding:32px 0 40px;scrollbar-width:thin}.sb-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ash);text-decoration:none;padding:4px 8px;margin-left:-8px;margin-bottom:20px;border-radius:6px;transition:color var(--transition),background var(--transition);cursor:pointer}.sb-back:hover{color:var(--ink);background:var(--parchment)}.sb-back svg{width:12px;height:12px}#sidebar .sb-back{margin-left:0;padding-left:10px}.sb-section{margin-bottom:4px}.sb-group-label{display:flex;align-items:center;gap:10px;padding:18px 10px 6px;font-size:10.5px;font-weight:600;color:var(--ash);text-transform:uppercase;letter-spacing:0.08em}.sb-group-label:first-child{padding-top:6px}.sb-section-btn{width:100%;display:flex;align-items:center;gap:8px;padding:7px 10px;border:none;background:none;cursor:pointer;border-radius:7px;font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:0.01em;text-align:left;transition:background var(--transition)}.sb-section-btn:hover{background:var(--parchment)}.sb-section-btn .chev{width:11px;height:11px;color:var(--ash);transition:transform var(--transition);flex-shrink:0}.sb-section[data-open="true"] .sb-section-btn .chev{transform:rotate(90deg)}.sb-section-icon{width:18px;height:18px;border-radius:5px;background:var(--parchment);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;color:var(--graphite);flex-shrink:0}.sb-section-icon svg{width:11px;height:11px}.sb-section-title{flex:1}.sb-section-count{font-size:10.5px;color:var(--ash);font-weight:500}.sb-pages{display:none;padding:2px 0 6px 26px;margin-left:3px;border-left:1px solid var(--stone)}.sb-section[data-open="true"] .sb-pages{display:block}.sb-group{margin:2px 0}.sb-group-btn{width:100%;display:flex;align-items:center;gap:7px;padding:5px 10px;border:none;background:none;cursor:pointer;border-radius:6px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--graphite);text-align:left;transition:background var(--transition),color var(--transition)}.sb-group-btn:hover{color:var(--ink);background:var(--parchment)}.sb-group-btn .chev{width:10px;height:10px;color:var(--ash);transition:transform var(--transition);flex-shrink:0}.sb-group[data-open="true"]>.sb-group-btn .chev{transform:rotate(90deg)}.sb-group-title{flex:1}.sb-group-count{font-size:10px;color:var(--ash);font-weight:500}.sb-group-pages{display:none;padding:1px 0 3px 12px;margin-left:5px;border-left:1px solid var(--stone)}.sb-group[data-open="true"]>.sb-group-pages{display:block}.sb-link{display:block;padding:5px 10px;margin-bottom:2px;font-size:12.5px;color:var(--graphite);text-decoration:none;border-radius:6px;line-height:1.45;cursor:pointer;transition:background var(--transition),color var(--transition)}.sb-link:hover,.sb-link.active{color:var(--ink);font-weight:500;background:var(--parchment)}#content{min-width:0;max-width:var(--content-max);padding:48px 0 96px}#toc-rail{position:sticky;top:var(--topbar-h);max-height:calc(100vh - var(--topbar-h));overflow-y:auto;padding:48px 0 40px;scrollbar-width:thin}#toc-rail.is-empty{visibility:hidden}.toc-rail-inner{border-left:1px solid var(--stone);padding-left:18px}.toc-rail-title{margin-bottom:10px;font-size:11px;font-weight:700;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em}#toc-rail-links{display:flex;flex-direction:column;gap:2px}#runtime-status[data-state]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:80px 0;color:var(--ash);font-size:14px}#runtime-status[hidden]{display:none}.runtime-status-detail{font-size:12px;color:var(--ash);margin-top:4px}.spinner{width:24px;height:24px;border:2px solid var(--stone);border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}#article{font-size:15.5px;line-height:1.75;color:var(--graphite);overflow-wrap:break-word}#article h1{font-family:var(--font-serif);font-size:clamp(28px,4vw,38px);font-weight:600;letter-spacing:-0.03em;color:var(--ink);margin-bottom:20px;line-height:1.1}.meta-row{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding:12px 0 12px;border-bottom:1px solid var(--stone);font-size:12px;color:var(--ash);position:sticky;top:var(--topbar-h);background:var(--linen);z-index:50}.meta-row::before{content:'';position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--linen)}.meta-row .chip{padding:2px 8px;border-radius:var(--radius-xs);background:var(--parchment);border:1px solid var(--stone);font-size:11px;color:var(--graphite)}.meta-row .spacer{flex:1}.page-actions{position:relative;display:inline-flex;align-items:stretch}.page-actions .pa-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:var(--white);border:1px solid var(--stone);font-family:var(--font-body);font-size:11.5px;font-weight:500;color:var(--graphite);cursor:pointer;transition:border-color var(--transition),color var(--transition),background var(--transition)}.page-actions .pa-btn:hover{border-color:var(--stone-dark);color:var(--ink)}.page-actions .pa-copy{border-radius:var(--radius-sm) 0 0 var(--radius-sm);padding-left:12px}.page-actions .pa-caret{border-radius:0 var(--radius-sm) var(--radius-sm) 0;border-left:none;padding:5px 8px}.page-actions .pa-caret svg{width:12px;height:12px;color:var(--ash);transition:transform var(--transition)}.page-actions .pa-caret[aria-expanded="true"]{color:var(--ink);background:var(--parchment);border-color:var(--stone-dark)}.page-actions .pa-caret[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--ink)}.page-actions .pa-copy svg{width:13px;height:13px;color:var(--ash)}.page-actions .pa-copy.is-copied{color:var(--green);border-color:var(--green)}.page-actions .pa-copy.is-copied svg{color:var(--green)}.pa-menu{position:absolute;top:calc(100%+8px);right:0;min-width:220px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);box-shadow:0 12px 32px rgba(12,12,12,0.12),0 2px 6px rgba(12,12,12,0.06);padding:6px;opacity:0;transform:translateY(-4px) scale(0.98);pointer-events:none;transform-origin:top right;transition:opacity 0.16s ease,transform 0.16s ease;z-index:60}[data-theme="dark"] .pa-menu{box-shadow:0 12px 32px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.4)}.pa-menu.is-open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}.pa-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:7px 10px;background:none;border:none;font-family:var(--font-body);font-size:13px;color:var(--graphite);text-align:left;cursor:pointer;border-radius:5px;transition:color var(--transition),background var(--transition)}.pa-menu button:hover{color:var(--ink);background:var(--linen)}.pa-menu button svg{width:14px;height:14px;color:var(--ash);flex-shrink:0}.pa-menu button:hover svg{color:var(--ink)}.page-feedback{margin-top:64px;padding:20px 22px;background:var(--parchment);border:1px solid var(--stone);border-radius:var(--radius);display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}.page-feedback .pf-label{font-family:var(--font-serif);font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-0.02em;flex:1 1 auto}.page-feedback .pf-actions{display:flex;flex-wrap:wrap;gap:8px}.page-feedback a{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--graphite);text-decoration:none;transition:border-color 0.15s,color 0.15s,background 0.15s,transform 0.15s}.page-feedback a:hover{color:var(--ink);border-color:var(--graphite);background:var(--linen);transform:translateY(-1px)}.page-feedback a svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}@media (max-width:640px){.page-feedback{padding:16px}.page-feedback .pf-label{flex-basis:100%}}.toc-wrap{position:relative;display:none}.toc-toggle{display:inline-flex;align-items:center;gap:6px;padding:5px 10px 5px 12px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:11.5px;font-weight:500;color:var(--graphite);cursor:pointer;transition:border-color var(--transition),color var(--transition),background var(--transition)}.toc-toggle:hover{border-color:var(--stone-dark);color:var(--ink)}.toc-toggle[aria-expanded="true"]{color:var(--ink);background:var(--parchment);border-color:var(--stone-dark)}.toc-toggle>svg{width:12px;height:12px;color:var(--ash);transition:transform var(--transition)}.toc-toggle .toc-icon{width:13px;height:13px;color:var(--ash);transition:none}.toc-toggle[aria-expanded="true"] .toc-icon{color:var(--ink);transform:none}.toc-toggle>svg:last-of-type{}.toc-toggle[aria-expanded="true"]>svg:last-of-type{transform:rotate(180deg);color:var(--ink)}.toc-toggle .count{font-size:10px;color:var(--ash);background:var(--parchment);border-radius:var(--radius-xs);padding:1px 6px;font-variant-numeric:tabular-nums}.toc-toggle[aria-expanded="true"] .count{background:var(--white)}.toc-panel{position:absolute;top:calc(100%+8px);right:0;width:280px;max-width:calc(100vw - 48px);max-height:min(60vh,420px);overflow-y:auto;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);box-shadow:0 12px 32px rgba(12,12,12,0.12),0 2px 6px rgba(12,12,12,0.06);padding:8px;opacity:0;transform:translateY(-4px) scale(0.98);pointer-events:none;transform-origin:top right;transition:opacity 0.16s ease,transform 0.16s ease;z-index:60}[data-theme="dark"] .toc-panel{box-shadow:0 12px 32px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.4)}.toc-panel.is-open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}.toc-panel-label{display:none}.toc-link{display:block;padding:6px 10px;margin-bottom:2px;font-size:13px;line-height:1.45;color:var(--graphite);text-decoration:none;cursor:pointer;border-radius:5px;position:relative;transition:color var(--transition),background var(--transition),transform var(--transition)}.toc-link::before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:2px;border-radius:999px;background:var(--green);opacity:0;transform:scaleY(0.45);transition:opacity 0.18s ease,transform 0.18s ease}.toc-link.level-3{padding-left:22px;font-size:12.5px;color:var(--ash)}.toc-link:hover,.toc-link.active{color:var(--ink);background:var(--linen);font-weight:500}.toc-link.active::before{opacity:1;transform:scaleY(1)}#toc-rail-links .toc-link{padding:5px 8px 5px 12px;margin-bottom:0;background:transparent}#toc-rail-links .toc-link:hover,#toc-rail-links .toc-link.active{background:transparent}#toc-rail-links .toc-link.active{transform:translateX(2px)}#toc-rail-links .toc-link.level-3{padding-left:24px}#article h2{font-family:var(--font-serif);font-size:24px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);margin-top:40px;margin-bottom:14px;line-height:1.25;padding-bottom:8px;border-bottom:1px solid var(--stone)}#article h3{font-size:15.5px;font-weight:600;color:var(--ink);margin-top:28px;margin-bottom:8px}#article h4{font-size:11px;font-weight:600;color:var(--ash);text-transform:uppercase;letter-spacing:0.08em;margin-top:20px;margin-bottom:6px}#article h1,#article h2,#article h3,#article h4,#article h5,#article h6{position:relative;scroll-margin-top:128px}#article .heading-anchor{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-left:8px;border-bottom:none;color:var(--ash);opacity:0;vertical-align:middle;border-radius:6px;cursor:pointer;transition:opacity var(--transition),color var(--transition),background var(--transition),transform var(--transition)}#article .heading-anchor svg{width:14px;height:14px}#article h1:hover .heading-anchor,#article h2:hover .heading-anchor,#article h3:hover .heading-anchor,#article h4:hover .heading-anchor,#article h5:hover .heading-anchor,#article h6:hover .heading-anchor,#article .heading-anchor:focus-visible{opacity:1}#article .heading-anchor:hover{color:var(--ink);background:var(--parchment);transform:translateY(-1px)}#article .heading-anchor.is-copied{color:var(--green);opacity:1;background:var(--mint)}@media (hover:none){#article .heading-anchor{opacity:0.5}}.code-wrap{position:relative;margin-bottom:20px}.code-wrap pre{margin-bottom:0}.code-copy,.code-download{position:absolute;top:8px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#d4d4d4;border-radius:7px;cursor:pointer;opacity:0;transition:opacity var(--transition),background var(--transition),color var(--transition)}.code-copy{right:8px}.code-download{right:46px}.code-copy svg,.code-download svg{width:14px;height:14px}.code-wrap:hover .code-copy,.code-wrap:hover .code-download,.code-copy:focus-visible,.code-download:focus-visible{opacity:1}.code-copy:hover,.code-download:hover{background:rgba(255,255,255,0.12);color:#fff}.code-copy.is-copied,.code-download.is-copied{opacity:1;color:var(--green);border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.12)}@media (hover:none){.code-copy,.code-download{opacity:0.75}}#article p{margin-bottom:16px}#article a{color:var(--ink);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink) 45%,transparent);text-decoration-thickness:1px;text-underline-offset:0.18em;transition:color var(--transition);overflow-wrap:anywhere}#article a:hover{color:var(--graphite);text-decoration-color:currentColor}#article .heading-anchor{text-decoration:none}#article strong{color:var(--ink);font-weight:600}#article em{font-style:italic}#article ul,#article ol{padding-left:22px;margin-bottom:16px}#article li{margin-bottom:6px}#article li>p{margin-bottom:8px}#article ol>li{margin-bottom:20px}#article hr{border:none;border-top:1px solid transparent;margin:36px 0}#article code{font-family:var(--font-mono);font-size:0.87rem;font-variant-numeric:tabular-nums;background:var(--parchment);border:1px solid var(--stone);border-radius:var(--radius-xs);padding:1px 6px;color:var(--ink);overflow-wrap:anywhere;word-break:break-word}#article pre{background:var(--void);color:#d4d4d4;border-radius:var(--radius-sm);padding:18px 20px;overflow-x:auto;margin-bottom:20px;font-family:var(--font-mono);font-size:0.87rem;line-height:1.6;font-variant-numeric:tabular-nums}#article pre code{background:none;border:none;padding:0;color:inherit;font-size:inherit;overflow-wrap:normal;word-break:normal}#article pre code[data-skill-download="SKILL.md"]{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}.table-wrap{margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--stone);border-radius:var(--radius-sm);background:linear-gradient(to right,var(--white) 30%,rgba(255,255,255,0)),linear-gradient(to right,rgba(255,255,255,0),var(--white) 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgba(26,26,26,0.12),rgba(255,255,255,0)),radial-gradient(farthest-side at 100% 50%,rgba(26,26,26,0.12),rgba(255,255,255,0)) 100% 0;background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}[data-theme="dark"] .table-wrap{background:linear-gradient(to right,var(--white) 30%,rgba(18,18,22,0)),linear-gradient(to right,rgba(18,18,22,0),var(--white) 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgba(0,0,0,0.4),rgba(0,0,0,0)),radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,0.4),rgba(0,0,0,0)) 100% 0;background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}#article table{width:100%;border-collapse:collapse;margin-bottom:0;font-size:14px;min-width:520px}.table-wrap>table{border-radius:0;border:none}#article th{background:var(--parchment);border-bottom:1px solid var(--stone);border-right:1px solid var(--stone);padding:8px 14px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--graphite)}#article td{background:var(--linen);border-bottom:1px solid var(--stone);border-right:1px solid var(--stone);padding:8px 14px;color:var(--graphite);vertical-align:top}#article tr:last-child td{border-bottom:none}#article th:last-child,#article td:last-child{border-right:none}#article tbody tr:hover td{background:var(--white)}#article img{max-width:100%;border-radius:var(--radius-sm);border:1px solid var(--stone);display:block;height:auto;margin:24px 0;box-shadow:0 2px 8px rgba(26,26,26,0.06)}#article img.responsive-screenshot{width:100%;object-fit:contain}.img-placeholder{background:var(--parchment);border:1.5px dashed var(--stone-dark);border-radius:var(--radius-sm);padding:16px 18px;margin:24px 0;display:flex;align-items:center;gap:12px;color:var(--ash);font-size:13px}.callout{border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:20px;font-size:14px;line-height:1.65;display:flex;gap:11px;align-items:flex-start}.callout-icon{flex-shrink:0;margin-top:3px;display:inline-flex}.callout-icon svg{width:16px;height:16px}.callout-note .callout-icon{color:var(--graphite)}.callout-info .callout-icon{color:#1d4ed8}.callout-tip .callout-icon{color:#188a3c}.callout-warning .callout-icon{color:#b45309}.callout-danger .callout-icon{color:#991b1b}.callout-body{flex:1;min-width:0}.callout-body p{color:inherit;margin-bottom:0 !important}.callout-body p+p{margin-top:12px}.callout-note{background:var(--parchment);border:1px solid var(--stone-dark)}.callout-info{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.28)}.callout-tip{background:var(--mint);border:1px solid rgba(34,197,94,0.30)}.callout-warning{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.30)}.callout-danger{background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.28)}.callout-note .callout-label{color:var(--graphite);font-weight:600}.callout-info .callout-label{color:#1d4ed8;font-weight:600}.callout-tip .callout-label{color:#188a3c;font-weight:600}.callout-warning .callout-label{color:#b45309;font-weight:600}.callout-danger .callout-label{color:#991b1b;font-weight:600}[data-theme="dark"] .callout-info .callout-icon,[data-theme="dark"] .callout-info .callout-label{color:#60a5fa}[data-theme="dark"] .callout-tip .callout-icon,[data-theme="dark"] .callout-tip .callout-label{color:#22c55e}[data-theme="dark"] .callout-warning .callout-icon,[data-theme="dark"] .callout-warning .callout-label{color:#f59e0b}[data-theme="dark"] .callout-danger .callout-icon,[data-theme="dark"] .callout-danger .callout-label{color:#f87171}details.accordion{border:1px solid var(--stone);border-radius:var(--radius-sm);background:var(--white);margin-bottom:12px;overflow:hidden}details.accordion+details.accordion{margin-top:-4px}details.accordion>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-size:15px;font-weight:600;letter-spacing:-0.01em;color:var(--ink);user-select:none;transition:background var(--transition)}details.accordion>summary::-webkit-details-marker{display:none}details.accordion>summary:hover{background:var(--parchment)}details.accordion>summary::before{content:"";flex-shrink:0;width:8px;height:8px;border-right:2px solid var(--ash);border-bottom:2px solid var(--ash);transform:rotate(-45deg);transition:transform var(--transition)}details.accordion[open]>summary::before{transform:rotate(45deg)}details.accordion[open]>summary{border-bottom:1px solid var(--stone)}details.accordion .accordion-meta{margin-left:auto;font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--ash)}details.accordion>.accordion-body{padding:4px 16px 8px}details.accordion>.accordion-body>:first-child{margin-top:12px}details.accordion>.accordion-body>:last-child{margin-bottom:4px}.tabs-container{margin-bottom:24px}.tabs-bar{display:flex;border-bottom:1px solid var(--stone);overflow-x:auto;scrollbar-width:none}.tabs-bar::-webkit-scrollbar{display:none}.tab-btn{padding:7px 18px;font-size:13px;font-family:var(--font-body);font-weight:500;background:none;border:none;border-bottom:2px solid transparent;color:var(--ash);cursor:pointer;transition:color var(--transition),border-color var(--transition);margin-bottom:-1px;white-space:nowrap;flex-shrink:0}.tab-btn:hover{color:var(--graphite)}.tab-btn.active{color:var(--ink);border-bottom-color:var(--green)}.tab-panel{display:none;padding:20px 0 0}.tab-panel.active{display:block}.tab-panel>*:last-child{margin-bottom:0}.tabs-container.code-tabs{border:1px solid var(--stone);border-radius:var(--radius-sm);overflow:hidden;background:var(--void);margin-bottom:24px}.tabs-container.code-tabs .tabs-bar{gap:6px;padding:8px 10px 0;border-bottom:1px solid var(--stone);background:color-mix(in srgb,var(--void) 88%,var(--stone) 12%);overflow-x:auto;scrollbar-width:none}.tabs-container.code-tabs .tabs-bar::-webkit-scrollbar{display:none}.tabs-container.code-tabs .tab-btn{padding:6px 10px;border:1px solid transparent;border-radius:8px 8px 0 0;font-size:12px;color:#aeb6cf;margin-bottom:0;white-space:nowrap}.tabs-container.code-tabs .tab-btn:hover{color:#eef2ff;background:rgba(255,255,255,0.04)}.tabs-container.code-tabs .tab-btn.active{color:#f8fafc;background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.08);border-bottom-color:rgba(255,255,255,0.06)}.tabs-container.code-tabs .tab-panel{padding:0}.tabs-container.code-tabs .tab-panel>pre,.tabs-container.code-tabs .tab-panel>.code-wrap>pre{margin:0;border:none;border-radius:0}.tabs-container.code-tabs .code-wrap{margin:0}#page-nav{display:flex;justify-content:space-between;gap:16px;padding-top:40px;margin-top:48px;border-top:1px solid var(--stone)}.page-nav-btn{flex:1;max-width:280px;display:flex;flex-direction:column;gap:4px;padding:14px 18px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);cursor:pointer;transition:border-color var(--transition),transform var(--transition);text-align:left;font-family:var(--font-body);text-decoration:none}.page-nav-btn:hover{border-color:var(--stone-dark);transform:translateY(-1px)}.page-nav-btn.next{text-align:right;margin-left:auto}.page-nav-label{font-size:10px;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em;font-weight:600}.page-nav-title{font-size:14px;color:var(--ink);font-weight:500}.page-nav-spacer{flex:1;max-width:280px}@keyframes heading-flash{0%{background-color:var(--mint)}40%{background-color:var(--mint)}100%{background-color:transparent}}.heading-highlight{animation:heading-flash 2s ease-out forwards;border-radius:4px;padding-left:6px;margin-left:-6px}@media (prefers-reduced-motion:reduce){.toc-link,.toc-link::before,.heading-highlight{transition:none;animation:none}#toc-rail-links .toc-link.active{transform:none}}#hamburger{display:none}#drawer-backdrop{display:none;position:fixed;inset:0;background:rgba(12,12,12,0.4);z-index:200;opacity:0;transition:opacity 0.2s ease}#drawer-backdrop.is-open{display:block;opacity:1}#drawer{position:fixed;top:0;left:0;bottom:0;width:min(320px,86vw);background:var(--linen);border-right:1px solid var(--stone);z-index:201;transform:translateX(-100%);transition:transform 0.25s ease;overflow-y:auto;padding:16px 16px 32px;display:flex;flex-direction:column}#drawer.is-open{transform:translateX(0)}#drawer-head{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 16px;border-bottom:1px solid var(--stone);margin-bottom:12px}#drawer-head .label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--ash)}#hamburger{display:none}@media (max-width:1320px){:root{--outer-px:24px}#body{grid-template-columns:var(--sidebar-w) minmax(0,920px);column-gap:clamp(28px,4vw,40px);max-width:1280px}#content{max-width:920px}#toc-rail{display:none}.toc-wrap{display:block}}@media (max-width:820px){.card-grid{grid-template-columns:1fr 1fr}#sidebar{display:none}#body{grid-template-columns:minmax(0,1fr)}#hamburger{display:flex}.navbar-link{font-size:0.8rem}.navbar-cta{font-size:0.75rem;padding:0.35rem 0.75rem}.navbar-inner{height:52px;gap:0.75rem}.navbar-left,.navbar-right{gap:0.85rem}.navbar-search-btn{height:30px}:root{--header-h:52px}}@media (max-width:560px){.card-grid{grid-template-columns:1fr}#landing{padding:48px 24px 80px}#content{padding:28px 0 64px}#body{padding:0 24px}.navbar-inner{padding:0 16px}.navbar-left .navbar-link{display:none}.navbar-github-mobile{display:inline-flex}.navbar-right .navbar-search-btn{display:none}.navbar-left .navbar-search-mobile{display:inline-flex}.navbar-search-label,.navbar-search-kbd{display:none}.navbar-search-btn{padding:0 9px;width:32px}.navbar-cta-count{display:none}.navbar-cta{padding:0.35rem 0.7rem}.theme-toggle{bottom:14px;right:14px}#search-input{font-size:16px}}@media (max-width:360px){.navbar-logo-sub{display:none}}@media (max-width:820px){.page-actions .pa-copy-label,.toc-toggle .toc-label{display:none}.page-actions .pa-copy{padding-left:10px;padding-right:10px}.toc-toggle{padding:5px 10px}}.sb-tier-header{display:block;padding:20px 10px 8px;margin-top:4px;font-size:11px;font-weight:700;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em}.sb-tier-header:first-child{margin-top:0;padding-top:6px}.landing-tier{margin-top:28px}.landing-tier:first-child{margin-top:0}.landing-tier>h2{margin:0 0 14px;font-size:13px;font-weight:700;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em}.landing-tier-cards{display:grid;grid-template-columns:repeat(var(--tier-cols,3),1fr);gap:14px}#landing-cards.card-grid{display:block}@media (max-width:900px){.landing-tier-cards{grid-template-columns:repeat(2,1fr)}}@media (max-width:600px){.landing-tier-cards{grid-template-columns:1fr}}</style>
+</head>
+<body>
+
+<header id="header" class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-left">
+      <button class="icon-btn navbar-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 5h12M3 9h12M3 13h12"/>
+        </svg>
+      </button>
+      <button class="navbar-search-btn navbar-search-mobile js-search-open" aria-label="Search docs" aria-haspopup="dialog">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+          <circle cx="7" cy="7" r="5"/><path d="m11 11 3 3"/>
+        </svg>
+      </button>
+      <a href="https://paperclip.ing/blog" class="navbar-link">Blog</a>
+      <a href="/" class="navbar-link" data-nav="home">Docs</a>
+      <a href="https://github.com/paperclipai/paperclip" class="navbar-link navbar-link--icon" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="navbar-logo">
+      <a id="logo" class="navbar-logo-link" href="https://paperclip.ing">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/>
+        </svg>
+        <span>Paperclip</span>
+      </a>
+      <a class="navbar-logo-link navbar-logo-sub" href="https://docs.paperclip.ing">Docs</a>
+    </div>
+    <div class="navbar-right">
+      <button id="search-trigger" class="navbar-search-btn js-search-open" aria-label="Search docs" aria-haspopup="dialog">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+          <circle cx="7" cy="7" r="5"/><path d="m11 11 3 3"/>
+        </svg>
+        <span class="navbar-search-label">Search</span>
+        <kbd class="navbar-search-kbd">⌘K</kbd>
+      </button>
+      <a href="https://github.com/paperclipai/paperclip" class="navbar-link navbar-link--icon navbar-github-mobile" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="https://github.com/paperclipai/paperclip" class="navbar-cta" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Star<span class="navbar-cta-count" data-star-count hidden></span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ─── Search modal (⌘K) ──────────────────────────────────── -->
+<div id="search-modal" role="dialog" aria-modal="true" aria-label="Search" hidden>
+  <div id="search-modal-backdrop"></div>
+  <div id="search-modal-panel">
+    <div id="search-wrap">
+      <svg id="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="7" cy="7" r="5"/><path d="m11 11 3 3"/>
+      </svg>
+      <input id="search-input" type="search" placeholder="Search the docs…" autocomplete="off" spellcheck="false" aria-label="Search guides" aria-haspopup="listbox" />
+      <kbd id="search-kbd">esc</kbd>
+      <div id="search-results" role="listbox" aria-label="Search results"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Floating theme toggle (bottom-right) ───────────────── -->
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+  <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  </span>
+  <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </span>
+</button>
+
+<div id="drawer-backdrop"></div>
+<aside id="drawer" aria-label="Mobile navigation" aria-hidden="true" inert>
+  <div id="drawer-head">
+    <span class="label">Documentation</span>
+    <button class="icon-btn" id="drawer-close" aria-label="Close menu">
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 4 10 10M14 4 4 14"/></svg>
+    </button>
+  </div>
+  <a class="sb-back" href="/" data-nav="home">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2 4 6l4 4"/></svg>
+    All docs
+  </a>
+  <div id="drawer-sections"></div>
+</aside>
+
+
+<!-- ─── Article view ─────────────────────────────────────── -->
+<div id="article-view" class="is-active">
+  <div id="body">
+    <nav id="sidebar" aria-label="Documentation">
+      <a class="sb-back" href="/" data-nav="home">
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2 4 6l4 4"/></svg>
+        All docs
+      </a>
+      <div id="sb-sections" data-server-rendered="true"><div class="sb-tier-header">Learn</div><div class="sb-section" data-section-idx="0" data-section-title="Quickstart" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.2 1-1.5 3-1.5 3s2-.3 3-1.5"/><path d="M9 15 6 12c2-5 6-8 13-9-1 7-4 11-9 13z"/><path d="M15 9h.01"/></svg></span><span class="sb-section-title">Quickstart</span><span class="sb-section-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/getting-started/five-minute-path.md" href="/guides/getting-started/five-minute-path/">Quickstart Path</a><a class="sb-link" data-file="guides/welcome/what-is-paperclip.md" href="/guides/welcome/what-is-paperclip/">What is Paperclip?</a><a class="sb-link" data-file="guides/welcome/key-concepts.md" href="/guides/welcome/key-concepts/">Key Concepts</a><a class="sb-link" data-file="guides/getting-started/installation.md" href="/guides/getting-started/installation/">Installation</a><a class="sb-link" data-file="guides/getting-started/your-first-company.md" href="/guides/getting-started/your-first-company/">Create Your First Company</a><a class="sb-link" data-file="guides/getting-started/your-first-agent.md" href="/guides/getting-started/your-first-agent/">Hire Your First Agent</a><a class="sb-link" data-file="guides/getting-started/watching-agents-work.md" href="/guides/getting-started/watching-agents-work/">Watching Agents Work</a><a class="sb-link" data-file="guides/welcome/glossary.md" href="/guides/welcome/glossary/">Glossary</a></div></div><div class="sb-section" data-section-idx="1" data-section-title="Working Day-to-day" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span><span class="sb-section-title">Working Day-to-day</span><span class="sb-section-count">12</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/day-to-day/dashboard.md" href="/guides/day-to-day/dashboard/">The Dashboard</a><a class="sb-link" data-file="guides/day-to-day/command-palette.md" href="/guides/day-to-day/command-palette/">Command Palette</a><a class="sb-link" data-file="guides/day-to-day/issues.md" href="/guides/day-to-day/issues/">Issues</a><a class="sb-link" data-file="guides/day-to-day/work-modes.md" href="/guides/day-to-day/work-modes/">Work Modes</a><a class="sb-link" data-file="guides/day-to-day/artifacts.md" href="/guides/day-to-day/artifacts/">Artifacts</a><a class="sb-link" data-file="guides/day-to-day/blocked-inbox.md" href="/guides/day-to-day/blocked-inbox/">Blocked Inbox</a><a class="sb-link" data-file="guides/day-to-day/decisions.md" href="/guides/day-to-day/decisions/">Decisions</a><a class="sb-link" data-file="guides/day-to-day/approvals.md" href="/guides/day-to-day/approvals/">Approvals</a><a class="sb-link" data-file="guides/day-to-day/costs.md" href="/guides/day-to-day/costs/">Costs &amp; Budgets</a><a class="sb-link" data-file="guides/day-to-day/activity-log.md" href="/guides/day-to-day/activity-log/">Activity Log</a><a class="sb-link" data-file="guides/day-to-day/work-timeline.md" href="/guides/day-to-day/work-timeline/">Work Timeline</a><a class="sb-link" data-file="guides/day-to-day/feedback-voting.md" href="/guides/day-to-day/feedback-voting/">Feedback &amp; Voting</a></div></div><div class="sb-section" data-section-idx="2" data-section-title="Your Org &amp; Agents" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"/></svg></span><span class="sb-section-title">Your Org &amp; Agents</span><span class="sb-section-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/org/agents.md" href="/guides/org/agents/">Agents</a><a class="sb-link" data-file="guides/org/skills.md" href="/guides/org/skills/">Skills</a><a class="sb-link" data-file="guides/org/team-catalog.md" href="/guides/org/team-catalog/">Team Catalog</a><a class="sb-link" data-file="guides/org/org-structure.md" href="/guides/org/org-structure/">Org Structure</a><a class="sb-link" data-file="guides/org/members-and-access.md" href="/guides/org/members-and-access/">Members &amp; Access</a><a class="sb-link" data-file="guides/org/delegation.md" href="/guides/org/delegation/">Delegation</a><a class="sb-link" data-file="guides/org/agent-adapters.md" href="/guides/org/agent-adapters/">Agent Adapters</a><a class="sb-link" data-file="guides/org/adapters.md" href="/guides/org/adapters/">Adapter Manager</a></div></div><div class="sb-section" data-section-idx="3" data-section-title="Projects &amp; Workflow" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7v10"/><path d="M12 7v6"/><path d="M16 7v3"/></svg></span><span class="sb-section-title">Projects &amp; Workflow</span><span class="sb-section-count">6</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/projects-workflow/projects.md" href="/guides/projects-workflow/projects/">Projects</a><a class="sb-link" data-file="guides/projects-workflow/goals.md" href="/guides/projects-workflow/goals/">Goals</a><a class="sb-link" data-file="guides/projects-workflow/routines.md" href="/guides/projects-workflow/routines/">Heartbeats &amp; Routines</a><a class="sb-link" data-file="guides/projects-workflow/workspaces.md" href="/guides/projects-workflow/workspaces/">Execution Workspaces</a><a class="sb-link" data-file="guides/projects-workflow/custom-sandbox-images.md" href="/guides/projects-workflow/custom-sandbox-images/">Custom Sandbox Images</a><a class="sb-link" data-file="guides/projects-workflow/task-watchdogs.md" href="/guides/projects-workflow/task-watchdogs/">Task Watchdogs</a></div></div><div class="sb-section" data-section-idx="4" data-section-title="Power Features" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H4"/><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/></svg></span><span class="sb-section-title">Power Features</span><span class="sb-section-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/power/execution-policy.md" href="/guides/power/execution-policy/">Execution Policy</a><a class="sb-link" data-file="guides/power/export-import.md" href="/guides/power/export-import/">Export &amp; Import</a><a class="sb-link" data-file="guides/power/terminal-setup.md" href="/guides/power/terminal-setup/">Terminal Setup</a></div></div><div class="sb-section" data-section-idx="5" data-section-title="Experimental" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a2 2 0 0 1 2-2h7V5H5a2 2 0 0 0-2 2z"/><path d="M21 18a2 2 0 0 0-2-2h-7V5h7a2 2 0 0 1 2 2z"/></svg></span><span class="sb-section-title">Experimental</span><span class="sb-section-count">14</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="experimental/overview.md" href="/experimental/overview/">Overview</a><a class="sb-link" data-file="experimental/connections-apps.md" href="/experimental/connections-apps/">Connections v3 (Apps)</a><a class="sb-link" data-file="experimental/environments.md" href="/experimental/environments/">Environments</a><a class="sb-link" data-file="experimental/isolated-workspaces.md" href="/experimental/isolated-workspaces/">Isolated Workspaces</a><a class="sb-link" data-file="experimental/file-viewer.md" href="/experimental/file-viewer/">Experimental File Viewer</a><a class="sb-link" data-file="experimental/external-objects.md" href="/experimental/external-objects/">External Objects</a><a class="sb-link" data-file="experimental/plan-decomposition-panel.md" href="/experimental/plan-decomposition-panel/">Task Plan Decomposition Panel</a><a class="sb-link" data-file="experimental/task-chat.md" href="/experimental/task-chat/">Chat-Style Tasks</a><a class="sb-link" data-file="experimental/task-watchdogs.md" href="/experimental/task-watchdogs/">Task Watchdogs</a><a class="sb-link" data-file="experimental/status-cards.md" href="/experimental/status-cards/">Status Cards</a><a class="sb-link" data-file="experimental/cloud-sync.md" href="/experimental/cloud-sync/">Cloud Sync</a><a class="sb-link" data-file="experimental/server-info-debug-view.md" href="/experimental/server-info-debug-view/">Server Info Debug View</a><a class="sb-link" data-file="experimental/auto-restart-dev-server.md" href="/experimental/auto-restart-dev-server/">Auto-Restart Dev Server</a><a class="sb-link" data-file="experimental/auto-create-recovery-tasks.md" href="/experimental/auto-create-recovery-tasks/">Auto-Create Recovery Tasks</a></div></div><div class="sb-section" data-section-idx="6" data-section-title="How-to Guides" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.4 2.4-3-3z"/></svg></span><span class="sb-section-title">How-to Guides</span><span class="sb-section-count">21</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Members &amp; Access</span><span class="sb-group-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/enable-multi-user-login.md" href="/how-to/enable-multi-user-login/">Enable Multi-User Login</a><a class="sb-link" data-file="how-to/add-a-human-teammate.md" href="/how-to/add-a-human-teammate/">Add a Human Teammate</a><a class="sb-link" data-file="how-to/offboard-a-member.md" href="/how-to/offboard-a-member/">Offboard a Member</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Governance &amp; Budget</span><span class="sb-group-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/set-monthly-budget.md" href="/how-to/set-monthly-budget/">Set a Monthly Budget</a><a class="sb-link" data-file="how-to/require-board-approval-before-spend.md" href="/how-to/require-board-approval-before-spend/">Require Approval Before Spend</a><a class="sb-link" data-file="how-to/handle-board-approvals-for-hires.md" href="/how-to/handle-board-approvals-for-hires/">Handle Board Approvals for Hires</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Agents &amp; Skills</span><span class="sb-group-count">4</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/bring-your-own-agent.md" href="/how-to/bring-your-own-agent/">Bring Your Own Agent</a><a class="sb-link" data-file="how-to/connect-agent-to-github.md" href="/how-to/connect-agent-to-github/">Connect an Agent to GitHub</a><a class="sb-link" data-file="how-to/add-mcp-server-to-agent.md" href="/how-to/add-mcp-server-to-agent/">Add an MCP Server to an Agent</a><a class="sb-link" data-file="how-to/write-a-company-skill.md" href="/how-to/write-a-company-skill/">Write a Company Skill</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Automation &amp; Notifications</span><span class="sb-group-count">2</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/create-a-daily-routine.md" href="/how-to/create-a-daily-routine/">Create a Daily Routine</a><a class="sb-link" data-file="how-to/wire-slack-discord-notifications.md" href="/how-to/wire-slack-discord-notifications/">Wire Slack/Discord Notifications</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Secrets &amp; Providers</span><span class="sb-group-count">2</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/rotate-provider-api-key.md" href="/how-to/rotate-provider-api-key/">Update or Rotate a Provider API Key</a><a class="sb-link" data-file="how-to/connect-aws-secrets-vault.md" href="/how-to/connect-aws-secrets-vault/">Connect an AWS Secrets Manager Vault</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Deploy &amp; Maintain</span><span class="sb-group-count">7</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/deploy-to-vps-or-fly.md" href="/how-to/deploy-to-vps-or-fly/">Deploy to a VPS or Fly.io</a><a class="sb-link" data-file="how-to/update-paperclip.md" href="/how-to/update-paperclip/">Update Paperclip to the Latest Version</a><a class="sb-link" data-file="how-to/back-up-and-restore-a-company.md" href="/how-to/back-up-and-restore-a-company/">Back Up and Restore a Company</a><a class="sb-link" data-file="how-to/debug-stuck-heartbeat.md" href="/how-to/debug-stuck-heartbeat/">Debug a Stuck Heartbeat</a><a class="sb-link" data-file="how-to/sync-to-cloud-upstream.md" href="/how-to/sync-to-cloud-upstream/">Sync to Cloud Upstream</a><a class="sb-link" data-file="how-to/develop-a-plugin-locally.md" href="/how-to/develop-a-plugin-locally/">Develop a plugin locally</a><a class="sb-link" data-file="how-to/community-desktop-app.md" href="/how-to/community-desktop-app/">Community Desktop App (unofficial)</a></div></div></div></div><div class="sb-section" data-section-idx="7" data-section-title="Administration" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="sb-section-title">Administration</span><span class="sb-section-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="administration/company.md" href="/administration/company/">Company</a><a class="sb-link" data-file="administration/roles-and-permissions.md" href="/administration/roles-and-permissions/">Roles &amp; Permissions</a><a class="sb-link" data-file="administration/secret-scopes.md" href="/administration/secret-scopes/">Secret Scopes</a><a class="sb-link" data-file="administration/secret-folders.md" href="/administration/secret-folders/">Secret Folders</a><a class="sb-link" data-file="administration/settings.md" href="/administration/settings/">Settings</a><a class="sb-link" data-file="administration/trust-and-low-trust-review.md" href="/administration/trust-and-low-trust-review/">Trust &amp; Low-Trust Review</a><a class="sb-link" data-file="administration/plugins.md" href="/administration/plugins/">Plugins</a><a class="sb-link" data-file="administration/cli-auth.md" href="/administration/cli-auth/">CLI Auth</a></div></div><div class="sb-tier-header">Reference</div><div class="sb-section" data-section-idx="8" data-section-title="API" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-3a2 2 0 0 1 2-2 2 2 0 0 1-2-2V9a2 2 0 0 0-2-2h-1"/></svg></span><span class="sb-section-title">API</span><span class="sb-section-count">29</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/api/overview.md" href="/reference/api/overview/">Overview</a><a class="sb-link" data-file="reference/api/authentication.md" href="/reference/api/authentication/">Authentication</a><a class="sb-link" data-file="reference/api/companies.md" href="/reference/api/companies/">Companies</a><a class="sb-link" data-file="reference/api/agents.md" href="/reference/api/agents/">Agents</a><a class="sb-link" data-file="reference/api/built-in-agents.md" href="/reference/api/built-in-agents/">Built-in Agents</a><a class="sb-link" data-file="reference/api/issues.md" href="/reference/api/issues/">Issues</a><a class="sb-link" data-file="reference/api/cases.md" href="/reference/api/cases/">Cases</a><a class="sb-link" data-file="reference/api/attention.md" href="/reference/api/attention/">Attention</a><a class="sb-link" data-file="reference/api/decisions.md" href="/reference/api/decisions/">Decisions</a><a class="sb-link" data-file="reference/api/checkbox-confirmations.md" href="/reference/api/checkbox-confirmations/">Checkbox Confirmations</a><a class="sb-link" data-file="reference/api/approvals.md" href="/reference/api/approvals/">Approvals</a><a class="sb-link" data-file="reference/api/goals-and-projects.md" href="/reference/api/goals-and-projects/">Goals &amp; Projects</a><a class="sb-link" data-file="reference/api/resource-memberships.md" href="/reference/api/resource-memberships/">Resource Memberships</a><a class="sb-link" data-file="reference/api/folders.md" href="/reference/api/folders/">Folders</a><a class="sb-link" data-file="reference/api/company-skill-policy.md" href="/reference/api/company-skill-policy/">Company Skill Policy</a><a class="sb-link" data-file="reference/api/inbox-agent-policy.md" href="/reference/api/inbox-agent-policy/">Inbox Agent Policy</a><a class="sb-link" data-file="reference/api/costs.md" href="/reference/api/costs/">Costs</a><a class="sb-link" data-file="reference/api/secrets.md" href="/reference/api/secrets/">Secrets</a><a class="sb-link" data-file="reference/api/activity.md" href="/reference/api/activity/">Activity</a><a class="sb-link" data-file="reference/api/decision-training.md" href="/reference/api/decision-training/">Decision Training</a><a class="sb-link" data-file="reference/api/summary-slots.md" href="/reference/api/summary-slots/">Summary Slots</a><a class="sb-link" data-file="reference/api/status-cards.md" href="/reference/api/status-cards/">Status Cards</a><a class="sb-link" data-file="reference/api/dashboard.md" href="/reference/api/dashboard/">Dashboard</a><a class="sb-link" data-file="reference/api/routines.md" href="/reference/api/routines/">Routines</a><a class="sb-link" data-file="reference/api/adapters.md" href="/reference/api/adapters/">Adapters</a><a class="sb-link" data-file="reference/api/teams-catalog.md" href="/reference/api/teams-catalog/">Teams Catalog</a><a class="sb-link" data-file="reference/api/plugins.md" href="/reference/api/plugins/">Plugins</a><a class="sb-link" data-file="reference/api/tool-gateway.md" href="/reference/api/tool-gateway/">Tool Gateway</a><a class="sb-link" data-file="reference/api/instance-admin.md" href="/reference/api/instance-admin/">Instance Admin</a></div></div><div class="sb-section" data-section-idx="9" data-section-title="CLI" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg></span><span class="sb-section-title">CLI</span><span class="sb-section-count">32</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/cli/overview.md" href="/reference/cli/overview/">Overview</a><a class="sb-link" data-file="reference/cli/installation.md" href="/reference/cli/installation/">Installing the CLI</a><a class="sb-link" data-file="reference/cli/common-options.md" href="/reference/cli/common-options/">Common Options</a><a class="sb-link" data-file="reference/cli/output-and-scripting.md" href="/reference/cli/output-and-scripting/">Output &amp; Scripting</a><a class="sb-link" data-file="reference/cli/setup-commands.md" href="/reference/cli/setup-commands/">Setup Commands</a><a class="sb-link" data-file="reference/cli/service.md" href="/reference/cli/service/">Service</a><a class="sb-link" data-file="reference/cli/dev-environments.md" href="/reference/cli/dev-environments/">Dev Environments</a><a class="sb-link" data-file="reference/cli/authentication.md" href="/reference/cli/authentication/">Authentication &amp; Tokens</a><a class="sb-link" data-file="reference/cli/connect.md" href="/reference/cli/connect/">Connect</a><a class="sb-link" data-file="reference/cli/token.md" href="/reference/cli/token/">Token</a><a class="sb-link" data-file="reference/cli/company.md" href="/reference/cli/company/">Company</a><a class="sb-link" data-file="reference/cli/project.md" href="/reference/cli/project/">Project</a><a class="sb-link" data-file="reference/cli/goal.md" href="/reference/cli/goal/">Goal</a><a class="sb-link" data-file="reference/cli/issue.md" href="/reference/cli/issue/">Issue</a><a class="sb-link" data-file="reference/cli/agent.md" href="/reference/cli/agent/">Agent</a><a class="sb-link" data-file="reference/cli/prompt.md" href="/reference/cli/prompt/">Prompt</a><a class="sb-link" data-file="reference/cli/run.md" href="/reference/cli/run/">Run (Heartbeat)</a><a class="sb-link" data-file="reference/cli/routine.md" href="/reference/cli/routine/">Routine</a><a class="sb-link" data-file="reference/cli/adapter.md" href="/reference/cli/adapter/">Adapter</a><a class="sb-link" data-file="reference/cli/approval.md" href="/reference/cli/approval/">Approval</a><a class="sb-link" data-file="reference/cli/activity.md" href="/reference/cli/activity/">Activity</a><a class="sb-link" data-file="reference/cli/dashboard.md" href="/reference/cli/dashboard/">Dashboard</a><a class="sb-link" data-file="reference/cli/cost.md" href="/reference/cli/cost/">Cost &amp; Budget</a><a class="sb-link" data-file="reference/cli/workspace.md" href="/reference/cli/workspace/">Workspace</a><a class="sb-link" data-file="reference/cli/access.md" href="/reference/cli/access/">Access &amp; Admin</a><a class="sb-link" data-file="reference/cli/skills.md" href="/reference/cli/skills/">Skills</a><a class="sb-link" data-file="reference/cli/teams.md" href="/reference/cli/teams/">Teams</a><a class="sb-link" data-file="reference/cli/secrets.md" href="/reference/cli/secrets/">Secrets</a><a class="sb-link" data-file="reference/cli/cloud.md" href="/reference/cli/cloud/">Cloud</a><a class="sb-link" data-file="reference/cli/plugin.md" href="/reference/cli/plugin/">Plugin</a><a class="sb-link" data-file="reference/cli/asset.md" href="/reference/cli/asset/">Asset</a><a class="sb-link" data-file="reference/cli/feedback.md" href="/reference/cli/feedback/">Feedback</a></div></div><div class="sb-section" data-section-idx="10" data-section-title="Skills" data-open="true"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a2 2 0 0 1 2-2h7V5H5a2 2 0 0 0-2 2z"/><path d="M21 18a2 2 0 0 0-2-2h-7V5h7a2 2 0 0 1 2 2z"/></svg></span><span class="sb-section-title">Skills</span><span class="sb-section-count">17</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link active" data-file="reference/skills.md" aria-current="page" href="/reference/skills/">Skills Reference</a><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Bundled</span><span class="sb-group-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled.md" href="/reference/skills/bundled/">Overview</a><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Docs</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/docs/doc-maintenance.md" href="/reference/skills/bundled/docs/doc-maintenance/">Doc Maintenance</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Paperclip Operations</span><span class="sb-group-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/paperclip-operations/issue-triage.md" href="/reference/skills/bundled/paperclip-operations/issue-triage/">Issue Triage</a><a class="sb-link" data-file="reference/skills/bundled/paperclip-operations/status-card-query.md" href="/reference/skills/bundled/paperclip-operations/status-card-query/">Status Card Query</a><a class="sb-link" data-file="reference/skills/bundled/paperclip-operations/task-planning.md" href="/reference/skills/bundled/paperclip-operations/task-planning/">Task Planning</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Product</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/product/wireframe.md" href="/reference/skills/bundled/product/wireframe/">Wireframe</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Quality</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/quality/qa-acceptance.md" href="/reference/skills/bundled/quality/qa-acceptance/">QA Acceptance</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Software Development</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/software-development/github-pr-workflow.md" href="/reference/skills/bundled/software-development/github-pr-workflow/">GitHub PR Workflow</a></div></div></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Optional</span><span class="sb-group-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional.md" href="/reference/skills/optional/">Overview</a><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Browser</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/browser/agent-browser.md" href="/reference/skills/optional/browser/agent-browser/">Agent Browser</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Content</span><span class="sb-group-count">2</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/content/release-announcement.md" href="/reference/skills/optional/content/release-announcement/">Release Announcement</a><a class="sb-link" data-file="reference/skills/optional/content/simplified-english.md" href="/reference/skills/optional/content/simplified-english/">Simplified English</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Finance</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/finance/ramp.md" href="/reference/skills/optional/finance/ramp/">Ramp</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Product</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/product/design-critique.md" href="/reference/skills/optional/product/design-critique/">Design Critique</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Research</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/research/last30days.md" href="/reference/skills/optional/research/last30days/">Last30Days</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Software Development</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/software-development/prepare-mcp-integration.md" href="/reference/skills/optional/software-development/prepare-mcp-integration/">Prepare MCP Integration</a></div></div></div></div></div></div><div class="sb-section" data-section-idx="11" data-section-title="Adapters" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M7 8h10v4a5 5 0 0 1-10 0z"/></svg></span><span class="sb-section-title">Adapters</span><span class="sb-section-count">21</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/adapters/overview.md" href="/reference/adapters/overview/">Overview</a><a class="sb-link" data-file="reference/adapters/claude-code.md" href="/reference/adapters/claude-code/">Claude Code</a><a class="sb-link" data-file="reference/adapters/codex.md" href="/reference/adapters/codex/">Codex</a><a class="sb-link" data-file="reference/adapters/gemini-cli.md" href="/reference/adapters/gemini-cli/">Gemini CLI</a><a class="sb-link" data-file="reference/adapters/cursor-local.md" href="/reference/adapters/cursor-local/">Cursor Local</a><a class="sb-link" data-file="reference/adapters/cursor-cloud.md" href="/reference/adapters/cursor-cloud/">Cursor Cloud</a><a class="sb-link" data-file="reference/adapters/acpx-local.md" href="/reference/adapters/acpx-local/">ACPX Local (retired)</a><a class="sb-link" data-file="reference/adapters/opencode.md" href="/reference/adapters/opencode/">OpenCode</a><a class="sb-link" data-file="reference/adapters/pi.md" href="/reference/adapters/pi/">Pi</a><a class="sb-link" data-file="reference/adapters/hermes.md" href="/reference/adapters/hermes/">Hermes</a><a class="sb-link" data-file="reference/adapters/hermes-gateway.md" href="/reference/adapters/hermes-gateway/">Hermes Gateway</a><a class="sb-link" data-file="reference/adapters/grok-local.md" href="/reference/adapters/grok-local/">Grok Local</a><a class="sb-link" data-file="reference/adapters/kimi-local.md" href="/reference/adapters/kimi-local/">Kimi Code</a><a class="sb-link" data-file="reference/adapters/openclaw-gateway.md" href="/reference/adapters/openclaw-gateway/">OpenClaw Gateway</a><a class="sb-link" data-file="reference/adapters/process.md" href="/reference/adapters/process/">Process</a><a class="sb-link" data-file="reference/adapters/http.md" href="/reference/adapters/http/">HTTP</a><a class="sb-link" data-file="reference/adapters/sandbox-providers.md" href="/reference/adapters/sandbox-providers/">Sandbox Providers</a><a class="sb-link" data-file="reference/adapters/modal.md" href="/reference/adapters/modal/">Modal</a><a class="sb-link" data-file="reference/adapters/external-adapters.md" href="/reference/adapters/external-adapters/">External Adapters</a><a class="sb-link" data-file="reference/adapters/creating-an-adapter.md" href="/reference/adapters/creating-an-adapter/">Creating an Adapter</a><a class="sb-link" data-file="reference/adapters/adapter-ui-parser.md" href="/reference/adapters/adapter-ui-parser/">UI Parser Contract</a></div></div><div class="sb-section" data-section-idx="12" data-section-title="Plugins" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 13h-2.5a1.5 1.5 0 0 0 0 3H19v3H5v-3h2.5a1.5 1.5 0 0 0 0-3H5V5h4a2 2 0 1 1 4 0h6z"/></svg></span><span class="sb-section-title">Plugins</span><span class="sb-section-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/plugins/sdk.md" href="/reference/plugins/sdk/">Plugin SDK</a><a class="sb-link" data-file="reference/plugins/llm-wiki.md" href="/reference/plugins/llm-wiki/">LLM Wiki</a><a class="sb-link" data-file="reference/plugins/workspace-diff.md" href="/reference/plugins/workspace-diff/">Workspace Diff Viewer</a></div></div><div class="sb-section" data-section-idx="13" data-section-title="Deployment" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H8a5 5 0 1 1 1.1-9.9A7 7 0 0 1 22 12.5 4.5 4.5 0 0 1 17.5 19z"/></svg></span><span class="sb-section-title">Deployment</span><span class="sb-section-count">10</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/deploy/overview.md" href="/reference/deploy/overview/">Overview</a><a class="sb-link" data-file="reference/deploy/deployment-modes.md" href="/reference/deploy/deployment-modes/">Deployment Modes</a><a class="sb-link" data-file="reference/deploy/local-development.md" href="/reference/deploy/local-development/">Local Development</a><a class="sb-link" data-file="reference/deploy/docker.md" href="/reference/deploy/docker/">Docker</a><a class="sb-link" data-file="reference/deploy/database.md" href="/reference/deploy/database/">Database</a><a class="sb-link" data-file="reference/deploy/storage.md" href="/reference/deploy/storage/">Storage</a><a class="sb-link" data-file="reference/deploy/secrets.md" href="/reference/deploy/secrets/">Secrets</a><a class="sb-link" data-file="reference/deploy/environment-variables.md" href="/reference/deploy/environment-variables/">Environment Variables</a><a class="sb-link" data-file="reference/deploy/tailscale-private-access.md" href="/reference/deploy/tailscale-private-access/">Tailscale Private Access</a><a class="sb-link" data-file="reference/deploy/tailscale-https-broker.md" href="/reference/deploy/tailscale-https-broker/">Tailscale HTTPS Broker</a></div></div><div class="sb-section" data-section-idx="14" data-section-title="Changelog" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a2 2 0 0 1 2-2h7V5H5a2 2 0 0 0-2 2z"/><path d="M21 18a2 2 0 0 0-2-2h-7V5h7a2 2 0 0 1 2 2z"/></svg></span><span class="sb-section-title">Changelog</span><span class="sb-section-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/changelog.md" href="/reference/changelog/">Docs</a></div></div></div>
+    </nav>
+
+    <main id="content">
+      <div id="breadcrumb" aria-label="Breadcrumb" data-server-rendered="true"><span>Skills</span><span class="sep">/</span><span class="crumb-current">Skills Reference</span></div>
+      <!-- Empty on every served document. Loading and error text is written here
+           by app.js only during a real client-side transition, so raw HTML never
+           claims a page is loading or broken. -->
+      <div id="runtime-status" role="status" aria-live="polite" hidden></div>
+      <article id="article"><h1 id="skills-reference">Skills Reference</h1>
+<p>This is the reference for company skills: the file shape on disk, the install pipeline, how skills are attached to agents, scoping rules, the canonical key form, versioning, and troubleshooting.</p>
+<p>For the conceptual introduction and the UI walkthrough, read the <a href="/guides/org/skills/">Skills guide</a>. For the REST surface specifically, see <a href="/reference/api/agents/#skills">Agents API → Skills</a>.</p>
+<p>If you want to browse Paperclip&#39;s shipped skill catalog, start with the <a href="/reference/skills/bundled/">Bundled skills</a> and <a href="/reference/skills/optional/">Optional skills</a> indexes. Those pages group every shipped catalog skill by category and link to the full per-skill reference pages.</p>
+<blockquote>
+<p><strong>Adapter caveat.</strong> Some adapters (notably <code>openclaw_gateway</code>) cannot push skill files into the runtime. Assignment is still recorded, but the actual sync mode is reported as <code>unsupported</code>. This is covered under <a href="#scoping-rules">Scoping rules</a> below.</p>
+</blockquote>
+<hr>
+<h2 id="1-skill-file-shape">1. Skill file shape</h2>
+<p>A skill is a folder containing a <code>SKILL.md</code> at its root:</p>
+<pre><code>my-skill/
+├── SKILL.md
+├── references/
+│   └── examples.md
+├── scripts/
+│   └── run.sh
+└── assets/
+    └── logo.png
+</code></pre>
+<p><code>SKILL.md</code> is YAML frontmatter plus a Markdown body:</p>
+<pre><code class="language-markdown">---
+name: code-review
+description: &gt;
+  Use when asked to review a pull request or code diff.
+  Don&#39;t use when writing new code from scratch.
+---
+
+# Code Review
+
+When reviewing code, check the following...
+</code></pre>
+<p>The frontmatter is parsed by Paperclip&#39;s own minimal YAML reader (<code>parseFrontmatterMarkdown</code> in <code>server/src/services/company-skills.ts</code>). It supports flat scalars, nested objects, and list literals — not the full YAML grammar.</p>
+<h3 id="frontmatter-fields">Frontmatter fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>recommended</td>
+<td>string</td>
+<td>Human-readable label. Falls back to the slug when missing.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>recommended</td>
+<td>string</td>
+<td>The routing logic the agent reads first. Block scalars (<code>&gt;</code>, `</td>
+</tr>
+<tr>
+<td><code>slug</code></td>
+<td>optional</td>
+<td>string</td>
+<td>Stable kebab-case identifier. Derived from <code>name</code> (or the folder name) if absent, normalized via <code>normalizeAgentUrlKey</code>.</td>
+</tr>
+<tr>
+<td><code>key</code> / <code>skillKey</code></td>
+<td>optional</td>
+<td>string</td>
+<td>Canonical key override. See <a href="#naming-collisions-and-resolution">Naming collisions</a>.</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td>optional</td>
+<td>object</td>
+<td>Arbitrary record persisted alongside the skill. Recognised sub-fields are listed below.</td>
+</tr>
+</tbody></table>
+<p>Recognised <code>metadata</code> sub-fields (all optional):</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>metadata.skillKey</code> / <code>metadata.canonicalKey</code> / <code>metadata.paperclipSkillKey</code></td>
+<td>Carry a canonical key across imports.</td>
+</tr>
+<tr>
+<td><code>metadata.paperclip.skillKey</code> / <code>metadata.paperclip.key</code></td>
+<td>Same, nested under a <code>paperclip</code> block.</td>
+</tr>
+<tr>
+<td><code>metadata.sourceKind</code></td>
+<td>One of <code>paperclip_bundled</code>, <code>github</code>, <code>skills_sh</code>, <code>url</code>, <code>local_path</code>, <code>project_scan</code>, <code>managed_local</code>, <code>catalog</code>.</td>
+</tr>
+<tr>
+<td><code>metadata.sources[]</code></td>
+<td>List of source descriptors written by skills.sh and similar packagers. Each entry can include <code>kind</code> (<code>github-dir</code>, <code>github-file</code>, <code>url</code>), <code>repo</code>, <code>path</code>, <code>commit</code>, <code>trackingRef</code>, <code>hostname</code>, <code>url</code>, <code>rawUrl</code>.</td>
+</tr>
+<tr>
+<td><code>metadata.owner</code> / <code>metadata.repo</code> / <code>metadata.ref</code> / <code>metadata.trackingRef</code></td>
+<td>GitHub coordinates used for update checks.</td>
+</tr>
+</tbody></table>
+<p>Anything else under <code>metadata</code> is round-tripped untouched.</p>
+<h3 id="body">Body</h3>
+<p>After the closing <code>---</code>, write Markdown. There is no length limit, but the agent loads the entire body into context once it decides the skill is relevant — keep it short and put long material in supporting files.</p>
+<h3 id="supporting-files">Supporting files</h3>
+<p>Files placed in these subfolders are recognised and classified automatically (<code>classifyInventoryKind</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Inventory kind</th>
+<th>Trust level contribution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>references/</code></td>
+<td><code>reference</code></td>
+<td>markdown only</td>
+</tr>
+<tr>
+<td><code>scripts/</code></td>
+<td><code>script</code></td>
+<td>scripts/executables</td>
+</tr>
+<tr>
+<td><code>assets/</code></td>
+<td><code>asset</code></td>
+<td>assets</td>
+</tr>
+</tbody></table>
+<p>A skill&#39;s overall <strong>trust level</strong> is derived from the highest classification in its inventory: <code>markdown_only</code> &lt; <code>assets</code> &lt; <code>scripts_executables</code>.</p>
+<p>When importing from a project workspace where <code>SKILL.md</code> lives at the repo root (rather than a dedicated skill folder), Paperclip switches to <code>project_root</code> inventory mode and only walks <code>references/</code>, <code>scripts/</code>, and <code>assets/</code> — so it does not slurp the entire repository.</p>
+<h3 id="example-skills-you-can-read">Example skills you can read</h3>
+<p>Bundled with the Paperclip server (<code>skills/</code> next to the server):</p>
+<ul>
+<li><code>paperclip</code> — base heartbeat procedure.</li>
+<li><code>paperclip-board</code> — manage a company as a board member via chat: onboarding (company creation, CEO setup, hiring plans), agent management, approvals, task monitoring, cost oversight, and work-product review. Set up by <code>paperclipai board setup</code>.</li>
+<li><code>paperclip-create-agent</code> — governance-aware hire workflow.</li>
+<li><code>paperclip-converting-plans-to-tasks</code> — the Paperclip way of translating a plan into assigned issues with the right specialty, dependencies, and parallelization.</li>
+<li><code>para-memory-files</code> — file-based memory using Tiago Forte&#39;s PARA method, covering the knowledge-graph, daily-notes, and tacit-knowledge layers plus weekly synthesis and recall.</li>
+</ul>
+<p>Community examples in <a href="https://github.com/paperclipai/companies"><code>paperclipai/companies</code></a>:</p>
+<ul>
+<li><code>companies/skills/company-creator/SKILL.md</code></li>
+<li><code>companies/skills/readme-updater/SKILL.md</code></li>
+</ul>
+<p>These are the canonical references for the file shape, frontmatter style, and supporting-file layout.</p>
+<h3 id="artifact-upload-in-the-bundled-paperclip-skill">Artifact upload in the bundled <code>paperclip</code> skill</h3>
+<p>The bundled <code>paperclip</code> skill ships an artifact-upload helper so that work products end up on the issue, not stranded in the agent&#39;s workspace. Its <strong>Generated Artifacts and Work Products</strong> section in <code>SKILL.md</code> tells the agent that whenever a run produces a user-inspectable file, it should upload that file to the current issue before final disposition — a local filesystem path is useless to board users, reviewers, and cloud operators who can&#39;t reach the agent workspace.</p>
+<p>The skill bundles a helper script at <code>scripts/paperclip-upload-artifact.sh</code> (relative to the installed skill directory) and a reference doc at <code>references/artifacts.md</code>. The helper takes a file path plus <code>--title</code> and <code>--summary</code> flags:</p>
+<pre><code class="language-bash">scripts/paperclip-upload-artifact.sh path/to/output.webm \
+  --title &quot;Walkthrough render&quot; \
+  --summary &quot;Rendered walkthrough for review&quot;
+</code></pre>
+<p>It reads the run&#39;s environment — <code>PAPERCLIP_API_URL</code>, <code>PAPERCLIP_API_KEY</code>, <code>PAPERCLIP_COMPANY_ID</code>, <code>PAPERCLIP_TASK_ID</code>, and <code>PAPERCLIP_RUN_ID</code> — then uploads the file as an issue attachment, creates an attachment-backed artifact work product (the default), and prints issue-safe markdown links the agent can drop into its final comment. The underlying upload route is the attachment endpoint documented under <a href="/reference/api/issues/#attachments">Issues API → Attachments</a>.</p>
+<h3 id="monitors-and-watchers-in-the-bundled-paperclip-skill">Monitors and watchers in the bundled <code>paperclip</code> skill</h3>
+<p>When an agent writes &quot;I&#39;ve set a watcher and I&#39;ll check back once CI finishes&quot;, you want that to be true — otherwise the issue quietly stalls while you wait for a wake-up that was never scheduled. The bundled <code>paperclip</code> skill has a <strong>Monitors and Watchers</strong> section whose whole job is to keep what an agent says in its comments matched to what is actually stored on the issue.</p>
+<p>The reason it needs saying: a run (heartbeat) is an ephemeral execution window, and nothing keeps watching after it exits. The only thing that can auto-resume an issue on its own is a persisted <strong>issue monitor</strong> — durable state on the issue itself (<code>monitorNextCheckAt</code>, <code>monitorScheduledBy</code>, plus an execution-policy <code>monitor</code> block carrying <code>kind</code>, <code>serviceName</code>, <code>externalRef</code>, <code>timeoutAt</code>, and <code>maxAttempts</code>). A server-side scheduler (<code>tickDueIssueMonitors</code>) polls for issues whose <code>monitorNextCheckAt</code> has passed and wakes the assignee agent again with <code>PAPERCLIP_WAKE_REASON=issue_monitor_due</code>. That is timer-based polling, not an event subscription: Paperclip is not notified the moment CI or another external check finishes, it just wakes the agent on a schedule so it can look again.</p>
+<p>A stored timestamp is necessary but not sufficient. For a monitor to fire, the issue must be assigned to an agent (<code>assigneeAgentId</code> set) with <strong>no</strong> user assignee (<code>assigneeUserId</code> is null), and it must be in <code>in_progress</code> or <code>in_review</code>. The on-demand trigger enforces the same conditions, so a monitor parked on a user-assigned, <code>backlog</code>, <code>blocked</code>, or closed issue never fires.</p>
+<p>So the skill holds agents to three rules:</p>
+<ul>
+<li><strong>Only claim a watcher exists after actually scheduling one.</strong> Describing one in a comment does not create it. The agent schedules it by setting <code>executionPolicy.monitor.nextCheckAt</code> (with <code>kind</code>/<code>serviceName</code>/<code>externalRef</code>/<code>timeoutAt</code>/<code>maxAttempts</code>) via <code>PATCH /api/issues/{id}</code>, then confirms the issue really reports a non-null <code>monitorNextCheckAt</code> under the eligibility conditions above. A check can be run on demand with <code>POST /api/issues/{id}/monitor/check-now</code>.</li>
+<li><strong>Describe it in checkable terms</strong> — the monitor&#39;s kind, its next check time, and its attempt/timeout bounds, rather than a vague &quot;a watcher will wake me&quot;. If the agent cannot name those, it has not scheduled one and must not imply that it has.</li>
+<li><strong>Never imply a live watcher on a task being marked <code>done</code>.</strong> <code>done</code> means no follow-up on this issue, which contradicts an ongoing watcher. If real re-checking is still needed, the agent keeps the issue in <code>in_progress</code>/<code>in_review</code> with a scheduled monitor instead of closing it.</li>
+</ul>
+<p>None of this rests on the agent&#39;s good manners. The disposition guard rejects an agent move to <code>in_review</code> with <code>invalid_issue_disposition</code> unless a real review path exists — an interaction, an approval, a human reviewer, a typed execution participant, or an actually-scheduled monitor with a real <code>monitorNextCheckAt</code> — and the recovery classifier flags <code>in_review_without_action_path</code> for anything parked with no live wake path.</p>
+<p>Issue monitors are a separate mechanism from <a href="/guides/projects-workflow/task-watchdogs/">task watchdogs</a>, which you attach to an issue yourself to double-check a subtree that has come to rest.</p>
+<hr>
+<h2 id="2-installation-pipeline">2. Installation pipeline</h2>
+<p>Skills are installed at the <strong>company</strong> level. Once installed, any agent in that company can be assigned the skill.</p>
+<h3 id="endpoints">Endpoints</h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Endpoint</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>List skills</td>
+<td><code>GET /api/companies/{companyId}/skills</code></td>
+</tr>
+<tr>
+<td>Skill detail (with usage)</td>
+<td><code>GET /api/companies/{companyId}/skills/{skillId}</code></td>
+</tr>
+<tr>
+<td>Read a file from a skill</td>
+<td><code>GET /api/companies/{companyId}/skills/{skillId}/files?path=SKILL.md</code></td>
+</tr>
+<tr>
+<td>Update a file (editable skills)</td>
+<td><code>PATCH /api/companies/{companyId}/skills/{skillId}/files</code></td>
+</tr>
+<tr>
+<td>Update status (GitHub-managed)</td>
+<td><code>GET /api/companies/{companyId}/skills/{skillId}/update-status</code></td>
+</tr>
+<tr>
+<td>Pull latest commit</td>
+<td><code>POST /api/companies/{companyId}/skills/{skillId}/install-update</code></td>
+</tr>
+<tr>
+<td>Delete</td>
+<td><code>DELETE /api/companies/{companyId}/skills/{skillId}</code></td>
+</tr>
+<tr>
+<td>Create empty (Paperclip-managed)</td>
+<td><code>POST /api/companies/{companyId}/skills</code></td>
+</tr>
+<tr>
+<td><strong>Import from a source</strong></td>
+<td><code>POST /api/companies/{companyId}/skills/import</code></td>
+</tr>
+<tr>
+<td><strong>Scan project workspaces</strong></td>
+<td><code>POST /api/companies/{companyId}/skills/scan-projects</code></td>
+</tr>
+</tbody></table>
+<p>Mutating routes require either <code>agents:create</code> permission or <code>permissions.canCreateAgents=true</code> on the calling agent.</p>
+<h3 id="import-accepted-sources">Import: accepted sources</h3>
+<p><code>POST /api/companies/{companyId}/skills/import</code> takes one field — <code>source</code>. The string is parsed by <code>parseSkillImportSourceInput</code>, so all of the following are valid:</p>
+<pre><code class="language-json">{ &quot;source&quot;: &quot;https://github.com/paperclipai/paperclip&quot; }
+{ &quot;source&quot;: &quot;https://github.com/paperclipai/paperclip/tree/main/skills/paperclip&quot; }
+{ &quot;source&quot;: &quot;https://github.com/paperclipai/paperclip/blob/main/skills/paperclip/SKILL.md&quot; }
+{ &quot;source&quot;: &quot;paperclipai/paperclip&quot; }
+{ &quot;source&quot;: &quot;paperclipai/paperclip/paperclip-create-agent&quot; }
+{ &quot;source&quot;: &quot;https://skills.sh/paperclipai/paperclip/paperclip-create-agent&quot; }
+{ &quot;source&quot;: &quot;npx skills add paperclipai/paperclip --skill paperclip-create-agent&quot; }
+{ &quot;source&quot;: &quot;https://example.com/raw/SKILL.md&quot; }
+{ &quot;source&quot;: &quot;/Users/me/code/my-project/skills/code-review&quot; }
+</code></pre>
+<p>Resolution rules:</p>
+<ul>
+<li><code>owner/repo</code> and <code>owner/repo/skill</code> are treated as GitHub references.</li>
+<li><code>https://skills.sh/...</code> URLs and <code>npx skills add ...</code> commands are unwrapped to the underlying GitHub URL — but the skill is recorded with <code>sourceType: skills_sh</code> and the original locator preserved.</li>
+<li><code>tree/&lt;ref&gt;</code> and <code>blob/&lt;ref&gt;</code> URLs pin to whatever ref you pass; bare repo URLs resolve the default branch.</li>
+<li>Local paths can point at a single <code>SKILL.md</code> file, a folder containing one, or a folder containing many — every <code>SKILL.md</code> under it is imported.</li>
+</ul>
+<h3 id="what-happens-during-import">What happens during import</h3>
+<ol>
+<li>Resolve the source (parse → fetch metadata → walk for <code>SKILL.md</code> files).</li>
+<li>For each found skill: parse frontmatter, derive <code>slug</code>, derive canonical <code>key</code>, walk the file inventory, classify each entry, derive <code>trustLevel</code>.</li>
+<li>Persist as a row in the <code>companySkills</code> table (one row per <code>(companyId, key)</code> — see <a href="#naming-collisions-and-resolution">Naming collisions</a>).</li>
+<li>Materialise files for catalog-style sources into <code>&lt;paperclipInstanceRoot&gt;/skills/{companyId}/__catalog__/&lt;runtimeName&gt;/</code> so adapters can read them.</li>
+<li>Log a <code>company.skills_imported</code> activity entry and emit a <code>skill_imported</code> telemetry event.</li>
+</ol>
+<p>The response includes <code>imported</code>, <code>warnings</code>, and the resolved source metadata.</p>
+<h3 id="project-scan">Project scan</h3>
+<p><code>POST /api/companies/{companyId}/skills/scan-projects</code> walks the local workspaces of every project in the company (or a filtered subset via <code>projectIds</code> / <code>workspaceIds</code>) and looks for <code>SKILL.md</code> files in any of these well-known locations:</p>
+<ul>
+<li><code>skills/</code>, <code>skills/.curated/</code>, <code>skills/.experimental/</code>, <code>skills/.system/</code></li>
+<li><code>.agents/skills/</code>, <code>.agent/skills/</code>, <code>.augment/skills/</code>, <code>.claude/skills/</code>, <code>.codebuddy/skills/</code>, <code>.commandcode/skills/</code>, <code>.continue/skills/</code>, <code>.cortex/skills/</code>, <code>.crush/skills/</code>, <code>.factory/skills/</code>, <code>.goose/skills/</code>, <code>.junie/skills/</code>, <code>.iflow/skills/</code>, <code>.kilocode/skills/</code>, <code>.kiro/skills/</code>, <code>.kode/skills/</code>, <code>.mcpjam/skills/</code>, <code>.vibe/skills/</code>, <code>.mux/skills/</code>, <code>.openhands/skills/</code>, <code>.pi/skills/</code>, <code>.qoder/skills/</code>, <code>.qwen/skills/</code>, <code>.roo/skills/</code>, <code>.trae/skills/</code>, <code>.windsurf/skills/</code>, <code>.zencoder/skills/</code>, <code>.neovate/skills/</code>, <code>.pochi/skills/</code>, <code>.adal/skills/</code></li>
+<li>The workspace root itself (if it contains a <code>SKILL.md</code>)</li>
+</ul>
+<p>The scan is non-destructive: it returns <code>imported</code>, <code>updated</code>, <code>skipped</code>, <code>conflicts</code>, and <code>warnings</code>. Conflicts (slug or key already pointing at a different source) are surfaced for manual review rather than overwriting silently.</p>
+<h3 id="storage">Storage</h3>
+<p>Editable, Paperclip-managed skills are written to <code>&lt;paperclipInstanceRoot&gt;/skills/{companyId}/&lt;slug&gt;/</code>. Read-only sources (GitHub, skills.sh, URL) keep the <code>markdown</code> body in the database row and only materialise into a temporary location when an adapter needs the files on disk.</p>
+<p>Bundled skills (those shipped in the server&#39;s <code>skills/</code> directory) are re-imported on every list call (<code>ensureBundledSkills</code>). They cannot be edited or deleted — installing the same Paperclip release will recreate them.</p>
+<hr>
+<h2 id="3-app-shipped-catalog">3. App-shipped catalog</h2>
+<p>Beyond importing skills from GitHub, skills.sh, URLs, or local folders, Paperclip ships its own <strong>catalog</strong> of ready-made skills inside the app. You browse the catalog, install the skill you want into a company, and from then on Paperclip can keep that copy in step with the version it shipped — checking for updates, auditing the bytes, and resetting back to the pinned origin if needed.</p>
+<p>Catalog skills are split into two <strong>kinds</strong> (<code>CatalogSkillKind</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Meaning</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bundled</code></td>
+<td>Core skills the app considers part of the baseline kit.</td>
+<td><code>doc-maintenance</code>, <code>issue-triage</code>, <code>task-planning</code>, <code>qa-acceptance</code>, <code>github-pr-workflow</code>, <code>wireframe</code>, <code>summarize-status</code>, <code>status-card-query</code></td>
+</tr>
+<tr>
+<td><code>optional</code></td>
+<td>Extra skills you opt into when you need them.</td>
+<td><code>agent-browser</code>, <code>release-announcement</code>, <code>simplified-english</code>, <code>design-critique</code>, <code>last30days</code>, <code>prepare-mcp-integration</code></td>
+</tr>
+</tbody></table>
+<p>Each catalog skill also carries a <code>category</code> you can filter on. Most of the baseline kit is coding- and process-oriented, but the catalog is not limited to engineering work — for example, the <code>product</code>-category <strong><code>wireframe</code></strong> skill teaches an agent to produce low-fidelity, black-and-white UI wireframes as standalone SVG files (recommended for <code>designer</code>, <code>product</code>, and <code>engineer</code> roles), and the <code>research</code>-category <strong><code>last30days</code></strong> skill (recommended for <code>researcher</code>, <code>marketer</code>, <code>product-manager</code>, and <code>analyst</code> roles) researches what people have said about a topic across Reddit, X, YouTube, and the rest of the web in the last 30 days. A bundled skill is not the same as a <em>required</em> one: <code>wireframe</code> ships in the baseline kit but installs only when you choose it (its <code>defaultInstall</code> is <code>false</code>), so designers and product folks can pull it in without it being forced on every agent.</p>
+<p>Managers get their own entry in the baseline kit: the <code>paperclip-operations</code>-category <strong><code>summarize-status</code></strong> skill (recommended for the <code>general</code> and <code>manager</code> roles) turns the current state of a scope — a project, the workspaces overview, or a single project workspace — into a short written summary and writes it back to that scope&#39;s summary slot as a new revision. It is deliberately not a task list, and it is deliberately actions-first. Every summary opens with the 1–3 specific, concrete actions you need to take right now to unblock the work — &quot;merge the install PR&quot;, &quot;answer the org-accounts question&quot;, &quot;approve the OAuth plan&quot; — each saying what to do, why it is the thing holding up progress, and linking the issue inline. After the actions comes a brief paragraph or two of plain conversational status on where things stand, written for someone who has not memorised every issue id. If genuinely nothing needs you, you get one honest line saying so plus the next thing worth watching, rather than padding with filler actions. Like <code>wireframe</code>, its <code>defaultInstall</code> is <code>false</code>, so it arrives only when you pick it.</p>
+<p>Sitting alongside it is the <code>paperclip-operations</code>-category <strong><code>status-card-query</code></strong> skill (also recommended for the <code>general</code> and <code>manager</code> roles), which backs the experimental <a href="/experimental/status-cards/">Status Cards</a> feature. A status card starts as a sentence you write in plain English — &quot;blocked or in-review launch work updated this week&quot; — and this skill covers both halves of turning that into a live card. In its authoring mode an agent creates and refines its own cards through the public API, capped at 20 cards each and 4,000 characters of prompt. In its compilation mode the Summarizer translates that prose into bounded <code>CompanySearchQuery</code> objects — structured filters for status, priority, assignee, project, label, and recency rather than a keyword blob — and then writes the card&#39;s first summary back from the same assigned run. It is available only when <code>enableStatusCards</code> is turned on, and like the rest of the baseline kit its <code>defaultInstall</code> is <code>false</code>. Full details are on the <a href="/reference/skills/bundled/paperclip-operations/status-card-query/">Status Card Query</a> page.</p>
+<p><strong>Where a catalog skill&#39;s bytes come from.</strong> Most catalog skills are shipped inside the app itself. A few are <strong>referenced</strong> instead — they point at an external GitHub repository pinned to a single commit, and the app fetches their files for you. <code>last30days</code>, for example, is sourced from <code>github.com/mvanhorn/last30days-skill</code> at a pinned commit. You install and manage a referenced skill exactly like any other catalog skill; the only difference is that its <code>source</code> field tells you where it originally came from (owner, repo, the <code>ref</code>/<code>commit</code> it is pinned to, and a browseable <code>url</code>). Because the pin is a specific commit, you still get the same byte-exact, version-tracked guarantees as a fully bundled skill.</p>
+<p>Once installed, a catalog skill becomes an ordinary company-skill row, but it is tagged as <strong>catalog-managed</strong>: its <code>sourceType</code> is <code>catalog</code> and its <code>metadata.sourceKind</code> is <code>catalog</code>. The catalog kind (<code>bundled</code> / <code>optional</code>) is carried through on <code>metadata.catalogKind</code>, and the byte-exact origin it was pinned to is stored in <code>metadata.originHash</code>.</p>
+<blockquote>
+<p>The catalog browse routes are read-only and only require an authenticated caller. The install/audit/update/reset routes mutate the company library and therefore need <code>agents:create</code> (or <code>permissions.canCreateAgents=true</code>), exactly like the other mutating skill routes.</p>
+</blockquote>
+<h3 id="browse-the-catalog">Browse the catalog</h3>
+<p>The catalog itself is the same for every company, so the browse routes are not company-scoped:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Endpoint</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>List catalog skills</td>
+<td><code>GET /api/skills/catalog</code></td>
+</tr>
+<tr>
+<td>Inspect one catalog skill</td>
+<td><code>GET /api/skills/catalog/{catalogId}</code></td>
+</tr>
+<tr>
+<td>List a catalog skill&#39;s files</td>
+<td><code>GET /api/skills/catalog/{catalogId}/files</code></td>
+</tr>
+</tbody></table>
+<p>The list route accepts three optional query filters:</p>
+<ul>
+<li><code>kind</code> — <code>bundled</code> or <code>optional</code>.</li>
+<li><code>category</code> — exact-match on the skill&#39;s category.</li>
+<li><code>q</code> — free-text query matched against the skill&#39;s id, key, slug, name, description, category, kind, recommended roles, and tags.</li>
+</ul>
+<p>Each catalog entry (<code>CatalogSkill</code>) carries <code>id</code>, <code>key</code>, <code>kind</code>, <code>category</code>, <code>slug</code>, <code>name</code>, <code>description</code>, <code>trustLevel</code>, <code>compatibility</code>, <code>defaultInstall</code>, <code>recommendedForRoles</code>, <code>requires</code>, <code>tags</code>, a <code>files[]</code> inventory (each with <code>path</code>, <code>kind</code>, <code>sizeBytes</code>, <code>sha256</code>), and a <code>contentHash</code> — the byte-exact identity of the shipped skill. Referenced skills (the ones fetched from an external repo) also carry an optional <code>source</code> object describing where the bytes came from: <code>type</code> (<code>github</code>), <code>hostname</code>, <code>owner</code>, <code>repo</code>, the <code>ref</code> and <code>commit</code> it is pinned to, the <code>path</code> inside the repo, and a browseable <code>url</code>.</p>
+<p>The files route returns one file at a time. By default it reads <code>SKILL.md</code>; pass <code>?path=references/example.md</code> to read another file in the inventory. Asset files are not previewable.</p>
+<h3 id="install-a-catalog-skill">Install a catalog skill</h3>
+<pre><code class="language-http">POST /api/companies/{companyId}/skills/install-catalog
+</code></pre>
+<pre><code class="language-json">{
+  &quot;catalogSkillId&quot;: &quot;&lt;catalog id, key, or unique slug&gt;&quot;,
+  &quot;slug&quot;: &quot;my-doc-maintenance&quot;,
+  &quot;force&quot;: false
+}
+</code></pre>
+<ul>
+<li><code>catalogSkillId</code> (required) — resolves against the catalog by id, key, or a slug that is unique in the catalog.</li>
+<li><code>slug</code> (optional) — override the slug the skill takes in your company library. Leave it out (or <code>null</code>) to keep the catalog slug.</li>
+<li><code>force</code> (optional) — overwrite an existing row that already occupies the target slug/key.</li>
+</ul>
+<p><strong>Installing does not attach the skill to any agent.</strong> It only adds the skill to the company library, just like an import. Attach it afterwards exactly as you would any other skill — see <a href="#4-assigning-skills-to-agents">Assigning skills to agents</a>.</p>
+<p>The response reports an <code>action</code> of <code>created</code>, <code>updated</code>, or <code>unchanged</code>, plus the resulting company <code>skill</code>, the source <code>catalogSkill</code>, and any <code>warnings</code>. A fresh install returns <code>201</code>; an in-place refresh returns <code>200</code>.</p>
+<h3 id="keep-a-catalog-skill-current">Keep a catalog skill current</h3>
+<p>A catalog-managed skill exposes the same <code>GET /skills/{skillId}/update-status</code> → <code>POST /skills/{skillId}/install-update</code> flow as GitHub skills, but the comparison is against the version the app currently ships rather than an upstream commit. When a newer catalog version is available, install it:</p>
+<pre><code class="language-http">POST /api/companies/{companyId}/skills/{skillId}/install-update
+</code></pre>
+<pre><code class="language-json">{ &quot;force&quot;: false }
+</code></pre>
+<p>Two kinds of <strong>hold</strong> can stop an update:</p>
+<ul>
+<li><strong>Soft hold — local modifications.</strong> If the installed bytes no longer match the pinned <code>originHash</code>, the update is held so you do not silently lose your edits. Rerun with <code>{ &quot;force&quot;: true }</code> to discard the local changes and take the new version.</li>
+<li><strong>Hard stop — audit findings.</strong> If auditing the skill returns a <code>fail</code> verdict (see below), the update is blocked outright. <code>force</code> does <strong>not</strong> override a hard stop.</li>
+</ul>
+<h3 id="audit-before-you-trust">Audit before you trust</h3>
+<pre><code class="language-http">POST /api/companies/{companyId}/skills/{skillId}/audit
+</code></pre>
+<p>Audit inspects the installed skill&#39;s bytes <strong>without executing them</strong> and returns a verdict:</p>
+<table>
+<thead>
+<tr>
+<th><code>verdict</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pass</code></td>
+<td>No findings.</td>
+</tr>
+<tr>
+<td><code>warning</code></td>
+<td>Soft findings only (for example, the skill ships a script, references a network command, or its bytes drifted from <code>originHash</code>).</td>
+</tr>
+<tr>
+<td><code>fail</code></td>
+<td>At least one hard-stop finding (for example, a remote-fetch-and-execute pattern, a secret-exfiltration pattern, oversized or non-text files, or a missing/invalid <code>SKILL.md</code>).</td>
+</tr>
+</tbody></table>
+<p>The result also includes <code>codes</code> (the deduplicated finding codes), <code>installedHash</code>, <code>originHash</code>, and a <code>scanVersion</code>. A <code>fail</code> verdict is what hard-blocks <code>install-update</code>. Audit is only supported for local-path and catalog-managed skills.</p>
+<h3 id="reset-to-the-pinned-origin">Reset to the pinned origin</h3>
+<pre><code class="language-http">POST /api/companies/{companyId}/skills/{skillId}/reset
+</code></pre>
+<pre><code class="language-json">{ &quot;force&quot;: false }
+</code></pre>
+<p>Reset restores a catalog-managed skill to the byte-exact origin it was installed from — useful when a skill was edited locally and you want the shipped version back. Reset is only supported for catalog-managed skills.</p>
+<p>For the equivalent <code>paperclipai skills</code> CLI commands (browse, install, audit, update, reset), see the <a href="/reference/cli/skills/">Skills commands</a> page in the CLI reference.</p>
+<hr>
+<h2 id="4-assigning-skills-to-agents">4. Assigning skills to agents</h2>
+<p>A skill must be installed at the company level before it can be attached to an agent. There are two ways to make the attachment.</p>
+<h3 id="at-hire-time-desiredskills">At hire time — <code>desiredSkills</code></h3>
+<p><code>POST /api/companies/{companyId}/agents</code> and <code>POST /api/companies/{companyId}/agent-hires</code> both accept an optional <code>desiredSkills</code> array on the request body:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Backend Engineer&quot;,
+  &quot;adapterType&quot;: &quot;claude_local&quot;,
+  &quot;desiredSkills&quot;: [&quot;paperclip&quot;, &quot;code-review&quot;, &quot;deploy-runbook&quot;]
+}
+</code></pre>
+<p>Each entry can be:</p>
+<ul>
+<li>a company-skill <strong>UUID</strong> (<code>id</code>),</li>
+<li>a canonical <strong>key</strong> (<code>paperclipai/paperclip/paperclip</code>),</li>
+<li>or a <strong>slug</strong> (<code>code-review</code>) — but only when the slug is unique inside the company.</li>
+</ul>
+<p>The server resolves each reference to its canonical key and persists exactly that list under <code>adapterConfig.paperclipSkillSync.desiredSkills</code> — the desired set is precisely what you send, with no extra keys folded in. Unknown or ambiguous references fail the request with <code>Invalid company skill selection (...)</code>.</p>
+<h3 id="after-hire-post-apiagentsagentidskillssync">After hire — <code>POST /api/agents/{agentId}/skills/sync</code></h3>
+<pre><code class="language-json">{
+  &quot;desiredSkills&quot;: [&quot;paperclip&quot;, &quot;code-review&quot;]
+}
+</code></pre>
+<p>This route reconciles the agent&#39;s attachments to match exactly what you send: any skill in the list is attached, anything not in the list is detached. An empty list detaches everything.</p>
+<p>Each entry may also be an object instead of a bare string — <code>{ &quot;key&quot;: &quot;...&quot;, &quot;versionId&quot;: &quot;...&quot; }</code> — which pins the agent to a specific version of that skill. The server checks only that the version belongs to the skill you named; any non-null <code>versionId</code> additionally requires <code>enableBetaSkills</code> to be on. The UI is narrower than the API here: it only offers a version picker for the bundled <code>paperclip</code> skill&#39;s releases. See <a href="#beta-releases-of-the-bundled-paperclip-skill">Beta releases of the bundled <code>paperclip</code> skill</a>.</p>
+<p>The response is an <code>AgentSkillSnapshot</code>:</p>
+<pre><code class="language-json">{
+  &quot;adapterType&quot;: &quot;claude_local&quot;,
+  &quot;supported&quot;: true,
+  &quot;mode&quot;: &quot;persistent&quot;,
+  &quot;desiredSkills&quot;: [&quot;paperclipai/paperclip/paperclip&quot;, &quot;company/&lt;id&gt;/code-review&quot;],
+  &quot;entries&quot;: [
+    {
+      &quot;key&quot;: &quot;paperclipai/paperclip/paperclip&quot;,
+      &quot;runtimeName&quot;: &quot;paperclip&quot;,
+      &quot;desired&quot;: true,
+      &quot;managed&quot;: true,
+      &quot;state&quot;: &quot;installed&quot;,
+      &quot;origin&quot;: &quot;company_managed&quot;
+    }
+  ],
+  &quot;warnings&quot;: []
+}
+</code></pre>
+<p>The full schema is in <code>packages/shared/src/validators/adapter-skills.ts</code>.</p>
+<h3 id="inspecting-current-state">Inspecting current state</h3>
+<pre><code class="language-http">GET /api/agents/{agentId}/skills
+</code></pre>
+<p>Returns the same snapshot shape without changing anything. For adapters without a <code>listSkills</code> implementation, the snapshot is built from the persisted preference and marked <code>mode: &quot;unsupported&quot;</code>.</p>
+<hr>
+<h2 id="5-scoping-rules">5. Scoping rules</h2>
+<p><strong>Company-scoped, not org-scoped.</strong> Skills live at the company level. Every agent inside the same company can be assigned any installed skill. There is no per-team or per-role scoping built in — granularity is controlled by which keys end up in each agent&#39;s <code>desiredSkills</code>.</p>
+<p><strong>No cross-company sharing.</strong> A skill installed in Company A is invisible to Company B. To use the same skill in two companies, install the source twice — once into each. The two installs each get their own <code>companySkills</code> row and are versioned independently.</p>
+<p><strong>Adapter sync mode controls visibility at runtime.</strong> The snapshot returned by <code>GET /api/agents/{agentId}/skills</code> reports a <code>mode</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>persistent</code></td>
+<td>The adapter writes skill files into the agent&#39;s working directory and leaves them there between runs. Most local adapters use this mode.</td>
+</tr>
+<tr>
+<td><code>ephemeral</code></td>
+<td>The adapter materialises skill files for each run and cleans up afterwards. Default for sandboxed adapters.</td>
+</tr>
+<tr>
+<td><code>unsupported</code></td>
+<td>Paperclip records the assignment but cannot push files into the runtime. Adapters such as <code>openclaw_gateway</code> fall here — manage skills inside the remote runtime instead.</td>
+</tr>
+</tbody></table>
+<p>Adapters declare which materialisation strategy they need via <code>requiresMaterializedRuntimeSkills</code> (or fall back to a legacy hardcoded set: <code>cursor</code>, <code>gemini_local</code>, <code>opencode_local</code>, <code>pi_local</code>).</p>
+<p><strong>Bundled skills live in the library.</strong> <code>paperclip</code> and any other skill marked <code>paperclip_bundled</code> are imported into the company library as read-only entries. They are no longer force-added to an agent&#39;s resolved set — <code>resolveDesiredSkillAssignment</code> now persists exactly the desired set you sync, nothing more.</p>
+<p><strong>Library skills vs. unmanaged in the UI.</strong> The Agent → Skills tab shows company library skills in two sections and one collapsible group:</p>
+<ul>
+<li><strong>Installed skills</strong> — company library skills currently opted in to this agent. Unticking one removes it from the desired set.</li>
+<li><strong>Other skills</strong> — company library skills available to add. Tick one to add it to the desired set.</li>
+<li><strong>&quot;({N}) User-installed skills, not managed by Paperclip&quot;</strong> — collapsed by default; read-only entries surfaced when an adapter reports skills it discovered itself (for example, a global skills bundle on the host machine). These carry a <code>user_installed</code> or <code>external_unknown</code> origin and cannot be edited from here.</li>
+</ul>
+<hr>
+<h2 id="6-skill-vs-plugin-vs-adapter">6. Skill vs. plugin vs. adapter</h2>
+<p>These three extension points are easy to confuse. They sit at different layers:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Skill</strong></th>
+<th><strong>Plugin</strong></th>
+<th><strong>Adapter</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>What it is</strong></td>
+<td>An instruction document the agent loads on demand</td>
+<td>A code package that adds API routes, UI surfaces, or runtime services</td>
+<td>A bridge between Paperclip and an agent runtime</td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td>Folder with <code>SKILL.md</code> plus optional <code>references/</code>, <code>scripts/</code>, <code>assets/</code></td>
+<td>Node package built against the plugin SDK</td>
+<td>Module with <code>executeRun</code>, <code>listSkills</code>, <code>syncSkills</code>, etc.</td>
+</tr>
+<tr>
+<td><strong>Lives at</strong></td>
+<td>Company level, in the company skill library</td>
+<td>Instance level, in <code>~/.paperclip/adapter-plugins/</code></td>
+<td>Built into the server or registered as an external adapter</td>
+</tr>
+<tr>
+<td><strong>Loaded</strong></td>
+<td>At the start of an agent run, when the routing description matches</td>
+<td>On server start; mounted into the API and UI</td>
+<td>Per-run, when an agent&#39;s <code>adapterType</code> matches</td>
+</tr>
+<tr>
+<td><strong>Authored by</strong></td>
+<td>Anyone who can edit the company skill library</td>
+<td>Plugin authors (use the <a href="https://github.com/paperclipai/paperclip/blob/master/.agents/skills/paperclip-create-plugin/SKILL.md"><code>paperclip-create-plugin</code> skill</a>)</td>
+<td>Adapter authors (see <a href="/reference/adapters/creating-an-adapter/">Creating an Adapter</a>)</td>
+</tr>
+<tr>
+<td><strong>Versioning</strong></td>
+<td>Pinned to a git commit (GitHub/skills.sh) or live (local)</td>
+<td>Pinned by the plugin&#39;s package version</td>
+<td>Pinned by the Paperclip release</td>
+</tr>
+<tr>
+<td><strong>Failure mode if wrong</strong></td>
+<td>Agent reads bad instructions, produces bad output</td>
+<td>API surface does not load</td>
+<td>Runs fail to start</td>
+</tr>
+</tbody></table>
+<p>Rule of thumb: <strong>a skill is something a smart human could follow if you handed them the file</strong>; a plugin is server code; an adapter is the wire protocol to a runtime.</p>
+<hr>
+<h2 id="7-naming-collisions-and-resolution">7. Naming collisions and resolution</h2>
+<h3 id="canonical-key">Canonical key</h3>
+<p>Every persisted skill has a <code>key</code> field — the unique identifier for that skill inside the company. Keys are derived by <code>deriveCanonicalSkillKey</code> and follow these forms:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Key form</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bundled with Paperclip</td>
+<td><code>paperclipai/paperclip/{slug}</code></td>
+<td><code>paperclipai/paperclip/paperclip</code></td>
+</tr>
+<tr>
+<td>GitHub / skills.sh</td>
+<td><code>{owner}/{repo}/{slug}</code></td>
+<td><code>paperclipai/paperclip/paperclip-create-agent</code></td>
+</tr>
+<tr>
+<td>URL</td>
+<td><code>url/{host}/{hash}/{slug}</code></td>
+<td><code>url/example.com/9f2a3b1c4d/code-review</code></td>
+</tr>
+<tr>
+<td>Local path (project scan, raw folder)</td>
+<td><code>local/{hash}/{slug}</code></td>
+<td><code>local/4e8a91c2d3/code-review</code></td>
+</tr>
+<tr>
+<td>Paperclip-managed (created from the UI)</td>
+<td><code>company/{companyId}/{slug}</code></td>
+<td><code>company/5cbe79ee.../delegation-checklist</code></td>
+</tr>
+</tbody></table>
+<p>If the source provides an explicit <code>key</code> / <code>metadata.skillKey</code>, that value wins — this is how skills.sh-published skills keep a stable identity across mirrors.</p>
+<h3 id="reference-resolution">Reference resolution</h3>
+<p>When you pass a skill reference (in <code>desiredSkills</code>, in the sync route, anywhere), the server tries to match in this order (<code>resolveSkillReference</code>):</p>
+<ol>
+<li>Exact UUID match on <code>id</code>.</li>
+<li>Normalised <code>key</code> match.</li>
+<li>Normalised <code>slug</code> match — but <strong>only when exactly one skill in the company has that slug</strong>.</li>
+</ol>
+<p>If a slug matches multiple skills, the request fails with:</p>
+<pre><code>Invalid company skill selection (ambiguous references: &lt;slug&gt;; ...)
+</code></pre>
+<p>For an unknown reference:</p>
+<pre><code>Invalid company skill selection (unknown references: &lt;reference&gt;; ...)
+</code></pre>
+<p>To make a script idempotent across companies, prefer canonical <code>key</code> over slug.</p>
+<h3 id="project-scan-conflicts">Project-scan conflicts</h3>
+<p>When the project scanner discovers a <code>SKILL.md</code> whose canonical key already exists with a different source path, it does <strong>not</strong> overwrite the row. Instead, the response contains a <code>conflicts[]</code> entry with <code>existingSkillId</code>, <code>existingSourceLocator</code>, and a human-readable <code>reason</code>. The same applies when a different skill has already taken the slug. Resolve conflicts by deleting one of the duplicates or by editing the <code>name</code>/<code>slug</code> of the new one and re-scanning.</p>
+<h3 id="slug-normalisation">Slug normalisation</h3>
+<p>Slugs are normalised through <code>normalizeAgentUrlKey</code>: lowercase, hyphen-separated, no whitespace or punctuation. <code>Code Review</code>, <code>code_review</code>, and <code>Code--Review</code> all resolve to <code>code-review</code>.</p>
+<hr>
+<h2 id="8-versioning-semantics">8. Versioning semantics</h2>
+<p>Behaviour depends on the source:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Pinned?</th>
+<th>Update path</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>github</code></td>
+<td>Yes — <code>sourceRef</code> stores the resolved commit SHA</td>
+<td><code>GET /skills/{id}/update-status</code> → <code>POST /skills/{id}/install-update</code></td>
+<td><code>metadata.trackingRef</code> records the branch or tag; updates compare the latest commit on that ref against the pinned SHA.</td>
+</tr>
+<tr>
+<td><code>skills_sh</code></td>
+<td>Yes (resolves to GitHub under the hood)</td>
+<td>Same as <code>github</code></td>
+<td>The original <code>skills.sh/...</code> URL is preserved in <code>sourceLocator</code> so the badge and label stay correct.</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>No</td>
+<td>None</td>
+<td>Treat as a point-in-time snapshot. Re-import the URL to refresh.</td>
+</tr>
+<tr>
+<td><code>local_path</code> (managed)</td>
+<td>Live</td>
+<td>None — files refresh on read</td>
+<td>Stored under <code>&lt;paperclipInstanceRoot&gt;/skills/{companyId}/</code>. Edited via <code>PATCH /skills/{id}/files</code>.</td>
+</tr>
+<tr>
+<td><code>local_path</code> (project scan)</td>
+<td>Live</td>
+<td>Re-run the scan endpoint</td>
+<td>Skills whose <code>SKILL.md</code> disappears are pruned automatically (<code>pruneMissingLocalPathSkills</code>).</td>
+</tr>
+<tr>
+<td><code>paperclip_bundled</code></td>
+<td>Pinned to the Paperclip release</td>
+<td>Upgrade Paperclip itself</td>
+<td>Re-imported on every list call; cannot be edited. The bundled <code>paperclip</code> skill additionally carries beta releases an agent can pin — see <a href="#beta-releases-of-the-bundled-paperclip-skill">below</a>.</td>
+</tr>
+<tr>
+<td><code>catalog</code></td>
+<td>Pinned to the shipped catalog version (<code>metadata.originHash</code>)</td>
+<td><code>GET /skills/{id}/update-status</code> → <code>POST /skills/{id}/install-update</code>; <code>POST /skills/{id}/reset</code> to restore the origin</td>
+<td>App-shipped catalog skills. Updates compare against the version the app ships. See <a href="#3-app-shipped-catalog">App-shipped catalog</a>.</td>
+</tr>
+</tbody></table>
+<h3 id="update-status-response"><code>update-status</code> response</h3>
+<pre><code class="language-json">{
+  &quot;supported&quot;: true,
+  &quot;reason&quot;: null,
+  &quot;trackingRef&quot;: &quot;main&quot;,
+  &quot;currentRef&quot;: &quot;9f2a3b1c4d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a&quot;,
+  &quot;latestRef&quot;: &quot;0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b&quot;,
+  &quot;hasUpdate&quot;: true
+}
+</code></pre>
+<p>For non-GitHub sources, <code>supported: false</code> is returned with a reason. Calling <code>install-update</code> on an unsupported skill rejects with <code>422 Unprocessable Entity</code>.</p>
+<h3 id="install-update-semantics">Install-update semantics</h3>
+<p><code>install-update</code> re-runs the import for the same source URL, finds the matching skill (by canonical key or slug), upserts the row in place, and returns the refreshed record. The skill&#39;s <code>id</code> does not change — anything attached by ID continues to work without re-syncing.</p>
+<h3 id="beta-releases-of-the-bundled-paperclip-skill">Beta releases of the bundled <code>paperclip</code> skill</h3>
+<p>The bundled <code>paperclip</code> skill (canonical key <code>paperclipai/paperclip/paperclip</code>) also carries <strong>releases</strong>: frozen snapshots an agent can be pinned to instead of the live default. For why you would pin one and how the picker behaves, read <a href="/guides/org/skills/#pinning-a-beta-release-of-the-paperclip-skill">Pinning a beta release of the Paperclip skill</a> in the guide. This section is the data and wire shape.</p>
+<p><strong>The flag.</strong> <code>enableBetaSkills</code> is an instance experimental setting, catalogued as <strong>Beta skills</strong> — <em>&quot;Allow agents to pin beta releases of the Paperclip core skill.&quot;</em> Its tier is <code>preference</code>, meaning a tenant-controlled setting the Paperclip Cloud harness never manages, in contrast to the <code>managed</code>-tier flags that can arrive locked. Both <code>cloudDefault</code> and <code>selfHostedDefault</code> are <code>false</code>, so it is off on every instance until an operator turns it on.</p>
+<p><strong>Where the snapshots come from.</strong> The server reads <code>skills-releases/paperclip/releases.json</code> and seeds one skill version per manifest entry into every company that has the bundled <code>paperclip</code> skill. Each entry carries <code>id</code>, <code>releaseName</code>, <code>releasedAt</code>, <code>notes</code>, and <code>dir</code> — the folder holding that snapshot&#39;s files, resolved relative to the registry root. Seeding never moves the skill&#39;s current version: the live default is left alone, and a release only takes effect on agents that pin it.</p>
+<p>Two releases ship today:</p>
+<table>
+<thead>
+<tr>
+<th><code>id</code></th>
+<th><code>releaseName</code></th>
+<th><code>releasedAt</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>v0</code></td>
+<td><code>V0 — Original</code></td>
+<td><code>2026-07-15T07:52:54-05:00</code></td>
+</tr>
+<tr>
+<td><code>v7-roster</code></td>
+<td><code>V7 — Roster champion</code></td>
+<td><code>2026-07-21</code></td>
+</tr>
+</tbody></table>
+<p>Both are frozen historical snapshots. <code>v7-roster</code> predates three later edits to <code>SKILL.md</code>, <code>references/api-reference.md</code>, and <code>references/company-skills.md</code>; the live default keeps that newer guidance.</p>
+<p>Re-seeding is byte-checked. If a company already holds a version for a release id whose stored inventory no longer hashes to the registry snapshot, the seed fails with <code>Bundled skill release &lt;id&gt; does not match its seeded snapshot.</code> rather than rewriting a release that agents may already be pinned to.</p>
+<p><strong>Storage.</strong> <code>company_skill_versions</code> rows carry three release columns — <code>release_id</code>, <code>release_name</code>, and <code>released_at</code>, surfaced on <code>CompanySkillVersion</code> as <code>releaseId</code>, <code>releaseName</code>, and <code>releasedAt</code>. All three are null for ordinary versions. A partial unique index, <code>company_skill_versions_skill_release_idx</code> on (<code>company_skill_id</code>, <code>release_id</code>) where <code>release_id is not null</code>, guarantees one skill has at most one version per release id.</p>
+<p><strong>Listing releases.</strong> <code>GET /api/companies/{companyId}/skills/{skillId}/versions</code> returns the skill&#39;s versions; the releases are the rows with a non-null <code>releaseId</code>.</p>
+<p><strong>Pinning.</strong> <code>POST /api/agents/{agentId}/skills/sync</code> takes either shape per entry:</p>
+<pre><code class="language-json">{
+  &quot;desiredSkills&quot;: [
+    &quot;code-review&quot;,
+    { &quot;key&quot;: &quot;paperclipai/paperclip/paperclip&quot;, &quot;versionId&quot;: &quot;&lt;company skill version uuid&gt;&quot; }
+  ]
+}
+</code></pre>
+<p>The bare string form and <code>&quot;versionId&quot;: null</code> both mean <em>no pin</em> — the live default. The returned <code>AgentSkillSnapshot</code> reports pins on <code>desiredSkillEntries</code> (a list of <code>{ key, versionId }</code>) alongside the flat <code>desiredSkills</code> list.</p>
+<p>If any entry carries a non-null <code>versionId</code> while <code>enableBetaSkills</code> is off, the request fails with <code>400</code> and the message <code>Beta skill version pins require the Beta skills experimental setting to be enabled.</code></p>
+<p><strong>With the flag off.</strong> Existing pins are kept but not applied. Both the heartbeat and agent config resolution build their version selection map with <code>versionPinsEnabled: false</code>, which maps every key to <code>null</code>, so every agent resolves to the live skill. Turning the flag back on restores the saved pins.</p>
+<hr>
+<h2 id="9-troubleshooting-why-a-skill-isnt-loading">9. Troubleshooting: why a skill isn&#39;t loading</h2>
+<p>Walk down this list in order. The first match is usually the problem.</p>
+<h3 id="i-imported-the-skill-but-its-not-in-the-list">&quot;I imported the skill but it&#39;s not in the list&quot;</h3>
+<ul>
+<li>Refresh — <code>GET /companies/{companyId}/skills</code> triggers <code>ensureSkillInventoryCurrent</code>, which prunes missing local skills and re-imports bundled ones. The UI auto-refreshes; an API caller may need an explicit re-list.</li>
+<li>Check <code>compatibility</code> on the skill row. Anything other than <code>compatible</code> is hidden from agent selectors.</li>
+<li>Project-scan imports may have hit a slug or key conflict — read <code>conflicts[]</code> from the scan response, not just <code>imported[]</code>.</li>
+</ul>
+<h3 id="i-assigned-the-skill-but-the-agent-doesnt-see-it">&quot;I assigned the skill but the agent doesn&#39;t see it&quot;</h3>
+<ul>
+<li>Inspect the agent&#39;s snapshot: <code>GET /api/agents/{agentId}/skills</code>.</li>
+<li>If <code>mode: &quot;unsupported&quot;</code>, the adapter cannot push skills into the runtime. The assignment is recorded but no files are written. Manage skills in the remote runtime (e.g. OpenClaw) directly.</li>
+<li>If <code>mode: &quot;ephemeral&quot;</code>, files appear only during runs — if the agent isn&#39;t running, the workspace will look empty. This is correct behaviour.</li>
+<li>Look for <code>warnings</code> on the snapshot — sync errors, missing files, and adapter-rejected entries surface there.</li>
+</ul>
+<h3 id="invalid-company-skill-selection-ambiguousunknown-references">&quot;Invalid company skill selection (ambiguous/unknown references)&quot;</h3>
+<ul>
+<li>You passed a slug that matches multiple skills, or a key/UUID/slug that matches none. Switch to the canonical <code>key</code> for unambiguous lookup. List skills first if you need to find the key.</li>
+</ul>
+<h3 id="the-skill-row-exists-but-the-file-viewer-shows-nothing">&quot;The skill row exists but the file viewer shows nothing&quot;</h3>
+<ul>
+<li>Local-path skill: the source folder probably moved. The row will be pruned on the next list call. Re-import from the new path.</li>
+<li>GitHub skill: a commit older than the current <code>sourceRef</code> may have been force-pushed away. Re-run <code>update-status</code> and <code>install-update</code>.</li>
+</ul>
+<h3 id="github-skill-is-stuck-on-an-old-commit">&quot;GitHub skill is stuck on an old commit&quot;</h3>
+<ul>
+<li><code>update-status</code> reports <code>hasUpdate: false</code>? You&#39;re already on the latest commit of the tracked ref. To follow a different ref (e.g. switch from <code>main</code> to a tag), re-import the source URL with the explicit <code>tree/&lt;ref&gt;</code> path. The new install replaces the old row by canonical key.</li>
+<li><code>install-update</code> returned a 422? The source no longer parses (e.g. someone deleted the <code>SKILL.md</code> upstream). Pin manually via a <code>tree/&lt;sha&gt;/...</code> URL or remove the skill.</li>
+</ul>
+<h3 id="frontmatter-changes-arent-taking-effect">&quot;Frontmatter changes aren&#39;t taking effect&quot;</h3>
+<ul>
+<li>Paperclip&#39;s YAML reader is intentionally strict-but-narrow. If a value is silently empty, check that:<ul>
+<li>The block starts and ends with <code>---</code> on their own lines.</li>
+<li>Indentation uses spaces, not tabs.</li>
+<li>List items use <code>- </code> with a space.</li>
+<li>Block scalars (<code>&gt;</code>, <code>|</code>) are indented two spaces deeper than the key.</li>
+</ul>
+</li>
+<li>Recover by validating the YAML in a normal parser; if it parses there but not in Paperclip, file a bug — the in-house parser is documented above.</li>
+</ul>
+<h3 id="an-agent-gets-a-skill-it-never-asked-for">&quot;An agent gets a skill it never asked for&quot;</h3>
+<ul>
+<li>It&#39;s bundled-required. <code>paperclipai/paperclip/*</code> skills with <code>metadata.sourceKind: paperclip_bundled</code> are unioned into every resolved <code>desiredSkills</code> set by the server. Removing them from the request has no effect.</li>
+</ul>
+<h3 id="i-pinned-a-beta-release-but-the-agent-still-runs-the-default">&quot;I pinned a beta release but the agent still runs the default&quot;</h3>
+<ul>
+<li>Check <strong>Beta skills</strong> on <strong>Settings → Instance settings → Experimental</strong>. With <code>enableBetaSkills</code> off, saved pins are ignored rather than deleted, and every agent resolves to the live skill.</li>
+<li>A pin only applies while its skill is in the agent&#39;s desired set. Detaching the skill drops the pin along with it.</li>
+<li>Confirm the pin actually persisted: with the flag <strong>on</strong>, <code>GET /api/agents/{agentId}/skills</code> reports it under <code>desiredSkillEntries</code>. With the flag off that response reports <code>versionId: null</code> even though the pin is still stored on the agent — so use it to check a pin, not to conclude one was lost.</li>
+</ul>
+<h3 id="i-deleted-a-skill-and-it-came-back">&quot;I deleted a skill and it came back&quot;</h3>
+<ul>
+<li>It&#39;s a bundled skill. The server re-imports <code>skills/</code> from disk on every company list call. To suppress a bundled skill, remove it from the Paperclip release or run a forked build.</li>
+</ul>
+<hr>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="/guides/org/skills/">Skills guide</a> — UI walkthrough, file inventory, trust levels, write-a-good-skill checklist.</li>
+<li><a href="/reference/api/agents/#skills">Agents API → Skills</a> — request/response shapes for <code>GET /agents/{id}/skills</code> and <code>POST /agents/{id}/skills/sync</code>.</li>
+<li><a href="/reference/adapters/overview/">Adapters reference</a> — which adapters support <code>persistent</code>, <code>ephemeral</code>, or <code>unsupported</code> skill sync.</li>
+<li><a href="/reference/adapters/creating-an-adapter/">Creating an Adapter</a> — implementing <code>listSkills</code> / <code>syncSkills</code> for a new runtime.</li>
+</ul>
+</article>
+      <div id="page-nav" style="display:flex"><a class="page-nav-btn prev" href="https://docs.paperclip.ing/reference/cli/feedback/"><span class="page-nav-label">← Previous</span><span class="page-nav-title">Feedback</span></a><a class="page-nav-btn next" href="https://docs.paperclip.ing/reference/skills/bundled/"><span class="page-nav-label">Next →</span><span class="page-nav-title">Overview</span></a></div>
+    </main>
+
+    <aside id="toc-rail" aria-label="On this page">
+      <div class="toc-rail-inner">
+        <div class="toc-rail-title">On this page</div>
+        <nav id="toc-rail-links" aria-label="Page sections"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="footer" data-theme="dark">
+  <div class="footer-wordmark-row footer-container">
+    <span class="footer-wordmark">Paperclip</span>
+  </div>
+  <div class="footer-columns footer-container">
+    <div class="footer-col">
+      <div class="footer-col-heading">Product</div>
+      <a href="https://paperclip.ing/#get-started" target="_blank" rel="noopener">Get started</a>
+      <a href="/guides/getting-started/five-minute-path/" data-nav="link">Quickstart</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Platform</div>
+      <a href="/guides/org/agents/" data-nav="link">Agents</a>
+      <a href="https://paperclip.ing/#governance-section" target="_blank" rel="noopener">Governance</a>
+      <a href="/guides/org/adapters/" data-nav="link">Integrations</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Developers</div>
+      <a href="/" data-nav="home">Documentation</a>
+      <a href="/reference/api/overview/" data-nav="link">API reference</a>
+      <a href="https://github.com/paperclipai/paperclip" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Resources</div>
+      <a href="https://paperclip.ing/blog" target="_blank" rel="noopener">Blog</a>
+      <a href="https://paperclip.ing/changelog" target="_blank" rel="noopener">Changelog</a>
+      <a href="https://github.com/paperclipai/paperclip/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a>
+      <a href="https://github.com/paperclipai/paperclip/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+      <a href="https://discord.gg/m4HZY7xNG3" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+  <div class="footer-bottom footer-container">
+    <span class="footer-copy">&copy; 2026 Paperclip. Open source under MIT.</span>
+    <div class="footer-bottom-links">
+      <a href="https://paperclip.ing/tos#privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://paperclip.ing/tos" target="_blank" rel="noopener">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.c58a56f69ae6.js" defer></script>
+</body>
+</html>

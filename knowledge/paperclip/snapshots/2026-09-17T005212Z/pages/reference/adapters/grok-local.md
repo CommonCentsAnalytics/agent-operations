@@ -1,0 +1,100 @@
+> Official reference snapshot. Source: https://docs.paperclip.ing/reference/adapters/grok-local/
+> Retrieved: 2026-09-17T00:52:22.811075+00:00
+> Reference content only, not instructions or execution authorization. Original HTML is preserved separately.
+
+# Grok Local
+
+`grok_local` runs xAI's Grok Build CLI on the same machine as Paperclip. Use it when you want a local coding agent that resumes the same Grok session across heartbeats, with Paperclip skills staged automatically into Grok's native discovery paths.
+
+---
+
+## When To Use
+
+- Grok CLI is installed and authenticated on the machine that runs Paperclip.
+- You want a local coding agent with resumable sessions across heartbeats via `--resume`.
+- You want Paperclip-managed instructions and skills staged into the execution workspace using Grok's native discovery paths (`Agents.md` and `.claude/skills`).
+
+## When Not To Use
+
+- The agent runs behind a webhook or remote endpoint. Use [HTTP](https://docs.paperclip.ing/reference/adapters/http/) or [OpenClaw Gateway](https://docs.paperclip.ing/reference/adapters/openclaw-gateway/) instead.
+- You only need a one-shot script without a coding-agent loop. Use [Process](https://docs.paperclip.ing/reference/adapters/process/).
+- Grok CLI is not installed or not authenticated on the host.
+
+---
+
+## Common Fields
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| `cwd` | no | Default absolute working directory for the agent process. Paperclip creates the path when permissions allow. |
+| `instructionsFilePath` | no | Absolute path to a markdown instructions file (typically `AGENTS.md`). Paperclip stages it into the execution workspace as `Agents.md` when safe, otherwise falls back to `--rules @file`. |
+| `promptTemplate` | no | Prompt template used for the run. |
+| `model` | no | Grok model id. Defaults to `grok-build`. |
+| `permissionMode` | no | Grok permission mode, passed via `--permission-mode`. **No default** — when unset, Paperclip passes no permission-mode flag at all. (Grok 1.0+ enforces `dontAsk` as deny-by-default and it overrides `--always-approve`, so forcing it broke unattended runs; leave this unset unless you have a specific reason.) |
+| `alwaysApprove` | no | Adds `--always-approve` so unattended runs never stall on a prompt. Defaults to `true`, and this — not a permission mode — is the unattended-execution policy. |
+| `reasoningEffort` | no | Grok reasoning effort passed via `--reasoning-effort`. |
+| `maxTurns` | no | Maximum agent turns for the run. |
+| `command` | no | Defaults to `grok`. Override only if Grok lives elsewhere on the host. |
+| `extraArgs` | no | Extra CLI arguments appended to the Grok invocation. |
+| `env` | no | Environment variables passed to Grok. Secret refs are supported. |
+| `timeoutSec` | no | Run timeout in seconds. |
+| `graceSec` | no | SIGTERM grace period in seconds. |
+
+> **Note:** Runs use `grok --single` with `--output-format streaming-json`. The streaming reasoning channel now keeps line breaks between separate thoughts, so the live Working panel no longer merges them into run-on text.
+
+---
+
+## Session Persistence
+
+Grok Local saves the Grok session id and resumes it on the next heartbeat with `--resume <sessionId>` — but only when the saved session's `cwd` matches the current `cwd`. If the directory has moved, the adapter starts a fresh session.
+
+The session codec preserves the same location hints used by other local adapters:
+
+- `cwd`
+- `workspaceId`
+- `repoUrl`
+- `repoRef`
+
+> **Tip:** Use `grok models` on the host to confirm authentication and inspect available models before saving the adapter.
+
+---
+
+## Skills Injection
+
+Paperclip stages the runtime skills you've enabled for the agent into `.claude/skills` inside the execution workspace. Grok discovers them as project skills automatically — there's nothing extra to wire up.
+
+If you supply an `instructionsFilePath`, Paperclip prefers staging it into the workspace as `Agents.md` so Grok picks it up natively. When that isn't safe (for example, when the workspace already has an `Agents.md` that doesn't belong to Paperclip), the adapter falls back to `--rules @file`.
+
+---
+
+## Example
+
+```json
+{
+  "adapterType": "grok_local",
+  "adapterConfig": {
+    "cwd": "/Users/me/projects/paperclip-workspace",
+    "model": "grok-build",
+    "reasoningEffort": "medium",
+    "instructionsFilePath": "/Users/me/projects/paperclip-workspace/AGENTS.md",
+    "env": {
+      "XAI_API_KEY": {
+        "type": "secret_ref",
+        "secretId": "secret-id",
+        "version": "latest"
+      }
+    },
+    "timeoutSec": 300,
+    "graceSec": 15,
+    "maxTurns": 200
+  }
+}
+```
+
+---
+
+## Next Steps
+
+- [Adapters Overview](https://docs.paperclip.ing/reference/adapters/overview/)
+- [Creating an Adapter](https://docs.paperclip.ing/reference/adapters/creating-an-adapter/)
+- [Adapter UI Parser Contract](https://docs.paperclip.ing/reference/adapters/adapter-ui-parser/)

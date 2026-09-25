@@ -1,0 +1,18 @@
+E12 - Conversation attestation extract
+Class: operator-reported status / conversation extract; not a server export.
+Collector: Sebastian Cwik (statements); transcribed by Codex for this report on 2026-09-21.
+Check: matched against messages visible in the current conversation. No live Hostinger verification.
+
+Claude login, after the prescribed Hostinger terminal login step:
+"Login successful"
+
+Chief of Staff timeout setting:
+"Chief of staff configuration page updated to 300 Timeout (sec) and save successfully with confirmation"
+
+Document access route:
+"clicking the "brief" open up the 'Artifacts' and in there is the Source Correct -- Fictional Internal Purchasing Policy"
+
+Final stop and report authorization:
+"both paused. I authorize you to prepare the test rerpot for coworks review"
+
+Boundary: this extract is evidence of what the operator reported. It does not establish that pause status persists, provider credentials were revoked, the host was stopped, or billing was cancelled. It grants preparation of the report, not new agent runs or production operations. The spelling in quoted statements is retained.

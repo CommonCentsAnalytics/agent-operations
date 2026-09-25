@@ -1,0 +1,3 @@
+# Backup repository: preserve every file byte-for-byte.
+# No line-ending conversion, so a fresh clone restores exactly what was stored.
+* -text

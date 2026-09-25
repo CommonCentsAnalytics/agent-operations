@@ -1,0 +1,9 @@
+{
+  "verified_at_utc": "2026-09-17T00:52:31.383689+00:00",
+  "passed": true,
+  "category_count": 15,
+  "page_count": 193,
+  "hashes_checked": 388,
+  "problems": [],
+  "meaning": "Checks capture completeness and file integrity only, not software correctness or documentation accuracy."
+}

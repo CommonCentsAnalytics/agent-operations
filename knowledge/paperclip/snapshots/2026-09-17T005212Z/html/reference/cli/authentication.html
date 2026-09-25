@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLI Authentication and Tokens | Paperclip Docs</title>
+  <base data-seo-base href="/" />
+  <meta name="description" data-seo-managed content="The identity reference for the CLI: how it knows who it is, which instance it talks to, and what that identity is allowed to do." />
+  <meta name="robots" data-seo-managed content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" data-seo-managed href="https://docs.paperclip.ing/reference/cli/authentication/" />
+  <meta property="og:type" data-seo-managed content="article" />
+  <meta property="og:site_name" data-seo-managed content="Paperclip Docs" />
+  <meta property="og:title" data-seo-managed content="CLI Authentication and Tokens | Paperclip Docs" />
+  <meta property="og:description" data-seo-managed content="The identity reference for the CLI: how it knows who it is, which instance it talks to, and what that identity is allowed to do." />
+  <meta property="og:url" data-seo-managed content="https://docs.paperclip.ing/reference/cli/authentication/" />
+  <meta name="twitter:card" data-seo-managed content="summary" />
+  <meta name="twitter:title" data-seo-managed content="CLI Authentication and Tokens | Paperclip Docs" />
+  <meta name="twitter:description" data-seo-managed content="The identity reference for the CLI: how it knows who it is, which instance it talks to, and what that identity is allowed to do." />
+  <script type="application/ld+json" data-seo-managed>{"@context":"https://schema.org","@type":"TechArticle","headline":"CLI Authentication and Tokens","description":"The identity reference for the CLI: how it knows who it is, which instance it talks to, and what that identity is allowed to do.","url":"https://docs.paperclip.ing/reference/cli/authentication/","isPartOf":{"@type":"WebSite","name":"Paperclip Docs","url":"https://docs.paperclip.ing/"}}</script>
+  <script>
+    /* Apply theme before first paint (dark by default) to avoid a flash. */
+    (function () {
+      var saved = localStorage.getItem('pc-guides-theme') || 'dark';
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48'/></svg>" />
+  <style data-inline-release-css>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--white:#ffffff;--linen:#ffffff;--parchment:#f0ece7;--stone:#e0dcd6;--stone-dark:#c8c3bc;--ink:#0a0a0a;--graphite:#52585d;--ash:#6f6a61;--void:#141413;--green:#22c55e;--green-deep:#188a3c;--mint:#dcfce7;--amber:#f59e0b;--amber-deep:#b45309;--blue:#2563eb;--blue-deep:#1d4ed8;--red:#dc2626;--red-deep:#991b1b;--sidebar-w:288px;--toc-w:224px;--content-max:760px;--outer-px:32px;--layout-max:1440px;--header-h:60px;--topbar-h:var(--header-h);--font-serif:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-body:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;--radius-xs:4px;--radius-sm:10px;--radius:16px;--radius-lg:24px;--radius-pill:9999px;--transition:0.2s ease}[data-theme="dark"]{--white:#1f1d1a;--linen:#141413;--parchment:#2a2724;--stone:#2f2c28;--stone-dark:#3a3836;--ink:#ffffff;--graphite:#9a958a;--ash:#8a8579;--void:#0d0d0d;--mint:rgba(34,197,94,0.12)}[data-theme="dark"] #article{color:var(--ink)}[data-theme="dark"] #article pre{background:#0d0d0d;color:#ffffff}[data-theme="dark"] #header{background:rgba(20,20,19,0.92);backdrop-filter:blur(8px)}html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html:not(.motion-ready) *,html:not(.motion-ready) *::before,html:not(.motion-ready) *::after{transition:none !important;animation:none !important}body{background:var(--linen);color:var(--ink);font-family:var(--font-body);line-height:1.65;font-feature-settings:'ss01' 1,'cv11' 1;min-height:100vh;transition:background 0.25s,color 0.25s}body,#header,#sidebar,#article,.card,.page-nav-btn,.icon-btn,#search-input{transition:background 0.25s,color 0.25s,border-color 0.25s}.navbar{position:sticky;top:0;left:0;right:0;z-index:100;background:var(--linen);border-bottom:1px solid var(--stone);transition:background 0.3s ease-out,border-color 0.3s ease-out}.navbar-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:var(--layout-max);margin:0 auto;padding:0 var(--outer-px);gap:1.5rem}.navbar-left,.navbar-right{display:flex;align-items:center;gap:1.5rem;flex:1}.navbar-left{justify-content:flex-start}.navbar-right{justify-content:flex-end}.navbar-logo{display:flex;align-items:center;gap:0.35rem;font-family:var(--font-serif);font-weight:600;font-size:0.95rem;white-space:nowrap}.navbar-logo-link{display:inline-flex;align-items:center;gap:0.45rem;color:var(--ink);text-decoration:none;transition:color 0.15s ease}.navbar-logo-link:hover{color:var(--ink)}.navbar-logo-sub{color:var(--graphite);font-weight:600}[data-theme="dark"] .navbar-logo-sub{color:var(--ash)}.navbar-logo-sub:hover{color:var(--ink)}[data-theme="dark"] .navbar-logo-sub:hover{color:var(--ink)}.navbar-link{font-size:0.85rem;font-weight:450;color:var(--graphite);text-decoration:none;transition:color 0.15s ease}[data-theme="dark"] .navbar-link{color:var(--ash)}.navbar-link:hover{color:var(--ink)}.navbar-link--icon{display:inline-flex;align-items:center;gap:0.35rem}.navbar-github-mobile{display:none}.navbar-github-mobile svg{width:18px;height:18px}.navbar-left .navbar-search-mobile{display:none}.navbar-cta{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.8rem;font-weight:500;color:var(--linen);background:var(--ink);padding:0.45rem 1rem;border-radius:9999px;border:1px solid var(--ink);text-decoration:none;transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease}.navbar-cta:hover{background:var(--white);color:var(--ink);border-color:var(--ink)}[data-theme="dark"] .navbar-cta{color:#141413;background:#ffffff;border-color:#ffffff}[data-theme="dark"] .navbar-cta:hover{background:transparent;color:#ffffff;border-color:#ffffff}.navbar-cta-count{font-size:0.75rem;font-weight:600;opacity:0.7;margin-left:0.1rem}.navbar-search-btn{display:inline-flex;align-items:center;gap:0.5rem;height:32px;padding:0 10px 0 10px;background:transparent;border:1px solid var(--stone);border-radius:var(--radius-sm);color:var(--graphite);font-family:var(--font-body);font-size:0.85rem;font-weight:450;cursor:pointer;transition:background var(--transition),border-color var(--transition),color var(--transition)}[data-theme="dark"] .navbar-search-btn{color:var(--ash)}.navbar-search-btn:hover{border-color:var(--stone-dark);color:var(--ink);background:var(--white)}.navbar-search-btn svg{width:14px;height:14px;color:var(--ash);flex-shrink:0}.navbar-search-btn:hover svg{color:var(--ink)}.navbar-search-label{color:inherit}.navbar-search-kbd{font-family:var(--font-mono);font-size:10.5px;color:var(--ash);background:var(--linen);border:1px solid var(--stone);border-radius:var(--radius-xs);padding:1px 5px;pointer-events:none}#breadcrumb{font-size:13px;color:var(--ash);display:flex;align-items:center;gap:6px;overflow:hidden;white-space:nowrap;margin-bottom:18px}#breadcrumb:empty{display:none}#breadcrumb .sep{color:var(--stone-dark)}#breadcrumb .crumb-current{color:var(--ink);font-weight:500}#search-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-start;justify-content:center;padding:14vh 16px 16px}#search-modal[hidden]{display:none}#search-modal-backdrop{position:absolute;inset:0;background:rgba(10,10,10,0.45);backdrop-filter:blur(4px);animation:search-fade 0.15s ease-out}[data-theme="dark"] #search-modal-backdrop{background:rgba(0,0,0,0.65)}#search-modal-panel{position:relative;width:100%;max-width:600px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-lg);box-shadow:0 20px 60px rgba(0,0,0,0.16),0 4px 12px rgba(0,0,0,0.08);overflow:hidden;animation:search-pop 0.16s var(--transition) both}[data-theme="dark"] #search-modal-panel{box-shadow:0 20px 60px rgba(0,0,0,0.6),0 4px 12px rgba(0,0,0,0.4)}@keyframes search-fade{from{opacity:0}to{opacity:1}}@keyframes search-pop{from{opacity:0;transform:translateY(-8px) scale(0.98)}to{opacity:1;transform:none}}#search-wrap{position:relative;width:100%}#search-input{width:100%;height:56px;padding:0 60px 0 48px;border:none;border-bottom:1px solid var(--stone);border-radius:0;background:transparent;font-family:var(--font-body);font-size:15px;color:var(--ink);outline:none;-webkit-appearance:none}#search-input::placeholder{color:var(--ash)}#search-input::-webkit-search-decoration,#search-input::-webkit-search-cancel-button{display:none}#search-icon{position:absolute;left:20px;top:28px;transform:translateY(-50%);width:16px;height:16px;color:var(--ash);pointer-events:none}#search-kbd{position:absolute;right:16px;top:28px;transform:translateY(-50%);font-size:11px;color:var(--ash);background:var(--linen);border:1px solid var(--stone);border-radius:var(--radius-xs);padding:1px 6px;font-family:var(--font-mono);pointer-events:none}#search-results{width:100%;background:transparent;display:none;max-height:min(420px,50vh);overflow-y:auto;scrollbar-width:thin}#search-results.is-open{display:block}.search-result{display:block;padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--linen);transition:background var(--transition)}.search-result:last-child{border-bottom:none}.search-result:hover,.search-result.focused{background:var(--linen)}.search-result-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}.search-result-meta{font-size:11.5px;color:var(--ash);margin-top:2px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.search-result-title mark,.search-result-meta mark{background:var(--mint);color:var(--ink);border-radius:2px;padding:0 1px;font-style:normal}.search-empty{padding:18px 14px;font-size:13px;color:var(--ash);text-align:center}.icon-btn{width:34px;height:34px;border:1px solid var(--stone);border-radius:var(--radius-sm);background:var(--white);color:var(--graphite);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color var(--transition),color var(--transition);flex-shrink:0;text-decoration:none}.icon-btn:hover{border-color:var(--stone-dark);color:var(--ink)}.icon-btn svg{width:16px;height:16px}.theme-toggle{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9999px;background:var(--white);border:1px solid var(--stone);color:var(--graphite);cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.06),0 2px 4px rgba(0,0,0,0.04);transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease,transform 0.15s ease}.theme-toggle:hover{background:var(--parchment);color:var(--ink);transform:translateY(-1px)}[data-theme="dark"] .theme-toggle{box-shadow:0 4px 12px rgba(0,0,0,0.5),0 2px 4px rgba(0,0,0,0.3)}.theme-toggle-icon{display:none;align-items:center;justify-content:center}.theme-toggle-moon{display:flex}[data-theme="dark"] .theme-toggle-sun{display:flex}[data-theme="dark"] .theme-toggle-moon{display:none}#landing{max-width:var(--layout-max);margin:0 auto;padding:80px var(--outer-px) 120px;display:none}#landing.is-active{display:block}#landing-hero{max-width:620px;margin-bottom:64px}#landing-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ash);margin-bottom:16px}#landing-title{font-family:var(--font-serif);font-size:clamp(40px,6vw,64px);font-weight:600;line-height:1.05;letter-spacing:-0.04em;color:var(--ink);margin-bottom:20px}#landing-title em{font-style:italic;color:inherit}#landing-desc{font-size:17px;line-height:1.6;color:var(--graphite);max-width:560px}.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:var(--white);border:1px solid var(--stone);border-radius:var(--radius);padding:24px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition);position:relative;overflow:hidden;cursor:pointer}.card:hover{border-color:var(--stone-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,26,26,0.04)}.card-icon{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--parchment);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;color:var(--graphite);margin-bottom:4px}.card-icon svg{width:18px;height:18px}.card-title{font-family:var(--font-serif);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);line-height:1.2}.card-desc{font-size:13.5px;color:var(--graphite);line-height:1.55}.card-meta{font-size:11.5px;color:var(--ash);margin-top:10px;display:flex;align-items:center;gap:6px}.card-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--stone-dark)}.footer{--bg:#141413;--surface:#1F1D1A;--ink-t:#FFFFFF;--mono:#9A958A;--rule:#2F2C28;background:var(--bg);color:var(--ink-t);border-top:1px solid var(--rule);margin-top:80px}.footer-container{max-width:var(--layout-max);margin:0 auto;padding:0 var(--outer-px)}.footer-wordmark-row{padding-top:clamp(3rem,6vw,5rem);padding-bottom:clamp(2rem,4vw,3.5rem)}.footer-wordmark{font-family:var(--font-serif);font-size:28px;font-weight:600;letter-spacing:-0.045em;line-height:1;color:var(--ink-t);display:block}.footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(2rem,calc(1.5rem+1.5vw),3rem);padding-bottom:clamp(3rem,6vw,5rem)}.footer-col-heading{font-family:var(--font-body);font-size:0.8rem;font-weight:600;color:var(--ink-t);letter-spacing:0.01em;margin-bottom:0.75rem}.footer-col a{display:block;font-size:0.875rem;color:var(--mono);text-decoration:none;padding:0.2rem 0;transition:color 0.15s ease}.footer-col a:hover{color:var(--ink-t)}.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:1.5rem;padding-bottom:1.5rem;border-top:1px solid var(--rule)}.footer-copy{font-family:var(--font-mono);font-size:0.75rem;color:var(--mono)}.footer-bottom-links{display:flex;gap:1.5rem}.footer-bottom-links a{font-size:0.8rem;color:var(--mono);text-decoration:none;transition:color 0.15s ease}.footer-bottom-links a:hover{color:var(--ink-t)}@media (max-width:768px){.footer-columns{grid-template-columns:repeat(2,1fr);gap:clamp(2rem,4vw,3rem) 1.5rem}}@media (max-width:480px){.footer-bottom{flex-direction:column;align-items:flex-start}}#article-view{display:none}#article-view.is-active{display:block}#body{max-width:var(--layout-max);margin:0 auto;padding:0 var(--outer-px);display:grid;grid-template-columns:var(--sidebar-w) minmax(0,var(--content-max)) var(--toc-w);align-items:flex-start;column-gap:clamp(32px,4vw,56px)}#sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);flex-shrink:0;position:sticky;top:var(--topbar-h);max-height:calc(100vh - var(--topbar-h));overflow-y:auto;padding:32px 0 40px;scrollbar-width:thin}.sb-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ash);text-decoration:none;padding:4px 8px;margin-left:-8px;margin-bottom:20px;border-radius:6px;transition:color var(--transition),background var(--transition);cursor:pointer}.sb-back:hover{color:var(--ink);background:var(--parchment)}.sb-back svg{width:12px;height:12px}#sidebar .sb-back{margin-left:0;padding-left:10px}.sb-section{margin-bottom:4px}.sb-group-label{display:flex;align-items:center;gap:10px;padding:18px 10px 6px;font-size:10.5px;font-weight:600;color:var(--ash);text-transform:uppercase;letter-spacing:0.08em}.sb-group-label:first-child{padding-top:6px}.sb-section-btn{width:100%;display:flex;align-items:center;gap:8px;padding:7px 10px;border:none;background:none;cursor:pointer;border-radius:7px;font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:0.01em;text-align:left;transition:background var(--transition)}.sb-section-btn:hover{background:var(--parchment)}.sb-section-btn .chev{width:11px;height:11px;color:var(--ash);transition:transform var(--transition);flex-shrink:0}.sb-section[data-open="true"] .sb-section-btn .chev{transform:rotate(90deg)}.sb-section-icon{width:18px;height:18px;border-radius:5px;background:var(--parchment);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;color:var(--graphite);flex-shrink:0}.sb-section-icon svg{width:11px;height:11px}.sb-section-title{flex:1}.sb-section-count{font-size:10.5px;color:var(--ash);font-weight:500}.sb-pages{display:none;padding:2px 0 6px 26px;margin-left:3px;border-left:1px solid var(--stone)}.sb-section[data-open="true"] .sb-pages{display:block}.sb-group{margin:2px 0}.sb-group-btn{width:100%;display:flex;align-items:center;gap:7px;padding:5px 10px;border:none;background:none;cursor:pointer;border-radius:6px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--graphite);text-align:left;transition:background var(--transition),color var(--transition)}.sb-group-btn:hover{color:var(--ink);background:var(--parchment)}.sb-group-btn .chev{width:10px;height:10px;color:var(--ash);transition:transform var(--transition);flex-shrink:0}.sb-group[data-open="true"]>.sb-group-btn .chev{transform:rotate(90deg)}.sb-group-title{flex:1}.sb-group-count{font-size:10px;color:var(--ash);font-weight:500}.sb-group-pages{display:none;padding:1px 0 3px 12px;margin-left:5px;border-left:1px solid var(--stone)}.sb-group[data-open="true"]>.sb-group-pages{display:block}.sb-link{display:block;padding:5px 10px;margin-bottom:2px;font-size:12.5px;color:var(--graphite);text-decoration:none;border-radius:6px;line-height:1.45;cursor:pointer;transition:background var(--transition),color var(--transition)}.sb-link:hover,.sb-link.active{color:var(--ink);font-weight:500;background:var(--parchment)}#content{min-width:0;max-width:var(--content-max);padding:48px 0 96px}#toc-rail{position:sticky;top:var(--topbar-h);max-height:calc(100vh - var(--topbar-h));overflow-y:auto;padding:48px 0 40px;scrollbar-width:thin}#toc-rail.is-empty{visibility:hidden}.toc-rail-inner{border-left:1px solid var(--stone);padding-left:18px}.toc-rail-title{margin-bottom:10px;font-size:11px;font-weight:700;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em}#toc-rail-links{display:flex;flex-direction:column;gap:2px}#runtime-status[data-state]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:80px 0;color:var(--ash);font-size:14px}#runtime-status[hidden]{display:none}.runtime-status-detail{font-size:12px;color:var(--ash);margin-top:4px}.spinner{width:24px;height:24px;border:2px solid var(--stone);border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}#article{font-size:15.5px;line-height:1.75;color:var(--graphite);overflow-wrap:break-word}#article h1{font-family:var(--font-serif);font-size:clamp(28px,4vw,38px);font-weight:600;letter-spacing:-0.03em;color:var(--ink);margin-bottom:20px;line-height:1.1}.meta-row{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding:12px 0 12px;border-bottom:1px solid var(--stone);font-size:12px;color:var(--ash);position:sticky;top:var(--topbar-h);background:var(--linen);z-index:50}.meta-row::before{content:'';position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--linen)}.meta-row .chip{padding:2px 8px;border-radius:var(--radius-xs);background:var(--parchment);border:1px solid var(--stone);font-size:11px;color:var(--graphite)}.meta-row .spacer{flex:1}.page-actions{position:relative;display:inline-flex;align-items:stretch}.page-actions .pa-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:var(--white);border:1px solid var(--stone);font-family:var(--font-body);font-size:11.5px;font-weight:500;color:var(--graphite);cursor:pointer;transition:border-color var(--transition),color var(--transition),background var(--transition)}.page-actions .pa-btn:hover{border-color:var(--stone-dark);color:var(--ink)}.page-actions .pa-copy{border-radius:var(--radius-sm) 0 0 var(--radius-sm);padding-left:12px}.page-actions .pa-caret{border-radius:0 var(--radius-sm) var(--radius-sm) 0;border-left:none;padding:5px 8px}.page-actions .pa-caret svg{width:12px;height:12px;color:var(--ash);transition:transform var(--transition)}.page-actions .pa-caret[aria-expanded="true"]{color:var(--ink);background:var(--parchment);border-color:var(--stone-dark)}.page-actions .pa-caret[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--ink)}.page-actions .pa-copy svg{width:13px;height:13px;color:var(--ash)}.page-actions .pa-copy.is-copied{color:var(--green);border-color:var(--green)}.page-actions .pa-copy.is-copied svg{color:var(--green)}.pa-menu{position:absolute;top:calc(100%+8px);right:0;min-width:220px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);box-shadow:0 12px 32px rgba(12,12,12,0.12),0 2px 6px rgba(12,12,12,0.06);padding:6px;opacity:0;transform:translateY(-4px) scale(0.98);pointer-events:none;transform-origin:top right;transition:opacity 0.16s ease,transform 0.16s ease;z-index:60}[data-theme="dark"] .pa-menu{box-shadow:0 12px 32px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.4)}.pa-menu.is-open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}.pa-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:7px 10px;background:none;border:none;font-family:var(--font-body);font-size:13px;color:var(--graphite);text-align:left;cursor:pointer;border-radius:5px;transition:color var(--transition),background var(--transition)}.pa-menu button:hover{color:var(--ink);background:var(--linen)}.pa-menu button svg{width:14px;height:14px;color:var(--ash);flex-shrink:0}.pa-menu button:hover svg{color:var(--ink)}.page-feedback{margin-top:64px;padding:20px 22px;background:var(--parchment);border:1px solid var(--stone);border-radius:var(--radius);display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}.page-feedback .pf-label{font-family:var(--font-serif);font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-0.02em;flex:1 1 auto}.page-feedback .pf-actions{display:flex;flex-wrap:wrap;gap:8px}.page-feedback a{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--graphite);text-decoration:none;transition:border-color 0.15s,color 0.15s,background 0.15s,transform 0.15s}.page-feedback a:hover{color:var(--ink);border-color:var(--graphite);background:var(--linen);transform:translateY(-1px)}.page-feedback a svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}@media (max-width:640px){.page-feedback{padding:16px}.page-feedback .pf-label{flex-basis:100%}}.toc-wrap{position:relative;display:none}.toc-toggle{display:inline-flex;align-items:center;gap:6px;padding:5px 10px 5px 12px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:11.5px;font-weight:500;color:var(--graphite);cursor:pointer;transition:border-color var(--transition),color var(--transition),background var(--transition)}.toc-toggle:hover{border-color:var(--stone-dark);color:var(--ink)}.toc-toggle[aria-expanded="true"]{color:var(--ink);background:var(--parchment);border-color:var(--stone-dark)}.toc-toggle>svg{width:12px;height:12px;color:var(--ash);transition:transform var(--transition)}.toc-toggle .toc-icon{width:13px;height:13px;color:var(--ash);transition:none}.toc-toggle[aria-expanded="true"] .toc-icon{color:var(--ink);transform:none}.toc-toggle>svg:last-of-type{}.toc-toggle[aria-expanded="true"]>svg:last-of-type{transform:rotate(180deg);color:var(--ink)}.toc-toggle .count{font-size:10px;color:var(--ash);background:var(--parchment);border-radius:var(--radius-xs);padding:1px 6px;font-variant-numeric:tabular-nums}.toc-toggle[aria-expanded="true"] .count{background:var(--white)}.toc-panel{position:absolute;top:calc(100%+8px);right:0;width:280px;max-width:calc(100vw - 48px);max-height:min(60vh,420px);overflow-y:auto;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);box-shadow:0 12px 32px rgba(12,12,12,0.12),0 2px 6px rgba(12,12,12,0.06);padding:8px;opacity:0;transform:translateY(-4px) scale(0.98);pointer-events:none;transform-origin:top right;transition:opacity 0.16s ease,transform 0.16s ease;z-index:60}[data-theme="dark"] .toc-panel{box-shadow:0 12px 32px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.4)}.toc-panel.is-open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}.toc-panel-label{display:none}.toc-link{display:block;padding:6px 10px;margin-bottom:2px;font-size:13px;line-height:1.45;color:var(--graphite);text-decoration:none;cursor:pointer;border-radius:5px;position:relative;transition:color var(--transition),background var(--transition),transform var(--transition)}.toc-link::before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:2px;border-radius:999px;background:var(--green);opacity:0;transform:scaleY(0.45);transition:opacity 0.18s ease,transform 0.18s ease}.toc-link.level-3{padding-left:22px;font-size:12.5px;color:var(--ash)}.toc-link:hover,.toc-link.active{color:var(--ink);background:var(--linen);font-weight:500}.toc-link.active::before{opacity:1;transform:scaleY(1)}#toc-rail-links .toc-link{padding:5px 8px 5px 12px;margin-bottom:0;background:transparent}#toc-rail-links .toc-link:hover,#toc-rail-links .toc-link.active{background:transparent}#toc-rail-links .toc-link.active{transform:translateX(2px)}#toc-rail-links .toc-link.level-3{padding-left:24px}#article h2{font-family:var(--font-serif);font-size:24px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);margin-top:40px;margin-bottom:14px;line-height:1.25;padding-bottom:8px;border-bottom:1px solid var(--stone)}#article h3{font-size:15.5px;font-weight:600;color:var(--ink);margin-top:28px;margin-bottom:8px}#article h4{font-size:11px;font-weight:600;color:var(--ash);text-transform:uppercase;letter-spacing:0.08em;margin-top:20px;margin-bottom:6px}#article h1,#article h2,#article h3,#article h4,#article h5,#article h6{position:relative;scroll-margin-top:128px}#article .heading-anchor{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-left:8px;border-bottom:none;color:var(--ash);opacity:0;vertical-align:middle;border-radius:6px;cursor:pointer;transition:opacity var(--transition),color var(--transition),background var(--transition),transform var(--transition)}#article .heading-anchor svg{width:14px;height:14px}#article h1:hover .heading-anchor,#article h2:hover .heading-anchor,#article h3:hover .heading-anchor,#article h4:hover .heading-anchor,#article h5:hover .heading-anchor,#article h6:hover .heading-anchor,#article .heading-anchor:focus-visible{opacity:1}#article .heading-anchor:hover{color:var(--ink);background:var(--parchment);transform:translateY(-1px)}#article .heading-anchor.is-copied{color:var(--green);opacity:1;background:var(--mint)}@media (hover:none){#article .heading-anchor{opacity:0.5}}.code-wrap{position:relative;margin-bottom:20px}.code-wrap pre{margin-bottom:0}.code-copy,.code-download{position:absolute;top:8px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#d4d4d4;border-radius:7px;cursor:pointer;opacity:0;transition:opacity var(--transition),background var(--transition),color var(--transition)}.code-copy{right:8px}.code-download{right:46px}.code-copy svg,.code-download svg{width:14px;height:14px}.code-wrap:hover .code-copy,.code-wrap:hover .code-download,.code-copy:focus-visible,.code-download:focus-visible{opacity:1}.code-copy:hover,.code-download:hover{background:rgba(255,255,255,0.12);color:#fff}.code-copy.is-copied,.code-download.is-copied{opacity:1;color:var(--green);border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.12)}@media (hover:none){.code-copy,.code-download{opacity:0.75}}#article p{margin-bottom:16px}#article a{color:var(--ink);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink) 45%,transparent);text-decoration-thickness:1px;text-underline-offset:0.18em;transition:color var(--transition);overflow-wrap:anywhere}#article a:hover{color:var(--graphite);text-decoration-color:currentColor}#article .heading-anchor{text-decoration:none}#article strong{color:var(--ink);font-weight:600}#article em{font-style:italic}#article ul,#article ol{padding-left:22px;margin-bottom:16px}#article li{margin-bottom:6px}#article li>p{margin-bottom:8px}#article ol>li{margin-bottom:20px}#article hr{border:none;border-top:1px solid transparent;margin:36px 0}#article code{font-family:var(--font-mono);font-size:0.87rem;font-variant-numeric:tabular-nums;background:var(--parchment);border:1px solid var(--stone);border-radius:var(--radius-xs);padding:1px 6px;color:var(--ink);overflow-wrap:anywhere;word-break:break-word}#article pre{background:var(--void);color:#d4d4d4;border-radius:var(--radius-sm);padding:18px 20px;overflow-x:auto;margin-bottom:20px;font-family:var(--font-mono);font-size:0.87rem;line-height:1.6;font-variant-numeric:tabular-nums}#article pre code{background:none;border:none;padding:0;color:inherit;font-size:inherit;overflow-wrap:normal;word-break:normal}#article pre code[data-skill-download="SKILL.md"]{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}.table-wrap{margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--stone);border-radius:var(--radius-sm);background:linear-gradient(to right,var(--white) 30%,rgba(255,255,255,0)),linear-gradient(to right,rgba(255,255,255,0),var(--white) 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgba(26,26,26,0.12),rgba(255,255,255,0)),radial-gradient(farthest-side at 100% 50%,rgba(26,26,26,0.12),rgba(255,255,255,0)) 100% 0;background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}[data-theme="dark"] .table-wrap{background:linear-gradient(to right,var(--white) 30%,rgba(18,18,22,0)),linear-gradient(to right,rgba(18,18,22,0),var(--white) 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgba(0,0,0,0.4),rgba(0,0,0,0)),radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,0.4),rgba(0,0,0,0)) 100% 0;background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}#article table{width:100%;border-collapse:collapse;margin-bottom:0;font-size:14px;min-width:520px}.table-wrap>table{border-radius:0;border:none}#article th{background:var(--parchment);border-bottom:1px solid var(--stone);border-right:1px solid var(--stone);padding:8px 14px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--graphite)}#article td{background:var(--linen);border-bottom:1px solid var(--stone);border-right:1px solid var(--stone);padding:8px 14px;color:var(--graphite);vertical-align:top}#article tr:last-child td{border-bottom:none}#article th:last-child,#article td:last-child{border-right:none}#article tbody tr:hover td{background:var(--white)}#article img{max-width:100%;border-radius:var(--radius-sm);border:1px solid var(--stone);display:block;height:auto;margin:24px 0;box-shadow:0 2px 8px rgba(26,26,26,0.06)}#article img.responsive-screenshot{width:100%;object-fit:contain}.img-placeholder{background:var(--parchment);border:1.5px dashed var(--stone-dark);border-radius:var(--radius-sm);padding:16px 18px;margin:24px 0;display:flex;align-items:center;gap:12px;color:var(--ash);font-size:13px}.callout{border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:20px;font-size:14px;line-height:1.65;display:flex;gap:11px;align-items:flex-start}.callout-icon{flex-shrink:0;margin-top:3px;display:inline-flex}.callout-icon svg{width:16px;height:16px}.callout-note .callout-icon{color:var(--graphite)}.callout-info .callout-icon{color:#1d4ed8}.callout-tip .callout-icon{color:#188a3c}.callout-warning .callout-icon{color:#b45309}.callout-danger .callout-icon{color:#991b1b}.callout-body{flex:1;min-width:0}.callout-body p{color:inherit;margin-bottom:0 !important}.callout-body p+p{margin-top:12px}.callout-note{background:var(--parchment);border:1px solid var(--stone-dark)}.callout-info{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.28)}.callout-tip{background:var(--mint);border:1px solid rgba(34,197,94,0.30)}.callout-warning{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.30)}.callout-danger{background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.28)}.callout-note .callout-label{color:var(--graphite);font-weight:600}.callout-info .callout-label{color:#1d4ed8;font-weight:600}.callout-tip .callout-label{color:#188a3c;font-weight:600}.callout-warning .callout-label{color:#b45309;font-weight:600}.callout-danger .callout-label{color:#991b1b;font-weight:600}[data-theme="dark"] .callout-info .callout-icon,[data-theme="dark"] .callout-info .callout-label{color:#60a5fa}[data-theme="dark"] .callout-tip .callout-icon,[data-theme="dark"] .callout-tip .callout-label{color:#22c55e}[data-theme="dark"] .callout-warning .callout-icon,[data-theme="dark"] .callout-warning .callout-label{color:#f59e0b}[data-theme="dark"] .callout-danger .callout-icon,[data-theme="dark"] .callout-danger .callout-label{color:#f87171}details.accordion{border:1px solid var(--stone);border-radius:var(--radius-sm);background:var(--white);margin-bottom:12px;overflow:hidden}details.accordion+details.accordion{margin-top:-4px}details.accordion>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-size:15px;font-weight:600;letter-spacing:-0.01em;color:var(--ink);user-select:none;transition:background var(--transition)}details.accordion>summary::-webkit-details-marker{display:none}details.accordion>summary:hover{background:var(--parchment)}details.accordion>summary::before{content:"";flex-shrink:0;width:8px;height:8px;border-right:2px solid var(--ash);border-bottom:2px solid var(--ash);transform:rotate(-45deg);transition:transform var(--transition)}details.accordion[open]>summary::before{transform:rotate(45deg)}details.accordion[open]>summary{border-bottom:1px solid var(--stone)}details.accordion .accordion-meta{margin-left:auto;font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--ash)}details.accordion>.accordion-body{padding:4px 16px 8px}details.accordion>.accordion-body>:first-child{margin-top:12px}details.accordion>.accordion-body>:last-child{margin-bottom:4px}.tabs-container{margin-bottom:24px}.tabs-bar{display:flex;border-bottom:1px solid var(--stone);overflow-x:auto;scrollbar-width:none}.tabs-bar::-webkit-scrollbar{display:none}.tab-btn{padding:7px 18px;font-size:13px;font-family:var(--font-body);font-weight:500;background:none;border:none;border-bottom:2px solid transparent;color:var(--ash);cursor:pointer;transition:color var(--transition),border-color var(--transition);margin-bottom:-1px;white-space:nowrap;flex-shrink:0}.tab-btn:hover{color:var(--graphite)}.tab-btn.active{color:var(--ink);border-bottom-color:var(--green)}.tab-panel{display:none;padding:20px 0 0}.tab-panel.active{display:block}.tab-panel>*:last-child{margin-bottom:0}.tabs-container.code-tabs{border:1px solid var(--stone);border-radius:var(--radius-sm);overflow:hidden;background:var(--void);margin-bottom:24px}.tabs-container.code-tabs .tabs-bar{gap:6px;padding:8px 10px 0;border-bottom:1px solid var(--stone);background:color-mix(in srgb,var(--void) 88%,var(--stone) 12%);overflow-x:auto;scrollbar-width:none}.tabs-container.code-tabs .tabs-bar::-webkit-scrollbar{display:none}.tabs-container.code-tabs .tab-btn{padding:6px 10px;border:1px solid transparent;border-radius:8px 8px 0 0;font-size:12px;color:#aeb6cf;margin-bottom:0;white-space:nowrap}.tabs-container.code-tabs .tab-btn:hover{color:#eef2ff;background:rgba(255,255,255,0.04)}.tabs-container.code-tabs .tab-btn.active{color:#f8fafc;background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.08);border-bottom-color:rgba(255,255,255,0.06)}.tabs-container.code-tabs .tab-panel{padding:0}.tabs-container.code-tabs .tab-panel>pre,.tabs-container.code-tabs .tab-panel>.code-wrap>pre{margin:0;border:none;border-radius:0}.tabs-container.code-tabs .code-wrap{margin:0}#page-nav{display:flex;justify-content:space-between;gap:16px;padding-top:40px;margin-top:48px;border-top:1px solid var(--stone)}.page-nav-btn{flex:1;max-width:280px;display:flex;flex-direction:column;gap:4px;padding:14px 18px;background:var(--white);border:1px solid var(--stone);border-radius:var(--radius-sm);cursor:pointer;transition:border-color var(--transition),transform var(--transition);text-align:left;font-family:var(--font-body);text-decoration:none}.page-nav-btn:hover{border-color:var(--stone-dark);transform:translateY(-1px)}.page-nav-btn.next{text-align:right;margin-left:auto}.page-nav-label{font-size:10px;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em;font-weight:600}.page-nav-title{font-size:14px;color:var(--ink);font-weight:500}.page-nav-spacer{flex:1;max-width:280px}@keyframes heading-flash{0%{background-color:var(--mint)}40%{background-color:var(--mint)}100%{background-color:transparent}}.heading-highlight{animation:heading-flash 2s ease-out forwards;border-radius:4px;padding-left:6px;margin-left:-6px}@media (prefers-reduced-motion:reduce){.toc-link,.toc-link::before,.heading-highlight{transition:none;animation:none}#toc-rail-links .toc-link.active{transform:none}}#hamburger{display:none}#drawer-backdrop{display:none;position:fixed;inset:0;background:rgba(12,12,12,0.4);z-index:200;opacity:0;transition:opacity 0.2s ease}#drawer-backdrop.is-open{display:block;opacity:1}#drawer{position:fixed;top:0;left:0;bottom:0;width:min(320px,86vw);background:var(--linen);border-right:1px solid var(--stone);z-index:201;transform:translateX(-100%);transition:transform 0.25s ease;overflow-y:auto;padding:16px 16px 32px;display:flex;flex-direction:column}#drawer.is-open{transform:translateX(0)}#drawer-head{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 16px;border-bottom:1px solid var(--stone);margin-bottom:12px}#drawer-head .label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--ash)}#hamburger{display:none}@media (max-width:1320px){:root{--outer-px:24px}#body{grid-template-columns:var(--sidebar-w) minmax(0,920px);column-gap:clamp(28px,4vw,40px);max-width:1280px}#content{max-width:920px}#toc-rail{display:none}.toc-wrap{display:block}}@media (max-width:820px){.card-grid{grid-template-columns:1fr 1fr}#sidebar{display:none}#body{grid-template-columns:minmax(0,1fr)}#hamburger{display:flex}.navbar-link{font-size:0.8rem}.navbar-cta{font-size:0.75rem;padding:0.35rem 0.75rem}.navbar-inner{height:52px;gap:0.75rem}.navbar-left,.navbar-right{gap:0.85rem}.navbar-search-btn{height:30px}:root{--header-h:52px}}@media (max-width:560px){.card-grid{grid-template-columns:1fr}#landing{padding:48px 24px 80px}#content{padding:28px 0 64px}#body{padding:0 24px}.navbar-inner{padding:0 16px}.navbar-left .navbar-link{display:none}.navbar-github-mobile{display:inline-flex}.navbar-right .navbar-search-btn{display:none}.navbar-left .navbar-search-mobile{display:inline-flex}.navbar-search-label,.navbar-search-kbd{display:none}.navbar-search-btn{padding:0 9px;width:32px}.navbar-cta-count{display:none}.navbar-cta{padding:0.35rem 0.7rem}.theme-toggle{bottom:14px;right:14px}#search-input{font-size:16px}}@media (max-width:360px){.navbar-logo-sub{display:none}}@media (max-width:820px){.page-actions .pa-copy-label,.toc-toggle .toc-label{display:none}.page-actions .pa-copy{padding-left:10px;padding-right:10px}.toc-toggle{padding:5px 10px}}.sb-tier-header{display:block;padding:20px 10px 8px;margin-top:4px;font-size:11px;font-weight:700;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em}.sb-tier-header:first-child{margin-top:0;padding-top:6px}.landing-tier{margin-top:28px}.landing-tier:first-child{margin-top:0}.landing-tier>h2{margin:0 0 14px;font-size:13px;font-weight:700;color:var(--ash);text-transform:uppercase;letter-spacing:0.1em}.landing-tier-cards{display:grid;grid-template-columns:repeat(var(--tier-cols,3),1fr);gap:14px}#landing-cards.card-grid{display:block}@media (max-width:900px){.landing-tier-cards{grid-template-columns:repeat(2,1fr)}}@media (max-width:600px){.landing-tier-cards{grid-template-columns:1fr}}</style>
+</head>
+<body>
+
+<header id="header" class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-left">
+      <button class="icon-btn navbar-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 5h12M3 9h12M3 13h12"/>
+        </svg>
+      </button>
+      <button class="navbar-search-btn navbar-search-mobile js-search-open" aria-label="Search docs" aria-haspopup="dialog">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+          <circle cx="7" cy="7" r="5"/><path d="m11 11 3 3"/>
+        </svg>
+      </button>
+      <a href="https://paperclip.ing/blog" class="navbar-link">Blog</a>
+      <a href="/" class="navbar-link" data-nav="home">Docs</a>
+      <a href="https://github.com/paperclipai/paperclip" class="navbar-link navbar-link--icon" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="navbar-logo">
+      <a id="logo" class="navbar-logo-link" href="https://paperclip.ing">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/>
+        </svg>
+        <span>Paperclip</span>
+      </a>
+      <a class="navbar-logo-link navbar-logo-sub" href="https://docs.paperclip.ing">Docs</a>
+    </div>
+    <div class="navbar-right">
+      <button id="search-trigger" class="navbar-search-btn js-search-open" aria-label="Search docs" aria-haspopup="dialog">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+          <circle cx="7" cy="7" r="5"/><path d="m11 11 3 3"/>
+        </svg>
+        <span class="navbar-search-label">Search</span>
+        <kbd class="navbar-search-kbd">⌘K</kbd>
+      </button>
+      <a href="https://github.com/paperclipai/paperclip" class="navbar-link navbar-link--icon navbar-github-mobile" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="https://github.com/paperclipai/paperclip" class="navbar-cta" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Star<span class="navbar-cta-count" data-star-count hidden></span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ─── Search modal (⌘K) ──────────────────────────────────── -->
+<div id="search-modal" role="dialog" aria-modal="true" aria-label="Search" hidden>
+  <div id="search-modal-backdrop"></div>
+  <div id="search-modal-panel">
+    <div id="search-wrap">
+      <svg id="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="7" cy="7" r="5"/><path d="m11 11 3 3"/>
+      </svg>
+      <input id="search-input" type="search" placeholder="Search the docs…" autocomplete="off" spellcheck="false" aria-label="Search guides" aria-haspopup="listbox" />
+      <kbd id="search-kbd">esc</kbd>
+      <div id="search-results" role="listbox" aria-label="Search results"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Floating theme toggle (bottom-right) ───────────────── -->
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+  <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  </span>
+  <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </span>
+</button>
+
+<div id="drawer-backdrop"></div>
+<aside id="drawer" aria-label="Mobile navigation" aria-hidden="true" inert>
+  <div id="drawer-head">
+    <span class="label">Documentation</span>
+    <button class="icon-btn" id="drawer-close" aria-label="Close menu">
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 4 10 10M14 4 4 14"/></svg>
+    </button>
+  </div>
+  <a class="sb-back" href="/" data-nav="home">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2 4 6l4 4"/></svg>
+    All docs
+  </a>
+  <div id="drawer-sections"></div>
+</aside>
+
+
+<!-- ─── Article view ─────────────────────────────────────── -->
+<div id="article-view" class="is-active">
+  <div id="body">
+    <nav id="sidebar" aria-label="Documentation">
+      <a class="sb-back" href="/" data-nav="home">
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2 4 6l4 4"/></svg>
+        All docs
+      </a>
+      <div id="sb-sections" data-server-rendered="true"><div class="sb-tier-header">Learn</div><div class="sb-section" data-section-idx="0" data-section-title="Quickstart" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.2 1-1.5 3-1.5 3s2-.3 3-1.5"/><path d="M9 15 6 12c2-5 6-8 13-9-1 7-4 11-9 13z"/><path d="M15 9h.01"/></svg></span><span class="sb-section-title">Quickstart</span><span class="sb-section-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/getting-started/five-minute-path.md" href="/guides/getting-started/five-minute-path/">Quickstart Path</a><a class="sb-link" data-file="guides/welcome/what-is-paperclip.md" href="/guides/welcome/what-is-paperclip/">What is Paperclip?</a><a class="sb-link" data-file="guides/welcome/key-concepts.md" href="/guides/welcome/key-concepts/">Key Concepts</a><a class="sb-link" data-file="guides/getting-started/installation.md" href="/guides/getting-started/installation/">Installation</a><a class="sb-link" data-file="guides/getting-started/your-first-company.md" href="/guides/getting-started/your-first-company/">Create Your First Company</a><a class="sb-link" data-file="guides/getting-started/your-first-agent.md" href="/guides/getting-started/your-first-agent/">Hire Your First Agent</a><a class="sb-link" data-file="guides/getting-started/watching-agents-work.md" href="/guides/getting-started/watching-agents-work/">Watching Agents Work</a><a class="sb-link" data-file="guides/welcome/glossary.md" href="/guides/welcome/glossary/">Glossary</a></div></div><div class="sb-section" data-section-idx="1" data-section-title="Working Day-to-day" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span><span class="sb-section-title">Working Day-to-day</span><span class="sb-section-count">12</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/day-to-day/dashboard.md" href="/guides/day-to-day/dashboard/">The Dashboard</a><a class="sb-link" data-file="guides/day-to-day/command-palette.md" href="/guides/day-to-day/command-palette/">Command Palette</a><a class="sb-link" data-file="guides/day-to-day/issues.md" href="/guides/day-to-day/issues/">Issues</a><a class="sb-link" data-file="guides/day-to-day/work-modes.md" href="/guides/day-to-day/work-modes/">Work Modes</a><a class="sb-link" data-file="guides/day-to-day/artifacts.md" href="/guides/day-to-day/artifacts/">Artifacts</a><a class="sb-link" data-file="guides/day-to-day/blocked-inbox.md" href="/guides/day-to-day/blocked-inbox/">Blocked Inbox</a><a class="sb-link" data-file="guides/day-to-day/decisions.md" href="/guides/day-to-day/decisions/">Decisions</a><a class="sb-link" data-file="guides/day-to-day/approvals.md" href="/guides/day-to-day/approvals/">Approvals</a><a class="sb-link" data-file="guides/day-to-day/costs.md" href="/guides/day-to-day/costs/">Costs &amp; Budgets</a><a class="sb-link" data-file="guides/day-to-day/activity-log.md" href="/guides/day-to-day/activity-log/">Activity Log</a><a class="sb-link" data-file="guides/day-to-day/work-timeline.md" href="/guides/day-to-day/work-timeline/">Work Timeline</a><a class="sb-link" data-file="guides/day-to-day/feedback-voting.md" href="/guides/day-to-day/feedback-voting/">Feedback &amp; Voting</a></div></div><div class="sb-section" data-section-idx="2" data-section-title="Your Org &amp; Agents" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"/></svg></span><span class="sb-section-title">Your Org &amp; Agents</span><span class="sb-section-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/org/agents.md" href="/guides/org/agents/">Agents</a><a class="sb-link" data-file="guides/org/skills.md" href="/guides/org/skills/">Skills</a><a class="sb-link" data-file="guides/org/team-catalog.md" href="/guides/org/team-catalog/">Team Catalog</a><a class="sb-link" data-file="guides/org/org-structure.md" href="/guides/org/org-structure/">Org Structure</a><a class="sb-link" data-file="guides/org/members-and-access.md" href="/guides/org/members-and-access/">Members &amp; Access</a><a class="sb-link" data-file="guides/org/delegation.md" href="/guides/org/delegation/">Delegation</a><a class="sb-link" data-file="guides/org/agent-adapters.md" href="/guides/org/agent-adapters/">Agent Adapters</a><a class="sb-link" data-file="guides/org/adapters.md" href="/guides/org/adapters/">Adapter Manager</a></div></div><div class="sb-section" data-section-idx="3" data-section-title="Projects &amp; Workflow" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7v10"/><path d="M12 7v6"/><path d="M16 7v3"/></svg></span><span class="sb-section-title">Projects &amp; Workflow</span><span class="sb-section-count">6</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/projects-workflow/projects.md" href="/guides/projects-workflow/projects/">Projects</a><a class="sb-link" data-file="guides/projects-workflow/goals.md" href="/guides/projects-workflow/goals/">Goals</a><a class="sb-link" data-file="guides/projects-workflow/routines.md" href="/guides/projects-workflow/routines/">Heartbeats &amp; Routines</a><a class="sb-link" data-file="guides/projects-workflow/workspaces.md" href="/guides/projects-workflow/workspaces/">Execution Workspaces</a><a class="sb-link" data-file="guides/projects-workflow/custom-sandbox-images.md" href="/guides/projects-workflow/custom-sandbox-images/">Custom Sandbox Images</a><a class="sb-link" data-file="guides/projects-workflow/task-watchdogs.md" href="/guides/projects-workflow/task-watchdogs/">Task Watchdogs</a></div></div><div class="sb-section" data-section-idx="4" data-section-title="Power Features" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H4"/><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/></svg></span><span class="sb-section-title">Power Features</span><span class="sb-section-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="guides/power/execution-policy.md" href="/guides/power/execution-policy/">Execution Policy</a><a class="sb-link" data-file="guides/power/export-import.md" href="/guides/power/export-import/">Export &amp; Import</a><a class="sb-link" data-file="guides/power/terminal-setup.md" href="/guides/power/terminal-setup/">Terminal Setup</a></div></div><div class="sb-section" data-section-idx="5" data-section-title="Experimental" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a2 2 0 0 1 2-2h7V5H5a2 2 0 0 0-2 2z"/><path d="M21 18a2 2 0 0 0-2-2h-7V5h7a2 2 0 0 1 2 2z"/></svg></span><span class="sb-section-title">Experimental</span><span class="sb-section-count">14</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="experimental/overview.md" href="/experimental/overview/">Overview</a><a class="sb-link" data-file="experimental/connections-apps.md" href="/experimental/connections-apps/">Connections v3 (Apps)</a><a class="sb-link" data-file="experimental/environments.md" href="/experimental/environments/">Environments</a><a class="sb-link" data-file="experimental/isolated-workspaces.md" href="/experimental/isolated-workspaces/">Isolated Workspaces</a><a class="sb-link" data-file="experimental/file-viewer.md" href="/experimental/file-viewer/">Experimental File Viewer</a><a class="sb-link" data-file="experimental/external-objects.md" href="/experimental/external-objects/">External Objects</a><a class="sb-link" data-file="experimental/plan-decomposition-panel.md" href="/experimental/plan-decomposition-panel/">Task Plan Decomposition Panel</a><a class="sb-link" data-file="experimental/task-chat.md" href="/experimental/task-chat/">Chat-Style Tasks</a><a class="sb-link" data-file="experimental/task-watchdogs.md" href="/experimental/task-watchdogs/">Task Watchdogs</a><a class="sb-link" data-file="experimental/status-cards.md" href="/experimental/status-cards/">Status Cards</a><a class="sb-link" data-file="experimental/cloud-sync.md" href="/experimental/cloud-sync/">Cloud Sync</a><a class="sb-link" data-file="experimental/server-info-debug-view.md" href="/experimental/server-info-debug-view/">Server Info Debug View</a><a class="sb-link" data-file="experimental/auto-restart-dev-server.md" href="/experimental/auto-restart-dev-server/">Auto-Restart Dev Server</a><a class="sb-link" data-file="experimental/auto-create-recovery-tasks.md" href="/experimental/auto-create-recovery-tasks/">Auto-Create Recovery Tasks</a></div></div><div class="sb-section" data-section-idx="6" data-section-title="How-to Guides" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.4 2.4-3-3z"/></svg></span><span class="sb-section-title">How-to Guides</span><span class="sb-section-count">21</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Members &amp; Access</span><span class="sb-group-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/enable-multi-user-login.md" href="/how-to/enable-multi-user-login/">Enable Multi-User Login</a><a class="sb-link" data-file="how-to/add-a-human-teammate.md" href="/how-to/add-a-human-teammate/">Add a Human Teammate</a><a class="sb-link" data-file="how-to/offboard-a-member.md" href="/how-to/offboard-a-member/">Offboard a Member</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Governance &amp; Budget</span><span class="sb-group-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/set-monthly-budget.md" href="/how-to/set-monthly-budget/">Set a Monthly Budget</a><a class="sb-link" data-file="how-to/require-board-approval-before-spend.md" href="/how-to/require-board-approval-before-spend/">Require Approval Before Spend</a><a class="sb-link" data-file="how-to/handle-board-approvals-for-hires.md" href="/how-to/handle-board-approvals-for-hires/">Handle Board Approvals for Hires</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Agents &amp; Skills</span><span class="sb-group-count">4</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/bring-your-own-agent.md" href="/how-to/bring-your-own-agent/">Bring Your Own Agent</a><a class="sb-link" data-file="how-to/connect-agent-to-github.md" href="/how-to/connect-agent-to-github/">Connect an Agent to GitHub</a><a class="sb-link" data-file="how-to/add-mcp-server-to-agent.md" href="/how-to/add-mcp-server-to-agent/">Add an MCP Server to an Agent</a><a class="sb-link" data-file="how-to/write-a-company-skill.md" href="/how-to/write-a-company-skill/">Write a Company Skill</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Automation &amp; Notifications</span><span class="sb-group-count">2</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/create-a-daily-routine.md" href="/how-to/create-a-daily-routine/">Create a Daily Routine</a><a class="sb-link" data-file="how-to/wire-slack-discord-notifications.md" href="/how-to/wire-slack-discord-notifications/">Wire Slack/Discord Notifications</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Secrets &amp; Providers</span><span class="sb-group-count">2</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/rotate-provider-api-key.md" href="/how-to/rotate-provider-api-key/">Update or Rotate a Provider API Key</a><a class="sb-link" data-file="how-to/connect-aws-secrets-vault.md" href="/how-to/connect-aws-secrets-vault/">Connect an AWS Secrets Manager Vault</a></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Deploy &amp; Maintain</span><span class="sb-group-count">7</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="how-to/deploy-to-vps-or-fly.md" href="/how-to/deploy-to-vps-or-fly/">Deploy to a VPS or Fly.io</a><a class="sb-link" data-file="how-to/update-paperclip.md" href="/how-to/update-paperclip/">Update Paperclip to the Latest Version</a><a class="sb-link" data-file="how-to/back-up-and-restore-a-company.md" href="/how-to/back-up-and-restore-a-company/">Back Up and Restore a Company</a><a class="sb-link" data-file="how-to/debug-stuck-heartbeat.md" href="/how-to/debug-stuck-heartbeat/">Debug a Stuck Heartbeat</a><a class="sb-link" data-file="how-to/sync-to-cloud-upstream.md" href="/how-to/sync-to-cloud-upstream/">Sync to Cloud Upstream</a><a class="sb-link" data-file="how-to/develop-a-plugin-locally.md" href="/how-to/develop-a-plugin-locally/">Develop a plugin locally</a><a class="sb-link" data-file="how-to/community-desktop-app.md" href="/how-to/community-desktop-app/">Community Desktop App (unofficial)</a></div></div></div></div><div class="sb-section" data-section-idx="7" data-section-title="Administration" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="sb-section-title">Administration</span><span class="sb-section-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="administration/company.md" href="/administration/company/">Company</a><a class="sb-link" data-file="administration/roles-and-permissions.md" href="/administration/roles-and-permissions/">Roles &amp; Permissions</a><a class="sb-link" data-file="administration/secret-scopes.md" href="/administration/secret-scopes/">Secret Scopes</a><a class="sb-link" data-file="administration/secret-folders.md" href="/administration/secret-folders/">Secret Folders</a><a class="sb-link" data-file="administration/settings.md" href="/administration/settings/">Settings</a><a class="sb-link" data-file="administration/trust-and-low-trust-review.md" href="/administration/trust-and-low-trust-review/">Trust &amp; Low-Trust Review</a><a class="sb-link" data-file="administration/plugins.md" href="/administration/plugins/">Plugins</a><a class="sb-link" data-file="administration/cli-auth.md" href="/administration/cli-auth/">CLI Auth</a></div></div><div class="sb-tier-header">Reference</div><div class="sb-section" data-section-idx="8" data-section-title="API" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-3a2 2 0 0 1 2-2 2 2 0 0 1-2-2V9a2 2 0 0 0-2-2h-1"/></svg></span><span class="sb-section-title">API</span><span class="sb-section-count">29</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/api/overview.md" href="/reference/api/overview/">Overview</a><a class="sb-link" data-file="reference/api/authentication.md" href="/reference/api/authentication/">Authentication</a><a class="sb-link" data-file="reference/api/companies.md" href="/reference/api/companies/">Companies</a><a class="sb-link" data-file="reference/api/agents.md" href="/reference/api/agents/">Agents</a><a class="sb-link" data-file="reference/api/built-in-agents.md" href="/reference/api/built-in-agents/">Built-in Agents</a><a class="sb-link" data-file="reference/api/issues.md" href="/reference/api/issues/">Issues</a><a class="sb-link" data-file="reference/api/cases.md" href="/reference/api/cases/">Cases</a><a class="sb-link" data-file="reference/api/attention.md" href="/reference/api/attention/">Attention</a><a class="sb-link" data-file="reference/api/decisions.md" href="/reference/api/decisions/">Decisions</a><a class="sb-link" data-file="reference/api/checkbox-confirmations.md" href="/reference/api/checkbox-confirmations/">Checkbox Confirmations</a><a class="sb-link" data-file="reference/api/approvals.md" href="/reference/api/approvals/">Approvals</a><a class="sb-link" data-file="reference/api/goals-and-projects.md" href="/reference/api/goals-and-projects/">Goals &amp; Projects</a><a class="sb-link" data-file="reference/api/resource-memberships.md" href="/reference/api/resource-memberships/">Resource Memberships</a><a class="sb-link" data-file="reference/api/folders.md" href="/reference/api/folders/">Folders</a><a class="sb-link" data-file="reference/api/company-skill-policy.md" href="/reference/api/company-skill-policy/">Company Skill Policy</a><a class="sb-link" data-file="reference/api/inbox-agent-policy.md" href="/reference/api/inbox-agent-policy/">Inbox Agent Policy</a><a class="sb-link" data-file="reference/api/costs.md" href="/reference/api/costs/">Costs</a><a class="sb-link" data-file="reference/api/secrets.md" href="/reference/api/secrets/">Secrets</a><a class="sb-link" data-file="reference/api/activity.md" href="/reference/api/activity/">Activity</a><a class="sb-link" data-file="reference/api/decision-training.md" href="/reference/api/decision-training/">Decision Training</a><a class="sb-link" data-file="reference/api/summary-slots.md" href="/reference/api/summary-slots/">Summary Slots</a><a class="sb-link" data-file="reference/api/status-cards.md" href="/reference/api/status-cards/">Status Cards</a><a class="sb-link" data-file="reference/api/dashboard.md" href="/reference/api/dashboard/">Dashboard</a><a class="sb-link" data-file="reference/api/routines.md" href="/reference/api/routines/">Routines</a><a class="sb-link" data-file="reference/api/adapters.md" href="/reference/api/adapters/">Adapters</a><a class="sb-link" data-file="reference/api/teams-catalog.md" href="/reference/api/teams-catalog/">Teams Catalog</a><a class="sb-link" data-file="reference/api/plugins.md" href="/reference/api/plugins/">Plugins</a><a class="sb-link" data-file="reference/api/tool-gateway.md" href="/reference/api/tool-gateway/">Tool Gateway</a><a class="sb-link" data-file="reference/api/instance-admin.md" href="/reference/api/instance-admin/">Instance Admin</a></div></div><div class="sb-section" data-section-idx="9" data-section-title="CLI" data-open="true"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg></span><span class="sb-section-title">CLI</span><span class="sb-section-count">32</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/cli/overview.md" href="/reference/cli/overview/">Overview</a><a class="sb-link" data-file="reference/cli/installation.md" href="/reference/cli/installation/">Installing the CLI</a><a class="sb-link" data-file="reference/cli/common-options.md" href="/reference/cli/common-options/">Common Options</a><a class="sb-link" data-file="reference/cli/output-and-scripting.md" href="/reference/cli/output-and-scripting/">Output &amp; Scripting</a><a class="sb-link" data-file="reference/cli/setup-commands.md" href="/reference/cli/setup-commands/">Setup Commands</a><a class="sb-link" data-file="reference/cli/service.md" href="/reference/cli/service/">Service</a><a class="sb-link" data-file="reference/cli/dev-environments.md" href="/reference/cli/dev-environments/">Dev Environments</a><a class="sb-link active" data-file="reference/cli/authentication.md" aria-current="page" href="/reference/cli/authentication/">Authentication &amp; Tokens</a><a class="sb-link" data-file="reference/cli/connect.md" href="/reference/cli/connect/">Connect</a><a class="sb-link" data-file="reference/cli/token.md" href="/reference/cli/token/">Token</a><a class="sb-link" data-file="reference/cli/company.md" href="/reference/cli/company/">Company</a><a class="sb-link" data-file="reference/cli/project.md" href="/reference/cli/project/">Project</a><a class="sb-link" data-file="reference/cli/goal.md" href="/reference/cli/goal/">Goal</a><a class="sb-link" data-file="reference/cli/issue.md" href="/reference/cli/issue/">Issue</a><a class="sb-link" data-file="reference/cli/agent.md" href="/reference/cli/agent/">Agent</a><a class="sb-link" data-file="reference/cli/prompt.md" href="/reference/cli/prompt/">Prompt</a><a class="sb-link" data-file="reference/cli/run.md" href="/reference/cli/run/">Run (Heartbeat)</a><a class="sb-link" data-file="reference/cli/routine.md" href="/reference/cli/routine/">Routine</a><a class="sb-link" data-file="reference/cli/adapter.md" href="/reference/cli/adapter/">Adapter</a><a class="sb-link" data-file="reference/cli/approval.md" href="/reference/cli/approval/">Approval</a><a class="sb-link" data-file="reference/cli/activity.md" href="/reference/cli/activity/">Activity</a><a class="sb-link" data-file="reference/cli/dashboard.md" href="/reference/cli/dashboard/">Dashboard</a><a class="sb-link" data-file="reference/cli/cost.md" href="/reference/cli/cost/">Cost &amp; Budget</a><a class="sb-link" data-file="reference/cli/workspace.md" href="/reference/cli/workspace/">Workspace</a><a class="sb-link" data-file="reference/cli/access.md" href="/reference/cli/access/">Access &amp; Admin</a><a class="sb-link" data-file="reference/cli/skills.md" href="/reference/cli/skills/">Skills</a><a class="sb-link" data-file="reference/cli/teams.md" href="/reference/cli/teams/">Teams</a><a class="sb-link" data-file="reference/cli/secrets.md" href="/reference/cli/secrets/">Secrets</a><a class="sb-link" data-file="reference/cli/cloud.md" href="/reference/cli/cloud/">Cloud</a><a class="sb-link" data-file="reference/cli/plugin.md" href="/reference/cli/plugin/">Plugin</a><a class="sb-link" data-file="reference/cli/asset.md" href="/reference/cli/asset/">Asset</a><a class="sb-link" data-file="reference/cli/feedback.md" href="/reference/cli/feedback/">Feedback</a></div></div><div class="sb-section" data-section-idx="10" data-section-title="Skills" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a2 2 0 0 1 2-2h7V5H5a2 2 0 0 0-2 2z"/><path d="M21 18a2 2 0 0 0-2-2h-7V5h7a2 2 0 0 1 2 2z"/></svg></span><span class="sb-section-title">Skills</span><span class="sb-section-count">17</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/skills.md" href="/reference/skills/">Skills Reference</a><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Bundled</span><span class="sb-group-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled.md" href="/reference/skills/bundled/">Overview</a><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Docs</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/docs/doc-maintenance.md" href="/reference/skills/bundled/docs/doc-maintenance/">Doc Maintenance</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Paperclip Operations</span><span class="sb-group-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/paperclip-operations/issue-triage.md" href="/reference/skills/bundled/paperclip-operations/issue-triage/">Issue Triage</a><a class="sb-link" data-file="reference/skills/bundled/paperclip-operations/status-card-query.md" href="/reference/skills/bundled/paperclip-operations/status-card-query/">Status Card Query</a><a class="sb-link" data-file="reference/skills/bundled/paperclip-operations/task-planning.md" href="/reference/skills/bundled/paperclip-operations/task-planning/">Task Planning</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Product</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/product/wireframe.md" href="/reference/skills/bundled/product/wireframe/">Wireframe</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Quality</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/quality/qa-acceptance.md" href="/reference/skills/bundled/quality/qa-acceptance/">QA Acceptance</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Software Development</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/bundled/software-development/github-pr-workflow.md" href="/reference/skills/bundled/software-development/github-pr-workflow/">GitHub PR Workflow</a></div></div></div></div><div class="sb-group" data-open="false" data-depth="0"><button class="sb-group-btn" type="button"><span class="sb-group-title">Optional</span><span class="sb-group-count">8</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional.md" href="/reference/skills/optional/">Overview</a><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Browser</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/browser/agent-browser.md" href="/reference/skills/optional/browser/agent-browser/">Agent Browser</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Content</span><span class="sb-group-count">2</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/content/release-announcement.md" href="/reference/skills/optional/content/release-announcement/">Release Announcement</a><a class="sb-link" data-file="reference/skills/optional/content/simplified-english.md" href="/reference/skills/optional/content/simplified-english/">Simplified English</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Finance</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/finance/ramp.md" href="/reference/skills/optional/finance/ramp/">Ramp</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Product</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/product/design-critique.md" href="/reference/skills/optional/product/design-critique/">Design Critique</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Research</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/research/last30days.md" href="/reference/skills/optional/research/last30days/">Last30Days</a></div></div><div class="sb-group" data-open="false" data-depth="1"><button class="sb-group-btn" type="button"><span class="sb-group-title">Software Development</span><span class="sb-group-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-group-pages"><a class="sb-link" data-file="reference/skills/optional/software-development/prepare-mcp-integration.md" href="/reference/skills/optional/software-development/prepare-mcp-integration/">Prepare MCP Integration</a></div></div></div></div></div></div><div class="sb-section" data-section-idx="11" data-section-title="Adapters" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M7 8h10v4a5 5 0 0 1-10 0z"/></svg></span><span class="sb-section-title">Adapters</span><span class="sb-section-count">21</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/adapters/overview.md" href="/reference/adapters/overview/">Overview</a><a class="sb-link" data-file="reference/adapters/claude-code.md" href="/reference/adapters/claude-code/">Claude Code</a><a class="sb-link" data-file="reference/adapters/codex.md" href="/reference/adapters/codex/">Codex</a><a class="sb-link" data-file="reference/adapters/gemini-cli.md" href="/reference/adapters/gemini-cli/">Gemini CLI</a><a class="sb-link" data-file="reference/adapters/cursor-local.md" href="/reference/adapters/cursor-local/">Cursor Local</a><a class="sb-link" data-file="reference/adapters/cursor-cloud.md" href="/reference/adapters/cursor-cloud/">Cursor Cloud</a><a class="sb-link" data-file="reference/adapters/acpx-local.md" href="/reference/adapters/acpx-local/">ACPX Local (retired)</a><a class="sb-link" data-file="reference/adapters/opencode.md" href="/reference/adapters/opencode/">OpenCode</a><a class="sb-link" data-file="reference/adapters/pi.md" href="/reference/adapters/pi/">Pi</a><a class="sb-link" data-file="reference/adapters/hermes.md" href="/reference/adapters/hermes/">Hermes</a><a class="sb-link" data-file="reference/adapters/hermes-gateway.md" href="/reference/adapters/hermes-gateway/">Hermes Gateway</a><a class="sb-link" data-file="reference/adapters/grok-local.md" href="/reference/adapters/grok-local/">Grok Local</a><a class="sb-link" data-file="reference/adapters/kimi-local.md" href="/reference/adapters/kimi-local/">Kimi Code</a><a class="sb-link" data-file="reference/adapters/openclaw-gateway.md" href="/reference/adapters/openclaw-gateway/">OpenClaw Gateway</a><a class="sb-link" data-file="reference/adapters/process.md" href="/reference/adapters/process/">Process</a><a class="sb-link" data-file="reference/adapters/http.md" href="/reference/adapters/http/">HTTP</a><a class="sb-link" data-file="reference/adapters/sandbox-providers.md" href="/reference/adapters/sandbox-providers/">Sandbox Providers</a><a class="sb-link" data-file="reference/adapters/modal.md" href="/reference/adapters/modal/">Modal</a><a class="sb-link" data-file="reference/adapters/external-adapters.md" href="/reference/adapters/external-adapters/">External Adapters</a><a class="sb-link" data-file="reference/adapters/creating-an-adapter.md" href="/reference/adapters/creating-an-adapter/">Creating an Adapter</a><a class="sb-link" data-file="reference/adapters/adapter-ui-parser.md" href="/reference/adapters/adapter-ui-parser/">UI Parser Contract</a></div></div><div class="sb-section" data-section-idx="12" data-section-title="Plugins" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 13h-2.5a1.5 1.5 0 0 0 0 3H19v3H5v-3h2.5a1.5 1.5 0 0 0 0-3H5V5h4a2 2 0 1 1 4 0h6z"/></svg></span><span class="sb-section-title">Plugins</span><span class="sb-section-count">3</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/plugins/sdk.md" href="/reference/plugins/sdk/">Plugin SDK</a><a class="sb-link" data-file="reference/plugins/llm-wiki.md" href="/reference/plugins/llm-wiki/">LLM Wiki</a><a class="sb-link" data-file="reference/plugins/workspace-diff.md" href="/reference/plugins/workspace-diff/">Workspace Diff Viewer</a></div></div><div class="sb-section" data-section-idx="13" data-section-title="Deployment" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H8a5 5 0 1 1 1.1-9.9A7 7 0 0 1 22 12.5 4.5 4.5 0 0 1 17.5 19z"/></svg></span><span class="sb-section-title">Deployment</span><span class="sb-section-count">10</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/deploy/overview.md" href="/reference/deploy/overview/">Overview</a><a class="sb-link" data-file="reference/deploy/deployment-modes.md" href="/reference/deploy/deployment-modes/">Deployment Modes</a><a class="sb-link" data-file="reference/deploy/local-development.md" href="/reference/deploy/local-development/">Local Development</a><a class="sb-link" data-file="reference/deploy/docker.md" href="/reference/deploy/docker/">Docker</a><a class="sb-link" data-file="reference/deploy/database.md" href="/reference/deploy/database/">Database</a><a class="sb-link" data-file="reference/deploy/storage.md" href="/reference/deploy/storage/">Storage</a><a class="sb-link" data-file="reference/deploy/secrets.md" href="/reference/deploy/secrets/">Secrets</a><a class="sb-link" data-file="reference/deploy/environment-variables.md" href="/reference/deploy/environment-variables/">Environment Variables</a><a class="sb-link" data-file="reference/deploy/tailscale-private-access.md" href="/reference/deploy/tailscale-private-access/">Tailscale Private Access</a><a class="sb-link" data-file="reference/deploy/tailscale-https-broker.md" href="/reference/deploy/tailscale-https-broker/">Tailscale HTTPS Broker</a></div></div><div class="sb-section" data-section-idx="14" data-section-title="Changelog" data-open="false"><button class="sb-section-btn" type="button"><span class="sb-section-icon"><svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a2 2 0 0 1 2-2h7V5H5a2 2 0 0 0-2 2z"/><path d="M21 18a2 2 0 0 0-2-2h-7V5h7a2 2 0 0 1 2 2z"/></svg></span><span class="sb-section-title">Changelog</span><span class="sb-section-count">1</span><svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m4 2 4 4-4 4"/></svg></button><div class="sb-pages"><a class="sb-link" data-file="reference/changelog.md" href="/reference/changelog/">Docs</a></div></div></div>
+    </nav>
+
+    <main id="content">
+      <div id="breadcrumb" aria-label="Breadcrumb" data-server-rendered="true"><span>CLI</span><span class="sep">/</span><span class="crumb-current">Authentication &amp; Tokens</span></div>
+      <!-- Empty on every served document. Loading and error text is written here
+           by app.js only during a real client-side transition, so raw HTML never
+           claims a page is loading or broken. -->
+      <div id="runtime-status" role="status" aria-live="polite" hidden></div>
+      <article id="article"><h1 id="authentication-tokens">Authentication &amp; Tokens</h1>
+<p>This is the identity reference for the Paperclip CLI: how the CLI knows <em>who it is</em>, <em>which instance it talks to</em>, and <em>what it is allowed to do</em>. Use these commands when you are connecting a new machine, switching between a board operator and an agent persona, minting credentials for headless automation, or rotating and revoking tokens. The short version: <code>connect</code> once interactively to get a working profile, then <code>context</code>, <code>auth</code>, and <code>token</code> to manage everything afterward.</p>
+<p>Everything here resolves around two <strong>personas</strong> and two kinds of <strong>credential</strong>. Read the next section first — the rest of the page assumes you know the difference.</p>
+<hr>
+<h2 id="personas-board-operator-vs-agent">Personas: board operator vs. agent</h2>
+<p>The CLI records, per profile, <em>which persona it is acting as</em>. The persona determines the scope of authority you get.</p>
+<table>
+<thead>
+<tr>
+<th>Persona</th>
+<th>Authority</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>board</strong></td>
+<td>Full board authorization across the entire instance — every company, every agent, all administrative reads and writes.</td>
+<td>Operating the company yourself, hiring agents, creating other tokens, running setup and governance commands.</td>
+</tr>
+<tr>
+<td><strong>agent</strong></td>
+<td>Scoped to exactly <strong>one company</strong> and <strong>one agent</strong>. The credential can act only as that agent.</td>
+<td>Letting a single agent (human or AI running locally) report work back through the API as itself.</td>
+</tr>
+</tbody></table>
+<p>The persona is not just a label — it maps to a different credential type. A board persona carries a <strong>board API token</strong>; an agent persona carries an <strong>agent API key</strong>. You cannot widen an agent key into board authority; if you need board scope, you mint a board token.</p>
+<table>
+<thead>
+<tr>
+<th>Credential</th>
+<th>Scope</th>
+<th>Lifecycle</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Board API token</strong></td>
+<td>Whole instance (board authority).</td>
+<td>Named, optional expiry, server-side revocation, audited.</td>
+<td><code>token board create</code>, or the browser approval flow behind <code>auth login</code> / <code>connect</code>.</td>
+</tr>
+<tr>
+<td><strong>Agent API key</strong></td>
+<td>One company + one agent.</td>
+<td>Named, plaintext shown <strong>once</strong> at creation, revocable.</td>
+<td><code>token agent create</code>, or <code>connect</code> with the agent persona.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Warning:</strong> Both credential types are shown in full <strong>only at creation time</strong>. The token string is printed once and never again. Capture it into a secret store or an environment variable immediately — there is no &quot;show token&quot; command.</p>
+</blockquote>
+<p>For the conceptual model behind personas and how they fit the operating model, see <a href="/administration/cli-auth/">Personas and Tokens</a>.</p>
+<hr>
+<h2 id="how-the-cli-finds-your-instance">How the CLI finds your instance</h2>
+<p>Every client command resolves an API base in this exact order, stopping at the first one set:</p>
+<ol>
+<li><code>--api-base &lt;url&gt;</code> on the command</li>
+<li>the <code>PAPERCLIP_API_URL</code> environment variable</li>
+<li>the <code>apiBase</code> of the selected context profile</li>
+<li>the local Paperclip config server port (when running against a local instance)</li>
+<li><code>http://localhost:3100</code></li>
+</ol>
+<p>When a connection fails, the error includes the URL that was attempted and a hint to check <code>GET /api/health</code> against it. If a command is hitting the wrong server, that error tells you which step won.</p>
+<p>For the full list of flags shared by every client command (<code>--data-dir</code>, <code>--api-base</code>, <code>--api-key</code>, <code>--context</code>, <code>--profile</code>, <code>--json</code>), see <a href="/reference/cli/common-options/">Common Options</a>.</p>
+<hr>
+<h2 id="context-profiles">Context profiles</h2>
+<p>Profiles live in <code>~/.paperclip/context.json</code>. Each profile is <strong>persona-aware</strong> and records the API base, an optional default company, the persona, and (for agent profiles) the agent id and name. Crucially, a profile stores an <strong><code>apiKeyEnvVarName</code></strong> — the <em>name</em> of an environment variable that holds the token — not the token itself. Keep secrets in your environment or a secret manager; let the profile point at them.</p>
+<h3 id="context-show"><code>context show</code></h3>
+<p>Show the resolved current context and the active profile.</p>
+<pre><code class="language-sh">paperclipai context show
+paperclipai context show --profile staging --json
+</code></pre>
+<p>The output includes the resolved <code>contextPath</code>, the <code>currentProfile</code> name, the resolved profile, and every profile in the store.</p>
+<h3 id="context-list"><code>context list</code></h3>
+<p>List all profiles as rows, marking which one is current.</p>
+<pre><code class="language-sh">paperclipai context list
+</code></pre>
+<p>Each row shows <code>name</code>, <code>current</code>, <code>apiBase</code>, <code>companyId</code>, <code>persona</code>, <code>agentId</code>, <code>agentName</code>, and <code>apiKeyEnvVarName</code>.</p>
+<h3 id="context-use"><code>context use</code></h3>
+<p>Switch the active profile.</p>
+<pre><code class="language-sh">paperclipai context use staging
+</code></pre>
+<h3 id="context-set"><code>context set</code></h3>
+<p>Create or update a profile field by field. With no <code>--profile</code>, it edits the current profile (falling back to <code>default</code>). Pass <code>--use</code> to also make it active.</p>
+<pre><code class="language-sh"># Configure a board profile that reads its token from PAPERCLIP_API_KEY
+paperclipai context set \
+  --profile prod \
+  --api-base https://paperclip.example.com \
+  --persona board \
+  --api-key-env-var-name PAPERCLIP_API_KEY \
+  --use
+
+# Pin an agent profile to a company and agent
+paperclipai context set \
+  --profile acme-bot \
+  --api-base https://paperclip.example.com \
+  --company-id &lt;company-id&gt; \
+  --persona agent \
+  --agent-id &lt;agent-id&gt; \
+  --agent-name &quot;Acme Bot&quot;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--profile &lt;name&gt;</code></td>
+<td>Profile to edit (default: current profile, else <code>default</code>).</td>
+</tr>
+<tr>
+<td><code>--api-base &lt;url&gt;</code></td>
+<td>Default API base URL for the profile.</td>
+</tr>
+<tr>
+<td><code>--company-id &lt;id&gt;</code></td>
+<td>Default company id.</td>
+</tr>
+<tr>
+<td><code>--persona &lt;persona&gt;</code></td>
+<td><code>board</code> or <code>agent</code>. Any other value is rejected.</td>
+</tr>
+<tr>
+<td><code>--agent-id &lt;id&gt;</code></td>
+<td>Default agent id (agent persona).</td>
+</tr>
+<tr>
+<td><code>--agent-name &lt;name&gt;</code></td>
+<td>Display name for the agent.</td>
+</tr>
+<tr>
+<td><code>--api-key-env-var-name &lt;name&gt;</code></td>
+<td>Name of the env var holding the token. Recommended over inlining a secret.</td>
+</tr>
+<tr>
+<td><code>--use</code></td>
+<td>Make this profile active after saving.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Tip:</strong> Build profiles non-interactively with <code>context set</code> on headless machines where the <code>connect</code> wizard cannot run. It writes the same persona-aware profile shape that <code>connect</code> produces.</p>
+</blockquote>
+<hr>
+<h2 id="the-connect-wizard">The connect wizard</h2>
+<p><code>connect</code> is the interactive, fastest path to a working setup. It is <strong>TTY-only</strong> — running it without an interactive terminal fails with a message telling you to use <code>--api-base</code>/<code>--api-key</code> or the <code>context set</code>/<code>token</code> commands instead.</p>
+<pre><code class="language-sh">paperclipai connect
+paperclipai connect --persona agent --token-name laptop-cli
+</code></pre>
+<p>The wizard walks through, in order:</p>
+<ol>
+<li><strong>Resolve the API base</strong> — prefilled from the resolution order above; you confirm or edit it.</li>
+<li><strong>Health check</strong> — it calls <code>GET &lt;api-base&gt;/api/health</code> and stops if the instance is unreachable.</li>
+<li><strong>Board login</strong> — it runs the board approval flow (see below) so it can read your companies and mint tokens.</li>
+<li><strong>Pick the persona</strong> — board operator, or agent in a company.</li>
+<li><strong>Pick the company</strong> (and, for an agent, the agent within it).</li>
+<li><strong>Mint a token</strong> — a board API key for a board profile, or an agent API key for an agent profile.</li>
+<li><strong>Save a persona-aware profile</strong> and set it active.</li>
+<li><strong>Print shell exports</strong> so you can use the new credential right away.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--persona &lt;persona&gt;</code></td>
+<td>Skip the prompt: <code>board</code> or <code>agent</code>.</td>
+</tr>
+<tr>
+<td><code>--api-key-env-var-name &lt;name&gt;</code></td>
+<td>Env var name to record in the profile (default <code>PAPERCLIP_API_KEY</code>).</td>
+</tr>
+<tr>
+<td><code>--token-name &lt;name&gt;</code></td>
+<td>Label for the minted token (defaults to a timestamped <code>cli-board-…</code> / <code>cli-agent-…</code> name).</td>
+</tr>
+</tbody></table>
+<p>The printed exports look like this (agent persona shown):</p>
+<pre><code class="language-sh">export PAPERCLIP_API_URL=&#39;https://paperclip.example.com&#39;
+export PAPERCLIP_COMPANY_ID=&#39;&lt;company-id&gt;&#39;
+export PAPERCLIP_AGENT_ID=&#39;&lt;agent-id&gt;&#39;
+export PAPERCLIP_API_KEY=&#39;&lt;token-shown-once&gt;&#39;
+</code></pre>
+<p>A board profile omits <code>PAPERCLIP_AGENT_ID</code>, and omits <code>PAPERCLIP_COMPANY_ID</code> unless you chose a default company. Copy these into your shell or your secret store — this is the only time the token is shown.</p>
+<blockquote>
+<p><strong>Note:</strong> The profile stores the <em>name</em> of the env var (<code>apiKeyEnvVarName</code>), not the token. The exports put the actual token into that env var. Together they let later commands authenticate without the secret ever touching <code>context.json</code>.</p>
+</blockquote>
+<hr>
+<h2 id="board-authentication-auth">Board authentication: <code>auth</code></h2>
+<p>The <code>auth</code> commands manage the board-user credential for an API base. The credential is a board API token stored locally, keyed by the normalised <code>apiBase</code>, so one machine can hold separate credentials for local, staging, and production at the same time.</p>
+<h3 id="auth-login"><code>auth login</code></h3>
+<p>Authenticate the CLI for board-user access via a browser-approval (device-code style) flow. The CLI creates a challenge, opens the approval URL in your browser, and polls until you approve, cancel, or it expires. On approval it confirms identity via <code>/api/cli-auth/me</code> and stores the board token for this <code>apiBase</code>.</p>
+<pre><code class="language-sh">paperclipai auth login
+paperclipai auth login --instance-admin
+paperclipai auth login --company-id &lt;company-id&gt;
+paperclipai auth login --api-base https://paperclip.example.com
+paperclipai auth login --no-browser
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--instance-admin</code></td>
+<td>Request instance-admin approval instead of plain board access. The approver must themselves be an instance admin.</td>
+</tr>
+<tr>
+<td><code>--company-id &lt;id&gt;</code></td>
+<td>Scope the requested access to a specific company.</td>
+</tr>
+<tr>
+<td><code>--no-browser</code></td>
+<td>Don&#39;t try to open a browser — just print the approval URL so you can open it yourself. Handy on headless hosts or over SSH.</td>
+</tr>
+</tbody></table>
+<p>If you cancel in the browser, the CLI exits with <code>CLI auth challenge was cancelled.</code>; if you wait too long, <code>CLI auth challenge expired before approval.</code> Either way, just re-run the command.</p>
+<h3 id="auth-whoami"><code>auth whoami</code></h3>
+<p>Show the current board-user identity for this API base. Calls <code>/api/cli-auth/me</code>.</p>
+<pre><code class="language-sh">paperclipai auth whoami --json
+</code></pre>
+<p>The result reports <code>user</code> (id, name, email), <code>userId</code>, <code>isInstanceAdmin</code>, the <code>companyIds</code> you can reach, the credential <code>source</code>, and the <code>keyId</code>.</p>
+<h3 id="auth-logout"><code>auth logout</code></h3>
+<p>Remove the stored board credential for this API base. It first attempts a server-side revoke of the stored token, then deletes the local entry. If there is no stored credential, it reports <code>revoked: false</code> and exits cleanly.</p>
+<pre><code class="language-sh">paperclipai auth logout
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> If the server-side revoke fails (network error, token already invalid), the local credential is still removed — you will not be left with a stale entry. Rotate by <code>logout</code> then <code>login</code>.</p>
+</blockquote>
+<h3 id="auth-revoke-current"><code>auth revoke-current</code></h3>
+<p>Revoke the board API token currently in use, server-side, without touching the local store. Useful when you want to invalidate the active token from the server&#39;s perspective.</p>
+<pre><code class="language-sh">paperclipai auth revoke-current
+</code></pre>
+<h3 id="auth-challenge"><code>auth challenge</code></h3>
+<p>Low-level access to the CLI-auth challenge lifecycle, for scripting custom approval flows or automation. Most users never call these directly — <code>auth login</code> orchestrates them for you.</p>
+<pre><code class="language-sh"># Create a challenge from a JSON payload
+paperclipai auth challenge create --payload-json &#39;{&quot;command&quot;:&quot;ci-bot&quot;,&quot;requestedAccess&quot;:&quot;board&quot;}&#39;
+
+# Inspect, approve, or cancel a challenge (the secret is required)
+paperclipai auth challenge get &lt;challenge-id&gt; --token &lt;secret&gt;
+paperclipai auth challenge approve &lt;challenge-id&gt; --token-env CHALLENGE_TOKEN
+paperclipai auth challenge cancel &lt;challenge-id&gt; --token &lt;secret&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Subcommand</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>create --payload-json &lt;json&gt;</code></td>
+<td>Create a challenge from a <code>CreateCliAuthChallenge</code> JSON payload (required).</td>
+</tr>
+<tr>
+<td><code>get &lt;id&gt;</code></td>
+<td>Read challenge status.</td>
+</tr>
+<tr>
+<td><code>approve &lt;id&gt;</code></td>
+<td>Approve a pending challenge.</td>
+</tr>
+<tr>
+<td><code>cancel &lt;id&gt;</code></td>
+<td>Cancel a pending challenge.</td>
+</tr>
+</tbody></table>
+<p>For <code>get</code>, <code>approve</code>, and <code>cancel</code> you must supply the challenge secret with either <code>--token &lt;secret&gt;</code> or <code>--token-env &lt;name&gt;</code> (read from the named environment variable). If neither is given, the command errors.</p>
+<hr>
+<h2 id="named-tokens-token">Named tokens: <code>token</code></h2>
+<p>Where <code>auth login</code> is the interactive, locally-stored board credential, <code>token</code> mints <strong>named, manageable</strong> credentials you can hand to automation, CI, or a specific agent. Board tokens and agent keys are managed under separate subtrees.</p>
+<h3 id="board-tokens">Board tokens</h3>
+<p>Board API keys carry full board authority. They are named, can carry an expiry, are revocable, and are audited server-side. Creating board tokens requires an existing board credential (the wizard or <code>auth login</code> gets you one).</p>
+<pre><code class="language-sh"># Long-lived board token for an external admin tool
+paperclipai token board create --name external-admin
+
+# Short-lived token that expires in 7 days
+paperclipai token board create --name short-lived --ttl-days 7
+
+# Explicit expiry timestamp, with audit company context
+paperclipai token board create --name release-bot --company-id &lt;company-id&gt; --expires-at 2026-12-31T00:00:00Z
+
+# Non-expiring token (be deliberate about this)
+paperclipai token board create --name forever --never-expires
+
+paperclipai token board list
+paperclipai token board revoke &lt;key-id&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-C, --company-id &lt;id&gt;</code></td>
+<td>Company id recorded as audit context for the key.</td>
+</tr>
+<tr>
+<td><code>--name &lt;name&gt;</code></td>
+<td>Key label (default <code>cli-board</code>).</td>
+</tr>
+<tr>
+<td><code>--expires-at &lt;iso8601&gt;</code></td>
+<td>Explicit expiration timestamp.</td>
+</tr>
+<tr>
+<td><code>--ttl-days &lt;days&gt;</code></td>
+<td>Expiration N days from now.</td>
+</tr>
+<tr>
+<td><code>--never-expires</code></td>
+<td>Create a non-expiring key.</td>
+</tr>
+</tbody></table>
+<p><code>--never-expires</code> wins over the other expiry flags; otherwise <code>--expires-at</code> and <code>--ttl-days</code> set the lifetime. With none of them, the server applies its default. <code>token board list</code> shows each key&#39;s <code>id</code>, <code>name</code>, <code>createdAt</code>, <code>lastUsedAt</code>, <code>expiresAt</code>, and <code>revokedAt</code> for the current board user.</p>
+<h3 id="agent-keys">Agent keys</h3>
+<p>Agent API keys are scoped to one company and one agent. The agent is resolved by id, shortname, or unambiguous name within the company. Both <code>--company-id</code> and <code>--agent</code> are required.</p>
+<pre><code class="language-sh">paperclipai token agent create --company-id &lt;company-id&gt; --agent &lt;agent-id-or-name&gt; --name external-worker
+paperclipai token agent list   --company-id &lt;company-id&gt; --agent &lt;agent-id-or-name&gt;
+paperclipai token agent revoke --company-id &lt;company-id&gt; --agent &lt;agent-id-or-name&gt; &lt;key-id&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-C, --company-id &lt;id&gt;</code></td>
+<td>Company id (required).</td>
+</tr>
+<tr>
+<td><code>--agent &lt;agent&gt;</code></td>
+<td>Agent id, shortname, or unambiguous name (required).</td>
+</tr>
+<tr>
+<td><code>--name &lt;name&gt;</code></td>
+<td>Key label, on <code>create</code> only (default <code>cli-agent</code>).</td>
+</tr>
+</tbody></table>
+<p>The created key&#39;s <code>token</code> is in the response and is shown only once. <code>token agent list</code> reports each key&#39;s <code>id</code>, <code>name</code>, <code>createdAt</code>, and <code>revokedAt</code>.</p>
+<blockquote>
+<p><strong>Tip:</strong> If you want the full local setup for running Claude or Codex as an agent — a long-lived agent key plus skills installed into <code>~/.codex/skills</code> and <code>~/.claude/skills</code> plus ready-to-paste exports — use <code>agent local-cli &lt;agent&gt;</code> instead of minting a bare key by hand. See <a href="/reference/cli/agent/">Agents</a>.</p>
+</blockquote>
+<hr>
+<h2 id="putting-it-together">Putting it together</h2>
+<p>A typical sequence on a fresh machine:</p>
+<pre><code class="language-sh"># 1. One interactive setup creates a profile and prints exports
+paperclipai connect
+
+# 2. Verify who you are
+paperclipai auth whoami
+
+# 3. Mint a named token for CI (board scope) or an agent
+paperclipai token board create --name ci --ttl-days 30
+paperclipai token agent create --company-id &lt;company-id&gt; --agent &lt;agent-id&gt; --name worker
+
+# 4. Switch between saved profiles as needed
+paperclipai context use prod
+</code></pre>
+<p>For headless servers where <code>connect</code> cannot run, replace step 1 with <code>auth login</code> (or <code>auth bootstrap-ceo</code> / a board claim on a fresh authenticated instance) plus <code>context set</code>, then proceed identically.</p>
+<hr>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="/reference/cli/common-options/">Common Options</a> — the flags every client command shares, including API base resolution.</li>
+<li><a href="/administration/cli-auth/">Personas and Tokens</a> — the conceptual model behind board vs. agent identity.</li>
+<li><a href="/reference/cli/agent/">Agents</a> — <code>agent local-cli</code> and agent management.</li>
+<li><a href="/reference/cli/setup-commands/">Setup Commands</a> — bootstrapping and configuring an instance.</li>
+<li><a href="/guides/getting-started/installation/">Install and Connect</a> — the guided first-run walkthrough.</li>
+<li><a href="/reference/cli/installation/">Headless Bootstrap</a> — minting the first credential with no browser.</li>
+</ul>
+</article>
+      <div id="page-nav" style="display:flex"><a class="page-nav-btn prev" href="https://docs.paperclip.ing/reference/cli/dev-environments/"><span class="page-nav-label">← Previous</span><span class="page-nav-title">Dev Environments</span></a><a class="page-nav-btn next" href="https://docs.paperclip.ing/reference/cli/connect/"><span class="page-nav-label">Next →</span><span class="page-nav-title">Connect</span></a></div>
+    </main>
+
+    <aside id="toc-rail" aria-label="On this page">
+      <div class="toc-rail-inner">
+        <div class="toc-rail-title">On this page</div>
+        <nav id="toc-rail-links" aria-label="Page sections"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="footer" data-theme="dark">
+  <div class="footer-wordmark-row footer-container">
+    <span class="footer-wordmark">Paperclip</span>
+  </div>
+  <div class="footer-columns footer-container">
+    <div class="footer-col">
+      <div class="footer-col-heading">Product</div>
+      <a href="https://paperclip.ing/#get-started" target="_blank" rel="noopener">Get started</a>
+      <a href="/guides/getting-started/five-minute-path/" data-nav="link">Quickstart</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Platform</div>
+      <a href="/guides/org/agents/" data-nav="link">Agents</a>
+      <a href="https://paperclip.ing/#governance-section" target="_blank" rel="noopener">Governance</a>
+      <a href="/guides/org/adapters/" data-nav="link">Integrations</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Developers</div>
+      <a href="/" data-nav="home">Documentation</a>
+      <a href="/reference/api/overview/" data-nav="link">API reference</a>
+      <a href="https://github.com/paperclipai/paperclip" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Resources</div>
+      <a href="https://paperclip.ing/blog" target="_blank" rel="noopener">Blog</a>
+      <a href="https://paperclip.ing/changelog" target="_blank" rel="noopener">Changelog</a>
+      <a href="https://github.com/paperclipai/paperclip/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a>
+      <a href="https://github.com/paperclipai/paperclip/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+      <a href="https://discord.gg/m4HZY7xNG3" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+  <div class="footer-bottom footer-container">
+    <span class="footer-copy">&copy; 2026 Paperclip. Open source under MIT.</span>
+    <div class="footer-bottom-links">
+      <a href="https://paperclip.ing/tos#privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://paperclip.ing/tos" target="_blank" rel="noopener">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.c58a56f69ae6.js" defer></script>
+</body>
+</html>
